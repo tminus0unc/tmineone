@@ -13,9 +13,9 @@ type Slice = {
 export default function GlitchChar({ char }: { char: string }) {
 
     const layers = [
-        { slices: 12, className: styles.frontLayer, speed: 1.2 },
-        { slices: 20, className: styles.midLayer, speed: 2.0 },
-        { slices: 32, className: styles.backLayer, speed: 3.2 }
+        { slices: 8, className: styles.frontLayer, speed: 1.2 },
+        { slices: 12, className: styles.midLayer, speed: 2.0 },
+        { slices: 20, className: styles.backLayer, speed: 3.2 }
     ];
 
     const generateSlices = (): Slice[] => {

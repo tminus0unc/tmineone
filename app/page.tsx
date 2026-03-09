@@ -22,14 +22,6 @@ export default function Home() {
                 className="min-h-screen justify-left pl-10 md:pl-20 gap-5"
             >
 
-                <GlitchSlices text={"Who are we"}/><br/>
-
-                <GlitchSlices text={"What do we do"}/> <br/>
-
-                <GlitchSlices text={"When and Where"}/> <br/>
-
-                <GlitchSlices text={"Why are we doing this"}/> <br/>
-
             </div>
         </>
     );
