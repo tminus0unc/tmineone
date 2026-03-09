@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+    Anton,
+    Audiowide,
+    Bebas_Neue,
+    Berkshire_Swash,
+    Inter,
+    Open_Sans,
+    Orbitron,
+    Oxanium, Roboto,
+    Teko
+} from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const timerFont = Anton({
+    weight: ['400'],
+    subsets: ['latin'],
+    display: 'swap', // optional, helps with layout shift
+    variable: '--font-timer', // Define the CSS variable name
 });
 
 export const metadata: Metadata = {
@@ -25,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${timerFont.variable} antialiased scroll-smooth`}
       >
         {children}
       </body>
