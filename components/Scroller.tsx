@@ -10,7 +10,7 @@ export default function ScrollDownButton() {
     return (
         <button
             onClick={scrollDown}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 "
+            className="absolute bottom-20 left-1/2 -translate-x-1/2 "
         >
             <p className="text-[4vh] animate-bounce [animation-duration:3s]">
                 ⌄
