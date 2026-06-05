@@ -7,8 +7,10 @@ import FolderSection from "@/components/FolderSection";
 import ScrollDownButton from "@/components/Scroller";
 import FolderWatermark from "@/components/FolderWatermark";
 import MapEmbed from "@/components/MapEmbeded";
-import {imageOptimizer} from "next/dist/server/image-optimizer";
+import { imageOptimizer } from "next/dist/server/image-optimizer";
 import AppForm from "@/components/AppForm";
+
+import { Analytics } from "@vercel/analytics/next";
 
 export default function Home() {
   return (
@@ -44,11 +46,15 @@ export default function Home() {
                 </p>
 
                 <p>
-                  Classroom conversations. Group chats. Late-night talks. The hard part: execution. People plan more than act, and brainstorm more than build.
+                  Classroom conversations. Group chats. Late-night talks. The
+                  hard part: execution. People plan more than act, and
+                  brainstorm more than build.
                 </p>
 
                 <p>
-                  T-0 is a startup-inspired challenge created to fix this. Participants are dropped into an unexpected challenge and given limited time to respond, adapt, and execute. The catch?
+                  T-0 is a startup-inspired challenge created to fix this.
+                  Participants are dropped into an unexpected challenge and
+                  given limited time to respond, adapt, and execute. The catch?
                 </p>
 
                 <div className="mt-8 flex items-center">
@@ -64,7 +70,9 @@ export default function Home() {
                 </div>
 
                 <p>
-                  At its core, T-0 is about cultivating a culture of creativity, problem-solving, and execution, and giving students a space to practice all three.
+                  At its core, T-0 is about cultivating a culture of creativity,
+                  problem-solving, and execution, and giving students a space to
+                  practice all three.
                 </p>
 
                 <p>Ready at T-minus zero.</p>
@@ -127,7 +135,6 @@ export default function Home() {
         <FolderWatermark label={" Confidential"} />
         <div className="text-black text-2xl"></div>
 
-
         <AppForm />
 
         <ScrollDownButton targetId={"Team"} />
@@ -135,9 +142,9 @@ export default function Home() {
 
       <FolderSection title="Team" index={5} color="bg-[#00f]" tab={5}>
         <FolderWatermark label={" Confidential"} />
-
-
       </FolderSection>
+
+      <Analytics />
     </main>
   );
 }
