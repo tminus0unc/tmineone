@@ -3,18 +3,19 @@
 :root {
   --background: #1e1f25;
   --foreground: #171717;
+  --test: #263942;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-timer: var(--font-timer);
-  --font-mono: var(--font-geist-mono);
+  --font-info: var(--font-info);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #202020;
+    --background: #0c1115;
     --foreground: #00b0ff;
   }
 }
