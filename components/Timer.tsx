@@ -29,7 +29,7 @@ export default function Timer({ className }: TimerProps) {
     const seconds = totalSeconds % 60;
 
     return (
-        <div className="flex items-center justify-center h-[80vh] w-full">
+        <div className="flex items-center justify-center h-[80vw] w-full">
             <div
                 className={`
                     glitch
