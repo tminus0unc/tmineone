@@ -27,9 +27,10 @@ export default function Home() {
           <FolderSection title="About Us" index={2} color="bg-background" tab={4}>
             <FolderWatermark label={" Confidential"} />
 
-            <div className="flex-1 flex items-center justify-center">
-              <div className="max-w-6xl w-full px-5 md:px-12 flex flex-row items-center gap-12">
-                {/* Left: Image — hidden on mobile */}
+            <div className="flex-1 flex items-center justify-center overflow-hidden">
+              <div className="max-w-6xl w-full px-4 md:px-12 flex flex-row items-center gap-12">
+
+                {/* Left: Image */}
                 <div className="hidden md:flex flex-shrink-0 w-80 h-96 items-center justify-center">
                   <img
                       src="/placeholder.jpg"
@@ -39,20 +40,20 @@ export default function Home() {
                 </div>
 
                 {/* Right: Text */}
-                <div className="text-left text-white flex-1">
-                  <p className="text-foreground uppercase tracking-[0.2em] md:tracking-[0.4em] text-xs md:text-sm mb-4 md:mb-8">
+                <div className="text-left text-white flex-1 overflow-y-auto">
+                  <p className="text-foreground uppercase tracking-[0.4em] text-xs md:text-sm mb-4 md:mb-8">
                     What is T-0?
                   </p>
 
-                  <div className="space-y-6 text-base md:text-xl leading-relaxed text-white/90">
+                  <div className="space-y-4 md:space-y-8 text-base md:text-xl leading-relaxed text-white/90">
                     <p className="text-3xl md:text-5xl font-bold text-white">
                       Ideas are everywhere.
                     </p>
 
                     <p>
-                      Classroom conversations. Group chats. Late-night talks. The
-                      hard part: execution. People plan more than act, and
-                      brainstorm more than build.
+                      Classroom conversations. Group chats. Late-night talks.
+                      The hard part: execution. People plan more than act,
+                      and brainstorm more than build.
                     </p>
 
                     <p>
@@ -61,14 +62,14 @@ export default function Home() {
                       given limited time to respond, adapt, and execute. The catch?
                     </p>
 
-                    <div className="mt-6 md:mt-8 flex items-center">
-                      <div className="mr-4 h-8 w-px bg-foreground shadow-[0_0_10px_rgba(34,211,238,.8)]" />
-                      <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.5em] text-foreground/80">
+                    <div className="flex items-center">
+                      <div className="mr-4 h-6 md:h-8 w-px bg-foreground shadow-[0_0_10px_rgba(34,211,238,.8)]" />
+                      <p className="text-xs uppercase tracking-[0.5em] text-foreground/80">
                         The challenge isn't revealed until start time.
                       </p>
                     </div>
 
-                    <p>
+                    <p className="hidden md:block">
                       At its core, T-0 is about cultivating a culture of creativity,
                       problem-solving, and execution, and giving students a space to
                       practice all three.
@@ -76,17 +77,35 @@ export default function Home() {
 
                     <p>Ready at T-minus zero.</p>
 
-                    <div className="flex gap-3 md:gap-4 mt-8 md:mt-10">
+                    <div className="flex gap-4">
                       <button
-                          onClick={scrollTo("Sign Up")}
-                          className="border border-foreground/40 px-6 md:px-8 py-2.5 md:py-3 text-[10px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.5em] text-foreground transition-all duration-300 hover:border-foreground hover:bg-foreground/5 hover:text-white font-mono"
+                          onClick={() =>
+                              document
+                                  .getElementById("Sign Up")
+                                  ?.scrollIntoView({ behavior: "smooth" })
+                          }
+                          className="
+                border border-foreground/40 px-5 md:px-8 py-2 md:py-3
+                text-xs uppercase tracking-[0.4em] md:tracking-[0.5em] text-foreground
+                transition-all duration-300 hover:border-foreground
+                hover:bg-foreground/5 hover:text-white font-mono
+              "
                       >
                         Apply
                       </button>
 
                       <button
-                          onClick={scrollTo("Location")}
-                          className="border border-foreground/40 px-6 md:px-8 py-2.5 md:py-3 text-[10px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.5em] text-foreground transition-all duration-300 hover:border-foreground hover:bg-foreground/5 hover:text-white font-mono"
+                          onClick={() =>
+                              document
+                                  .getElementById("Location")
+                                  ?.scrollIntoView({ behavior: "smooth" })
+                          }
+                          className="
+                border border-foreground/40 px-5 md:px-8 py-2 md:py-3
+                text-xs uppercase tracking-[0.4em] md:tracking-[0.5em] text-foreground
+                transition-all duration-300 hover:border-foreground
+                hover:bg-foreground/5 hover:text-white font-mono
+              "
                       >
                         Learn More
                       </button>
