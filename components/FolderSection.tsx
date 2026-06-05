@@ -20,8 +20,8 @@ export default function FolderSection({
   return (
     <section
       id={title}
-      className="sticky top-0 h-screen snap-start"
-      style={{ zIndex: index }}
+      className=" h-screen snap-start"
+      style={{ zIndex: index + 10, position: "sticky", top: 0 }}
     >
        {/*TAB*/}
       <div

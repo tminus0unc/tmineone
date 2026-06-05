@@ -1,30 +1,47 @@
 import type { Metadata } from "next";
 import {
-    Anta,
-    Anton,
-    Audiowide,
-    Bebas_Neue,
-    Berkshire_Swash, Black_Ops_One, Courier_Prime, Exo_2, Fragment_Mono, Geist, Geist_Mono, Inconsolata,
-    Inter, Merriweather, Nova_Mono,
-    Open_Sans,
-    Orbitron,
-    Oxanium, Poppins, Quantico, Roboto, Saira_Condensed, Share_Tech, Share_Tech_Mono, Space_Mono,
-    Teko, Turret_Road
+  Anta,
+  Anton,
+  Audiowide,
+  Bebas_Neue,
+  Berkshire_Swash,
+  Black_Ops_One,
+  Courier_Prime,
+  Exo_2,
+  Fragment_Mono,
+  Geist,
+  Geist_Mono,
+  Inconsolata,
+  Inter,
+  Merriweather,
+  Nova_Mono,
+  Open_Sans,
+  Orbitron,
+  Oxanium,
+  Poppins,
+  Quantico,
+  Roboto,
+  Saira_Condensed,
+  Share_Tech,
+  Share_Tech_Mono,
+  Space_Mono,
+  Teko,
+  Turret_Road,
 } from "next/font/google";
 import "./globals.css";
-import {GeistPixelCircle} from "geist/font/pixel";
+import { GeistPixelCircle } from "geist/font/pixel";
 
 const timerFont = Geist({
-    weight: ['400'],
-    subsets: ['latin'],
-    display: 'swap', // optional, helps with layout shift
-    variable: '--font-timer', // Define the CSS variable name
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap", // optional, helps with layout shift
+  variable: "--font-timer", // Define the CSS variable name
 });
 
 const infoFont = Inter({
-    subsets: ['latin'],
-    display: 'swap',
-    variable: '--font-info',
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-info",
 });
 
 export const metadata: Metadata = {
@@ -39,6 +56,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://tiles.stadiamaps.com" />
+        <link rel="preconnect" href="https://unpkg.com" />
+      </head>
       <body
         className={`${timerFont.variable} ${infoFont.variable} antialiased scroll-smooth`}
       >
