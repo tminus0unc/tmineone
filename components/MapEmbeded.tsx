@@ -25,7 +25,7 @@ export default function MapEmbed() {
             });
 
             L.tileLayer(
-                "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+                `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${process.env.NEXT_PUBLIC_STADIA_MAPS_API_KEY}`,
                 {
                     attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
                     maxZoom: 20,
