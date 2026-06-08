@@ -9,6 +9,8 @@ import FolderWatermark from "@/components/FolderWatermark";
 import AppForm from "@/components/AppForm";
 import dynamic from "next/dynamic";
 import { Analytics } from "@vercel/analytics/next";
+import Image from "next/image";
+
 
 const MapEmbed = dynamic(() => import("@/components/MapEmbeded"), { ssr: false });
 
@@ -31,11 +33,13 @@ export default function Home() {
               <div className="max-w-6xl w-full px-4 md:px-12 flex flex-row items-center gap-12">
 
                 {/* Left: Image */}
-                <div className="hidden md:flex flex-shrink-0 w-80 h-96 items-center justify-center">
-                  <img
-                      src="/placeholder.jpg"
+                <div className="hidden md:flex flex-shrink-0 w-96 lg:w-[420px] self-stretch relative min-h-[500px]">
+                  <Image
+                      src="/assets/IMG_0746.jpeg"
                       alt="About T-0"
-                      className="w-full h-full object-cover rounded-sm opacity-80"
+                      fill
+                      className="object-cover rounded-sm opacity-80"
+                      sizes="(max-width: 1024px) 384px, 420px"
                   />
                 </div>
 
