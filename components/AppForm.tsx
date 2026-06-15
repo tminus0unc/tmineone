@@ -39,11 +39,11 @@ export default function AppForm() {
 
           {/* Header */}
           <div className="mb-6 md:mb-10">
-            <p className="font-mono text-[9px] md:text-[11px] text-foreground/40 tracking-[0.4em] uppercase mb-2 md:mb-3">
-              FILE: APPLICATION
+            <p className="font-mono text-[9px] md:text-[11px] text-foreground/80 tracking-[0.4em] uppercase mb-2 md:mb-3">
+              FILE: WAITLIST_APPLICATION.T-0
             </p>
             <h2 className="text-2xl md:text-4xl font-bold text-white">
-             Apply Here
+             Join the Interest List
             </h2>
           </div>
 
@@ -103,7 +103,7 @@ export default function AppForm() {
           </form>
 
           {/* Footer metadata */}
-          <div className="mt-6 md:mt-10 pt-3 md:pt-4 border-t border-foreground/10 font-mono text-[9px] md:text-[10px] text-foreground/20 tracking-[0.3em] uppercase">
+          <div className="mt-6 md:mt-10 pt-3 md:pt-4 border-t border-foreground/80 font-mono text-[9px] md:text-[10px] text-foreground/70 tracking-[0.3em] uppercase">
             FORM T-0 · CLEARANCE: OPEN · REQUIRED FIELDS: 3
           </div>
         </div>

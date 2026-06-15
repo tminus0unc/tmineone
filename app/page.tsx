@@ -10,6 +10,8 @@ import AppForm from "@/components/AppForm";
 import dynamic from "next/dynamic";
 import { Analytics } from "@vercel/analytics/next";
 import Image from "next/image";
+import MouseSphere from "@/components/MouseSphere";
+import TeamCards from "@/components/TeamCards";
 
 
 const MapEmbed = dynamic(() => import("@/components/MapEmbeded"), { ssr: false });
@@ -22,11 +24,13 @@ export default function Home() {
       <>
         <main className="bg-background h-screen overflow-y-scroll">
           <FolderSection title="Countdown" index={1} color="bg-background" tab={1}>
+            <MouseSphere />   {/* add this */}
             <Timer className={"font-timer font-bold"} />
             <ScrollDownButton targetId={"About Us"} />
           </FolderSection>
 
           <FolderSection title="About Us" index={2} color="bg-background" tab={4}>
+            <MouseSphere />
             <FolderWatermark label={" Confidential"} />
 
             <div className="flex-1 flex items-center justify-center overflow-hidden">
@@ -85,7 +89,7 @@ export default function Home() {
                       <button
                           onClick={() =>
                               document
-                                  .getElementById("Sign Up")
+                                  .getElementById("Join Waitlist")
                                   ?.scrollIntoView({ behavior: "smooth" })
                           }
                           className="
@@ -95,7 +99,7 @@ export default function Home() {
                 hover:bg-foreground/5 hover:text-white font-mono
               "
                       >
-                        Apply
+                        Stay in the Loop
                       </button>
 
                       <button
@@ -120,26 +124,32 @@ export default function Home() {
             </div>
           </FolderSection>
 
-          <FolderSection title="Location" index={3} color="bg-background" tab={3}>
+          <FolderSection title="Join Waitlist" index={3} color="bg-[#0f0]" tab={3}>
+            <MouseSphere />
+            <FolderWatermark label={" Confidential"} />
+            <div className="text-black text-2xl"></div>
+            <AppForm />
+            <ScrollDownButton targetId={"Location"} />
+          </FolderSection>
+
+          <FolderSection title="Location" index={4} color="bg-background" tab={2}>
+            <MouseSphere />
             <div className="flex-1 flex flex-col gap-6 py-8 min-h-0">
               <div className="flex-1 overflow-hidden m-2.5 min-h-0">
                 <MapEmbed />
               </div>
               <div className="pb-8 flex justify-center">
-                <ScrollDownButton targetId={"Sign Up"} />
+                <ScrollDownButton targetId={"Team"} />
               </div>
             </div>
           </FolderSection>
 
-          <FolderSection title="Sign Up" index={4} color="bg-[#0f0]" tab={2}>
-            <FolderWatermark label={" Confidential"} />
-            <div className="text-black text-2xl"></div>
-            <AppForm />
-            <ScrollDownButton targetId={"Team"} />
-          </FolderSection>
+
 
           <FolderSection title="Team" index={5} color="bg-[#00f]" tab={5}>
+            <MouseSphere />
             <FolderWatermark label={" Confidential"} />
+            <TeamCards/>
           </FolderSection>
         </main>
         <Analytics />
