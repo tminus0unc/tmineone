@@ -70,7 +70,7 @@ export default function RootLayout({
       <link rel="preload" as="image" href="/assets/mallory.png"/>
       <link rel="preload" as="image" href="/assets/amelia.jpeg"/>
       <link rel="preload" as="image" href="/assets/ishani.jpg"/>
-      <link rel="preload" as="image" href="/assets/amy.jpg"/>
+      <link rel="preload" as="image" href="/assets/amyy.jpg"/>
     </head>
     <body
         className={`${timerFont.variable} ${infoFont.variable} antialiased scroll-smooth`}

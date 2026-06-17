@@ -100,7 +100,7 @@ const team = [
     majors: ["Economics"],
     minors: ["Education"],
     quote: "Startup founder or not, anyone could gain from building something live, real, and with peers.",
-    image: "/assets/amy.jpg",
+    image: "/assets/amyy.jpg",
     file: "FILE-010",
   },
 ];
