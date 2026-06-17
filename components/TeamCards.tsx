@@ -20,7 +20,7 @@ const team = [
     majors: ["Advertising/Public Relations", "Business Administration"],
     minors: ["PPE (Philosophy, Politics, Economics)"],
     quote: "The T-0 concept drew me in immediately for its need at UNC.",
-    image: "/assets/juliann.jpg",
+    image: "/assets/julian.jpg",
     file: "FILE-002",
   },
   {
