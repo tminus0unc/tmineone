@@ -8,7 +8,7 @@ type TimerProps = {
 };
 
 export default function Timer({ className }: TimerProps) {
-    const targetDate = new Date("Apr 11, 2026 04:00:00").getTime();
+    const targetDate = new Date("Sept 19, 2026 04:00:00").getTime();
 
     const [countdown, setCountdown] = useState(targetDate - Date.now());
 
