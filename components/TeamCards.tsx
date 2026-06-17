@@ -30,7 +30,7 @@ const team = [
     majors: ["Business Administration", "Global Studies"],
     minors: [],
     quote: "The combination of teamwork and competition immediately caught my attention when I discovered T-0.",
-    image: "/assets/bergan.jpg",
+    image: "/assets/bergan.jpg", 
     file: "FILE-003",
   },
   {
