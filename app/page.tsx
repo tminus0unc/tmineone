@@ -207,78 +207,72 @@ export default function Home() {
           <MouseSphere />
           <FolderWatermark label="Sponsor" />
 
-          <div className="flex-1 flex flex-col px-4 md:px-12 py-6 gap-6 overflow-hidden">
-
+          <div className="flex-1 flex flex-col px-4 md:px-12 py-3 md:py-6 gap-3 md:gap-6 overflow-y-auto">
             {/* Header */}
             <div className="flex-shrink-0">
-              <p className="font-mono text-[10px] md:text-[11px] text-foreground/40 tracking-[0.4em] uppercase mb-1">
+              <p className="font-mono text-[9px] md:text-[11px] text-foreground/40 tracking-[0.4em] uppercase mb-1">
                 FILE: SPONSORSHIP · CLEARANCE: PUBLIC
               </p>
-              <h2 className="text-2xl md:text-4xl font-bold text-white leading-snug">
+              <h2 className="text-xl md:text-4xl font-bold text-white leading-snug">
                 Join us in supporting Carolina's emerging innovators.
               </h2>
             </div>
 
             {/* Flipbook + Sidebar */}
-            <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-0">
-
+            <div className="flex flex-col md:flex-row gap-3 md:gap-6">
               {/* Flipbook */}
               <div
-                  className="flex-1 border border-foreground/20 overflow-hidden min-h-0 relative flex items-center justify-center"
-                  style={{ paddingBottom: '24px' }}
+                className="border border-foreground/20 overflow-hidden relative flex items-center justify-center min-h-[280px] md:flex-1 md:min-h-0"
+                style={{ paddingBottom: "24px" }}
               >
-                <p className="font-mono text-[9px] md:text-[10px] text-foreground/30 tracking-[0.35em] uppercase absolute top-2 left-3 z-10">
+                <p className="font-mono text-[8px] md:text-[10px] text-foreground/30 tracking-[0.35em] uppercase absolute top-2 left-3 z-10">
                   SPONSORSHIP PACKAGE
                 </p>
                 <FlipBook />
               </div>
 
-              {/* Right sidebar */}
-              <div className="flex-shrink-0 md:w-64 flex flex-col gap-4">
-
+              {/* Sidebar */}
+              <div className="flex-shrink-0 md:w-64 flex flex-col gap-3">
                 {/* Overview */}
                 <div>
-                  <p className="font-mono text-[10px] md:text-[11px] text-foreground/40 tracking-[0.4em] uppercase mb-2">
+                  <p className="font-mono text-[9px] md:text-[11px] text-foreground/40 tracking-[0.4em] uppercase mb-1.5">
                     OVERVIEW
                   </p>
                   <p className="text-sm md:text-base text-white/70 leading-relaxed">
-                    We're seeking sponsors who value initiative, creativity, and execution — and want to empower the next generation of founders, builders, and problem-solvers.
+                    We're seeking sponsors who value initiative, creativity, and
+                    execution — and want to empower the next generation of
+                    founders, builders, and problem-solvers.
                   </p>
                 </div>
 
                 {/* Divider */}
                 <div className="w-full h-px bg-foreground/15" />
 
-                {/* Bottom: status then emails stacked below */}
-                <div className="flex flex-col gap-3">
-
-                  {/* Status */}
+                {/* Status + Emails */}
+                <div className="flex flex-col gap-2 pb-6 md:pb-0">
                   <div className="flex items-center gap-2">
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-foreground/50 animate-pulse flex-shrink-0" />
-                    <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-foreground/35">
-              STATUS: OPEN
-            </span>
+                    <span className="font-mono text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-foreground/35">
+                      STATUS: OPEN
+                    </span>
                   </div>
-
-                  {/* Emails */}
-<a
-                  href="mailto:tminus0.unc@gmail.com"
-                  className="font-mono text-[10px] md:text-[11px] text-foreground/60 tracking-[0.15em] uppercase border border-foreground/20 px-3 py-2.5 transition-all duration-300 hover:border-foreground/60 hover:text-white hover:bg-foreground/5 truncate"
+                  <a
+                    href="mailto:tminus0.unc@gmail.com"
+                    className="font-mono text-[9px] md:text-[11px] text-foreground/60 tracking-[0.15em] uppercase border border-foreground/20 px-3 py-2 transition-all duration-300 hover:border-foreground/60 hover:text-white hover:bg-foreground/5"
                   >
-                  tminus0.unc@gmail.com
-                </a>
-<a
-                href="mailto:amelish@unc.edu"
-                className="font-mono text-[10px] md:text-[11px] text-foreground/60 tracking-[0.15em] uppercase border border-foreground/20 px-3 py-2.5 transition-all duration-300 hover:border-foreground/60 hover:text-white hover:bg-foreground/5"
-                >
-                amelish@unc.edu
-              </a>
-
+                    tminus0.unc@gmail.com
+                  </a>
+                  <a
+                    href="mailto:amelish@unc.edu"
+                    className="font-mono text-[9px] md:text-[11px] text-foreground/60 tracking-[0.15em] uppercase border border-foreground/20 px-3 py-2 transition-all duration-300 hover:border-foreground/60 hover:text-white hover:bg-foreground/5"
+                  >
+                    amelish@unc.edu
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </FolderSection>
+        </FolderSection>
       </main>
       <Analytics />
     </>
