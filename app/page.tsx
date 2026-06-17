@@ -25,7 +25,7 @@ const scrollTo = (id: string) => () =>
 
 export default function Home() {
   useEffect(() => {
-    document.title = "T minus 0";
+    document.title = "Tminus0";
   }, []);
   return (
     <>
