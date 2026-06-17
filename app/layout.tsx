@@ -66,7 +66,7 @@ export default function RootLayout({
       <link rel="preload" as="image" href="/assets/bergan.jpg"/>
       <link rel="preload" as="image" href="/assets/pam.jpg"/>
       <link rel="preload" as="image" href="/assets/shom.jpg"/>
-      <link rel="preload" as="image" href="/assets/sara.jpg"/>
+      <link rel="preload" as="image" href="/assets/saraa.jpg"/>
       <link rel="preload" as="image" href="/assets/mallory.png"/>
       <link rel="preload" as="image" href="/assets/amelia.jpeg"/>
       <link rel="preload" as="image" href="/assets/ishani.jpg"/>

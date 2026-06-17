@@ -60,7 +60,7 @@ const team = [
     majors: ["Data Science"],
     minors: ["Business Administration"],
     quote: "T-0 will really help students apply and strengthen their entrepreneurial skills.",
-    image: "/assets/sara.jpg",
+    image: "/assets/saraa.jpg",
     file: "FILE-006",
   },
   {
