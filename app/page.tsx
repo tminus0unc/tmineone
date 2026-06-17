@@ -2,7 +2,7 @@
 
 import Timer from "@/components/Timer";
 import "./globals.css";
-import React from "react";
+import React, {useEffect} from "react";
 import FolderSection from "@/components/FolderSection";
 import ScrollDownButton from "@/components/Scroller";
 import FolderWatermark from "@/components/FolderWatermark";
@@ -13,6 +13,8 @@ import Image from "next/image";
 import MouseSphere from "@/components/MouseSphere";
 import TeamCards from "@/components/TeamCards";
 import FlipBook from "@/components/Flipbook";
+import { Metadata } from 'next';
+
 
 const MapEmbed = dynamic(() => import("@/components/MapEmbeded"), {
   ssr: false,
@@ -22,6 +24,9 @@ const scrollTo = (id: string) => () =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "T minus 0";
+  }, []);
   return (
     <>
       <main className="bg-background h-screen overflow-y-scroll">

@@ -10,7 +10,7 @@ const team = [
     majors: ["Data Science", "Business Administration"],
     minors: ["Astronomy"],
     quote: "I'm excited to help build a culture of creativity, problem-solving, and execution at UNC through startup-inspired challenges.",
-    image: "/assets/yashasree.jpgjpg",
+    image: "/assets/yashasree.jpg",
     file: "FILE-001",
   },
   {
