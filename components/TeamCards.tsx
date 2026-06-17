@@ -10,7 +10,7 @@ const team = [
     majors: ["Data Science", "Business Administration"],
     minors: ["Astronomy"],
     quote: "I'm excited to help build a culture of creativity, problem-solving, and execution at UNC through startup-inspired challenges.",
-    image: "/assets/yashasree.jpg",
+    image: "/assets/yashasree.jpgjpg",
     file: "FILE-001",
   },
   {
@@ -20,7 +20,7 @@ const team = [
     majors: ["Advertising/Public Relations", "Business Administration"],
     minors: ["PPE (Philosophy, Politics, Economics)"],
     quote: "The T-0 concept drew me in immediately for its need at UNC.",
-    image: "/assets/julian.jpg",
+    image: "/assets/juliann.jpg",
     file: "FILE-002",
   },
   {
@@ -30,7 +30,7 @@ const team = [
     majors: ["Business Administration", "Global Studies"],
     minors: [],
     quote: "The combination of teamwork and competition immediately caught my attention when I discovered T-0.",
-    image: "/assets/bergan.jpg", 
+    image: "/assets/bergan.jpg",
     file: "FILE-003",
   },
   {

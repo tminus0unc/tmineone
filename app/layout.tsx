@@ -62,7 +62,7 @@ export default function RootLayout({
       <link rel="preconnect" href="https://tiles.stadiamaps.com"/>
       <link rel="preconnect" href="https://unpkg.com"/>
       <link rel="preload" as="image" href="/assets/yashasree.jpg"/>
-      <link rel="preload" as="image" href="/assets/julian.jpg"/>
+      <link rel="preload" as="image" href="/assets/juliann.jpg"/>
       <link rel="preload" as="image" href="/assets/bergan.jpg"/>
       <link rel="preload" as="image" href="/assets/pam.jpg"/>
       <link rel="preload" as="image" href="/assets/shom.jpg"/>
