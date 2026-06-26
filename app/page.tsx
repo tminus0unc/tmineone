@@ -71,11 +71,79 @@ export default function Home() {
           </div>
         </FolderSection>
 
+        <FolderSection title="Challenge" index={3} color="bg-background" tab={3}>
+          <MouseSphere />
+          <div className="flex-1 flex items-center justify-center">
+            <p
+              className="font-timer font-light text-4xl md:text-6xl tracking-[0.1em]"
+              style={{ color: "rgba(240,244,248,0.65)" }}
+            >
+              Coming soon.
+            </p>
+          </div>
+        </FolderSection>
+
+        <FolderSection title="Judges" index={4} color="bg-background" tab={4}>
+          <MouseSphere />
+          <div className="flex-1 flex flex-row min-h-0">
+
+            {/* Left half — Judges */}
+            <div className="flex-1 flex flex-col justify-center gap-8 px-8 md:px-14 py-8 border-r border-foreground/15">
+              <div>
+                <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase mb-4">
+                  JUDGES
+                </p>
+                <p className="font-timer font-light text-xl md:text-2xl text-white/75 leading-relaxed">
+                  We have a panel of startup founders joining us as judges.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-2">
+                  <img
+                    src="/assets/forbes.png"
+                    alt="Forbes 30 Under 30"
+                    className="h-14 md:h-16 w-auto object-contain object-left"
+                  />
+                  <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.3em] uppercase">
+                    Forbes 30 Under 30
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <img
+                    src="/assets/residency.png"
+                    alt="The Residency — San Francisco"
+                    className="h-12 md:h-14 w-auto object-contain object-left"
+                  />
+                  <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.3em] uppercase">
+                    The Residency — San Francisco
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right half — Sponsors */}
+            <div className="flex-1 flex flex-col justify-center px-8 md:px-14 py-8">
+              <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase mb-5">
+                SPONSORS
+              </p>
+              <p
+                className="font-timer font-light text-4xl md:text-5xl tracking-[0.06em]"
+                style={{ color: "rgba(240,244,248,0.55)" }}
+              >
+                Coming soon.
+              </p>
+            </div>
+
+          </div>
+        </FolderSection>
+
         <FolderSection
           title="Join"
-          index={3}
+          index={5}
           color="bg-background"
-          tab={3}
+          tab={5}
         >
           <MouseSphere />
           <FolderWatermark label={" Confidential"} />
@@ -83,13 +151,13 @@ export default function Home() {
           <ScrollDownButton targetId={"Team"} />
         </FolderSection>
 
-        <FolderSection title="Team" index={4} color="bg-background" tab={4}>
+        <FolderSection title="Team" index={6} color="bg-background" tab={6}>
           <MouseSphere />
           <FolderWatermark label={" Confidential"} opacity={0.025} />
           <TeamCards />
         </FolderSection>
 
-        <FolderSection title="Sponsor" index={5} color="bg-background" tab={5}>
+        <FolderSection title="Sponsor" index={7} color="bg-background" tab={7}>
           <MouseSphere />
           <FolderWatermark label="Sponsor" opacity={0.025} />
 
@@ -151,7 +219,7 @@ export default function Home() {
           </div>
         </FolderSection>
 
-        <FolderSection title="Location" index={6} color="bg-background" tab={6}>
+        <FolderSection title="Location" index={8} color="bg-background" tab={8}>
           <MouseSphere />
           <div className="flex-1 flex flex-row gap-0 min-h-0">
             {/* Left 3/4: map */}
@@ -169,7 +237,7 @@ export default function Home() {
           </div>
         </FolderSection>
 
-        <FolderSection title="Community" index={7} color="bg-background" tab={7}>
+        <FolderSection title="Community" index={9} color="bg-background" tab={9}>
           <div className="relative flex-1 -mx-4 md:-mx-10 overflow-hidden">
             {/* Team photo, full bleed, kept at natural framing */}
             <img
