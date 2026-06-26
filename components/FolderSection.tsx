@@ -22,7 +22,10 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
       >
         {/* TAB */}
         <div
-            onClick={() => document.getElementById(title)?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => {
+              const scrollEl = document.querySelector("main") as HTMLElement | null;
+              if (scrollEl) scrollEl.scrollTo({ top: (index - 1) * scrollEl.clientHeight, behavior: "smooth" });
+            }}
             className="
           h-[5vh] rounded-t-[12px]
           flex items-center justify-between px-2 md:px-4
@@ -55,7 +58,7 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
         </div>
 
         {/* BODY */}
-        <div className="relative h-screen border-t-2 border-foreground overflow-hidden flex flex-col bg-background">
+        <div className="relative h-screen overflow-hidden flex flex-col bg-background">
           {/* Subtle depth vignette */}
           <div
             className="absolute inset-0 z-0 pointer-events-none"
@@ -71,7 +74,7 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
           <div className="
           relative z-[1] w-full px-4 md:px-10 py-2
           border-t border-foreground/15
-          font-mono text-[9px] md:text-[10px] text-white/30
+          font-mono text-[9px] md:text-[10px] text-foreground/60
           tracking-[0.2em] md:tracking-[0.3em] uppercase
           flex items-center justify-between
         ">

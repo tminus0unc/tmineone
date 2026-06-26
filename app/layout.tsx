@@ -31,11 +31,11 @@ import {
 import "./globals.css";
 import { GeistPixelCircle } from "geist/font/pixel";
 
-const timerFont = Inter({
-  weight: ["100", "200", "300", "400"],
+const timerFont = Oxanium({
+  weight: ["200", "300", "400", "500"],
   subsets: ["latin"],
-  display: "swap", // optional, helps with layout shift
-  variable: "--font-timer", // Define the CSS variable name
+  display: "swap",
+  variable: "--font-timer",
 });
 
 const infoFont = Inter({

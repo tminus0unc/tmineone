@@ -6,6 +6,8 @@ type Para = {
   text: string;
   /** When lit, this paragraph turns the accent blue instead of warm white */
   accent?: boolean;
+  /** Render this paragraph as a larger, bold heading */
+  heading?: boolean;
 };
 
 type Props = {
@@ -28,7 +30,6 @@ export default function ScrollReveal({ paragraphs, sectionIndex, className = "" 
     const scrollEl = document.querySelector("main") as HTMLElement | null;
     if (!scrollEl) return;
 
-    // How much wheel/touch travel (px) is needed to fully reveal the text.
     const revealDistance = () => scrollEl.clientHeight * 1.35;
 
     const setP = (p: number) => {
@@ -38,48 +39,68 @@ export default function ScrollReveal({ paragraphs, sectionIndex, className = "" 
       if (clamped >= 1) unlockedRef.current = true;
     };
 
-    // ── PIN + SCRUB ───────────────────────────────────────────────────────────
-    // While the user is entering / sitting on this section and the text isn't
-    // fully revealed yet, we freeze scrollTop at the section's top and convert
-    // forward scroll input into reveal progress. The next section therefore
-    // cannot slide up until every word is lit and readable.
     const handleForward = (deltaY: number, prevent: () => void) => {
-      if (unlockedRef.current) return; // already read → free scroll
-      if (deltaY <= 0) return;          // backward → allow leaving upward
+      if (unlockedRef.current) return;
+      if (deltaY <= 0) return;
 
       const vh           = scrollEl.clientHeight;
       const sectionStart = sectionIndex * vh;
       const st           = scrollEl.scrollTop;
       const target       = st + deltaY;
 
-      if (target <= sectionStart) return; // still approaching from previous section
+      if (target <= sectionStart) return;
 
-      // Pin at the section top and scrub the reveal with the overflow.
       prevent();
       scrollEl.scrollTop = sectionStart;
       const consumed = target - sectionStart;
       setP(progressRef.current + consumed / revealDistance());
     };
 
-    const onWheel = (e: WheelEvent) =>
-      handleForward(e.deltaY, () => e.preventDefault());
+    // When scrolling back up while highlight exists, de-highlight progressively.
+    const handleBackward = (deltaY: number, prevent: () => void) => {
+      if (deltaY >= 0) return;
+      if (progressRef.current <= 0) return;
 
-    // Touch support
+      const vh           = scrollEl.clientHeight;
+      const sectionStart = sectionIndex * vh;
+      const st           = scrollEl.scrollTop;
+
+      if (st > sectionStart + 5) return;
+
+      prevent();
+      scrollEl.scrollTop = sectionStart;
+      const consumed = Math.abs(deltaY);
+      const newP = Math.max(0, progressRef.current - consumed / revealDistance());
+      setP(newP);
+      if (newP <= 0) unlockedRef.current = false;
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      handleForward(e.deltaY, () => e.preventDefault());
+      handleBackward(e.deltaY, () => e.preventDefault());
+    };
+
     let touchY = 0;
     const onTouchStart = (e: TouchEvent) => { touchY = e.touches[0].clientY; };
     const onTouchMove = (e: TouchEvent) => {
       const y = e.touches[0].clientY;
-      const deltaY = touchY - y; // finger up = scroll down
+      const deltaY = touchY - y;
       touchY = y;
       handleForward(deltaY, () => e.preventDefault());
+      handleBackward(deltaY, () => e.preventDefault());
     };
 
-    // If the user jumps past this section via a tab click, stop gating.
     const onScroll = () => {
       const vh = scrollEl.clientHeight;
-      if (scrollEl.scrollTop >= (sectionIndex + 1) * vh - 10) {
+      const st = scrollEl.scrollTop;
+      if (st >= (sectionIndex + 1) * vh - 10) {
         unlockedRef.current = true;
         if (progressRef.current < 1) setP(1);
+      }
+      // Reset when tab-clicked back above this section
+      if (st < sectionIndex * vh - 10) {
+        if (progressRef.current > 0) setP(0);
+        unlockedRef.current = false;
       }
     };
 
@@ -96,7 +117,6 @@ export default function ScrollReveal({ paragraphs, sectionIndex, className = "" 
     };
   }, [sectionIndex]);
 
-  // Flatten so each word gets a global reveal index
   const flat: { para: number; word: string }[] = [];
   paragraphs.forEach((p, pi) =>
     p.text.split(" ").forEach((w) => flat.push({ para: pi, word: w }))
@@ -110,11 +130,19 @@ export default function ScrollReveal({ paragraphs, sectionIndex, className = "" 
   );
 
   return (
-    <div className={`space-y-5 ${className}`}>
+    <div className={`space-y-6 ${className}`}>
       {paraWords.map((words, pi) => {
-        const isAccent = paragraphs[pi].accent;
+        const isAccent  = paragraphs[pi].accent;
+        const isHeading = paragraphs[pi].heading;
         return (
-          <p key={pi} className="leading-[1.7] font-timer font-light text-base md:text-lg">
+          <p
+            key={pi}
+            className={
+              isHeading
+                ? "leading-[1.4] font-timer font-bold text-3xl md:text-4xl mb-2"
+                : "leading-[1.75] font-timer font-light text-lg md:text-xl"
+            }
+          >
             {words.map(({ word, lit }, wi) => (
               <span
                 key={wi}

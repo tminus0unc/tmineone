@@ -9,7 +9,7 @@ export default function FolderWatermark({
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center z-0">
             <p
-                className="text-[12rem] font-bold uppercase tracking-[0.3em] rotate-[-20deg] whitespace-nowrap"
+                className="text-[7rem] font-bold uppercase tracking-[0.3em] rotate-[-20deg] whitespace-nowrap"
                 style={{ color: `rgba(255,255,255,${opacity})` }}
             >
                 {label}

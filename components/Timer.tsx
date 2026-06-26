@@ -37,7 +37,7 @@ export default function Timer({ className }: TimerProps) {
             {/* Realistic rotating Earth, centered behind the digits */}
             <Globe />
 
-            {/* Countdown grid */}
+            {/* Countdown grid — fills the full container height */}
             <div className="relative z-10 h-full grid grid-cols-2 md:grid-cols-4">
                 {units.map(({ value, label }) => (
                     <div
@@ -78,6 +78,13 @@ export default function Timer({ className }: TimerProps) {
                         </span>
                     </div>
                 ))}
+            </div>
+
+            {/* Subtitle — absolute so it never overlaps the earth or the scroll arrow */}
+            <div className="absolute bottom-[8%] left-0 right-0 text-center z-10 pointer-events-none">
+                <span className="font-mono text-[11px] md:text-[13px] text-white/45 tracking-[0.3em] uppercase">
+                    North Carolina&apos;s biggest startup challenge
+                </span>
             </div>
         </div>
     );
