@@ -30,18 +30,19 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-info), Arial, Helvetica, sans-serif;
-  cursor: default;
+  cursor: none;
 }
 
-/* Restore intentional cursors on interactive elements */
-button,
-a,
-[role="button"] {
-  cursor: pointer;
+* {
+  cursor: none !important;
 }
-input,
-textarea {
-  cursor: text;
+
+/* Restore cursors on touch/coarse-pointer devices (phones/tablets) */
+@media (pointer: coarse) {
+  body { cursor: auto; }
+  * { cursor: unset !important; }
+  button, a, [role="button"] { cursor: pointer; }
+  input, textarea { cursor: text; }
 }
 
 @keyframes fadeIn {

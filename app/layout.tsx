@@ -29,6 +29,7 @@ import {
   Turret_Road,
 } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
 import { GeistPixelCircle } from "geist/font/pixel";
 
 const timerFont = Oxanium({
@@ -76,6 +77,7 @@ export default function RootLayout({
       <body
         className={`${timerFont.variable} ${infoFont.variable} antialiased scroll-smooth`}
       >
+        <CustomCursor />
         {children}
       </body>
     </html>
