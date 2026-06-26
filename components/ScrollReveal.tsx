@@ -15,16 +15,26 @@ type Props = {
   /** 0-based position of this section in the sticky scroll stack (Countdown=0, About=1 …). */
   sectionIndex: number;
   className?: string;
+  /** When true, immediately completes the reveal and disables all gating (e.g. when navigating away from this slide). */
+  forceComplete?: boolean;
 };
 
 const ACCENT = "#0090e0";
 const WARM_WHITE = "#f0f4f8";
 const DIM = "rgba(240,244,248,0.34)";
 
-export default function ScrollReveal({ paragraphs, sectionIndex, className = "" }: Props) {
+export default function ScrollReveal({ paragraphs, sectionIndex, className = "", forceComplete = false }: Props) {
   const [progress, setProgress] = useState(0);
   const progressRef = useRef(0);
   const unlockedRef = useRef(false);
+
+  useEffect(() => {
+    if (forceComplete) {
+      progressRef.current = 1;
+      setProgress(1);
+      unlockedRef.current = true;
+    }
+  }, [forceComplete]);
 
   useEffect(() => {
     const scrollEl = document.querySelector("main") as HTMLElement | null;

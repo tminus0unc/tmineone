@@ -2,46 +2,47 @@
 
 import Timer from "@/components/Timer";
 import "./globals.css";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import FolderSection from "@/components/FolderSection";
 import ScrollDownButton from "@/components/Scroller";
 import FolderWatermark from "@/components/FolderWatermark";
 import AppForm from "@/components/AppForm";
 import dynamic from "next/dynamic";
 import { Analytics } from "@vercel/analytics/next";
-import Image from "next/image";
 import MouseSphere from "@/components/MouseSphere";
 import TeamCards from "@/components/TeamCards";
 import FlipBook from "@/components/Flipbook";
 import ScrollReveal from "@/components/ScrollReveal";
 
-
 const MapEmbed = dynamic(() => import("@/components/MapEmbeded"), {
   ssr: false,
 });
 
-const scrollTo = (id: string) => () =>
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+const TOTAL_TABS = 9;
 
 export default function Home() {
   useEffect(() => {
     document.title = "Tminus0";
   }, []);
+
   return (
     <>
       <main className="bg-background h-screen overflow-y-scroll">
+        {/* ── 1. Countdown ───────────────────────────────────────────── */}
         <FolderSection
           title="Countdown"
           index={1}
           color="bg-background"
           tab={1}
+          totalTabs={TOTAL_TABS}
         >
           <MouseSphere />
           <Timer />
           <ScrollDownButton targetId={"About"} />
         </FolderSection>
 
-        <FolderSection title="About" index={2} color="bg-background" tab={2}>
+        {/* ── 2. About ───────────────────────────────────────────────── */}
+        <FolderSection title="About" index={2} color="bg-background" tab={2} totalTabs={TOTAL_TABS}>
           <MouseSphere />
           <FolderWatermark label={" Confidential"} opacity={0.02} />
 
@@ -71,11 +72,86 @@ export default function Home() {
           </div>
         </FolderSection>
 
+        {/* ── 3. Challenge ───────────────────────────────────────────── */}
+        <FolderSection title="Challenge" index={3} color="bg-background" tab={3} totalTabs={TOTAL_TABS}>
+          <MouseSphere />
+          <div className="flex-1 flex items-center justify-center">
+            <p
+              className="font-timer font-light text-4xl md:text-6xl tracking-[0.1em]"
+              style={{ color: "rgba(240,244,248,0.65)" }}
+            >
+              Coming soon.
+            </p>
+          </div>
+        </FolderSection>
+
+        {/* ── 4. Judges ──────────────────────────────────────────────── */}
+        <FolderSection title="Judges" index={4} color="bg-background" tab={4} totalTabs={TOTAL_TABS}>
+          <MouseSphere />
+          <div className="flex-1 flex flex-row min-h-0">
+
+            {/* Left half — Judges */}
+            <div className="flex-1 flex flex-col justify-center gap-8 px-8 md:px-14 py-8 border-r border-foreground/15">
+              <div>
+                <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase mb-4">
+                  JUDGES
+                </p>
+                <p className="font-timer font-light text-xl md:text-2xl text-white/75 leading-relaxed">
+                  We have a panel of startup founders joining us as judges.
+                </p>
+              </div>
+
+              {/* Logos */}
+              <div className="flex flex-col gap-8">
+                {/* Forbes */}
+                <div className="flex flex-col gap-2">
+                  <img
+                    src="/assets/forbes.png"
+                    alt="Forbes 30 Under 30"
+                    className="h-14 md:h-16 w-auto object-contain object-left"
+                  />
+                  <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.3em] uppercase">
+                    Forbes 30 Under 30
+                  </p>
+                </div>
+
+                {/* Residency */}
+                <div className="flex flex-col gap-2">
+                  <img
+                    src="/assets/residency.png"
+                    alt="The Residency — San Francisco"
+                    className="h-12 md:h-14 w-auto object-contain object-left"
+                  />
+                  <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.3em] uppercase">
+                    The Residency — San Francisco
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right half — Sponsors */}
+            <div className="flex-1 flex flex-col justify-center px-8 md:px-14 py-8">
+              <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase mb-5">
+                SPONSORS
+              </p>
+              <p
+                className="font-timer font-light text-4xl md:text-5xl tracking-[0.06em]"
+                style={{ color: "rgba(240,244,248,0.55)" }}
+              >
+                Coming soon.
+              </p>
+            </div>
+
+          </div>
+        </FolderSection>
+
+        {/* ── 5. Join ────────────────────────────────────────────────── */}
         <FolderSection
           title="Join"
-          index={3}
+          index={5}
           color="bg-background"
-          tab={3}
+          tab={5}
+          totalTabs={TOTAL_TABS}
         >
           <MouseSphere />
           <FolderWatermark label={" Confidential"} />
@@ -83,13 +159,15 @@ export default function Home() {
           <ScrollDownButton targetId={"Team"} />
         </FolderSection>
 
-        <FolderSection title="Team" index={4} color="bg-background" tab={4}>
+        {/* ── 6. Team ────────────────────────────────────────────────── */}
+        <FolderSection title="Team" index={6} color="bg-background" tab={6} totalTabs={TOTAL_TABS}>
           <MouseSphere />
           <FolderWatermark label={" Confidential"} opacity={0.025} />
           <TeamCards />
         </FolderSection>
 
-        <FolderSection title="Sponsor" index={5} color="bg-background" tab={5}>
+        {/* ── 7. Sponsor ─────────────────────────────────────────────── */}
+        <FolderSection title="Sponsor" index={7} color="bg-background" tab={7} totalTabs={TOTAL_TABS}>
           <MouseSphere />
           <FolderWatermark label="Sponsor" opacity={0.025} />
 
@@ -100,7 +178,7 @@ export default function Home() {
                 FILE: SPONSORSHIP · CLEARANCE: PUBLIC
               </p>
               <h2 className="font-timer font-light text-xl md:text-4xl leading-snug" style={{ color: "#f0f4f8" }}>
-                Join us in supporting Carolina's emerging innovators.
+                Join us in supporting Carolina&apos;s emerging innovators.
               </h2>
             </div>
 
@@ -119,7 +197,6 @@ export default function Home() {
 
               {/* Right panel — half the page, larger text */}
               <div className="md:w-1/2 flex flex-col justify-center gap-6">
-                {/* Overview */}
                 <div>
                   <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.4em] uppercase mb-3">
                     OVERVIEW
@@ -131,10 +208,8 @@ export default function Home() {
                   </p>
                 </div>
 
-                {/* Divider */}
                 <div className="w-full h-px bg-foreground/15" />
 
-                {/* Contact */}
                 <p className="font-timer font-light text-base md:text-lg text-white/65 leading-relaxed">
                   Please reach out to{" "}
                   <a href="mailto:tminus0.unc@gmail.com" className="text-foreground hover:text-foreground/80 transition-colors duration-200 underline underline-offset-2">
@@ -151,7 +226,8 @@ export default function Home() {
           </div>
         </FolderSection>
 
-        <FolderSection title="Location" index={6} color="bg-background" tab={6}>
+        {/* ── 8. Location ────────────────────────────────────────────── */}
+        <FolderSection title="Location" index={8} color="bg-background" tab={8} totalTabs={TOTAL_TABS}>
           <MouseSphere />
           <div className="flex-1 flex flex-row gap-0 min-h-0">
             {/* Left 3/4: map */}
@@ -169,9 +245,10 @@ export default function Home() {
           </div>
         </FolderSection>
 
-        <FolderSection title="Community" index={7} color="bg-background" tab={7}>
+        {/* ── 9. Community ───────────────────────────────────────────── */}
+        <FolderSection title="Community" index={9} color="bg-background" tab={9} totalTabs={TOTAL_TABS}>
           <div className="relative flex-1 -mx-4 md:-mx-10 overflow-hidden">
-            {/* Team photo, full bleed, kept at natural framing */}
+            {/* Team photo, full bleed */}
             <img
               src="/assets/t-0%20team%20photo.JPG"
               alt="The T-0 team"
@@ -179,7 +256,7 @@ export default function Home() {
               style={{ filter: "brightness(0.7) contrast(1.05) saturate(0.82)" }}
             />
 
-            {/* Top scrim so the headline reads without obstructing faces */}
+            {/* Top scrim */}
             <div
               className="absolute inset-x-0 top-0 h-[55%] pointer-events-none"
               style={{
@@ -187,7 +264,7 @@ export default function Home() {
                   "linear-gradient(to bottom, rgba(12,17,21,0.94) 0%, rgba(12,17,21,0.55) 45%, transparent 100%)",
               }}
             />
-            {/* Deeper bottom scrim to ensure footer readability */}
+            {/* Bottom scrim */}
             <div
               className="absolute inset-x-0 bottom-0 h-[42%] pointer-events-none"
               style={{
@@ -211,7 +288,7 @@ export default function Home() {
 
             {/* Bottom bar: copyright + social icons (left) + logo (right) */}
             <div className="absolute inset-x-0 bottom-0 px-8 md:px-16 pb-7 flex items-end justify-between">
-              {/* Left: copyright line, icons, then contact text */}
+              {/* Left: copyright, icons, contact */}
               <div className="flex flex-col gap-4">
                 <p className="font-mono text-[9px] md:text-[10px] text-white/45 tracking-[0.25em] uppercase">
                   Copyright &copy; Tminus0 2026
@@ -261,7 +338,7 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Right: T-0 logo — screen blend drops dark navy, shows blue tones naturally */}
+              {/* Right: T-0 logo */}
               <img
                 src="/icon.svg"
                 alt="Tminus0"

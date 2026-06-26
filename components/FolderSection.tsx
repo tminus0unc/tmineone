@@ -58,7 +58,7 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
         </div>
 
         {/* BODY */}
-        <div className="relative h-screen overflow-hidden flex flex-col bg-background">
+        <div className="relative h-screen overflow-hidden flex flex-col bg-background border-t border-foreground/20">
           {/* Subtle depth vignette */}
           <div
             className="absolute inset-0 z-0 pointer-events-none"
@@ -69,24 +69,6 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
           />
 
           <div className="relative z-[1] px-4 md:px-10 flex-1 flex flex-col min-h-0">{children}</div>
-
-          {/* FILE METADATA */}
-          <div className="
-          relative z-[1] w-full px-4 md:px-10 py-2
-          border-t border-foreground/15
-          font-mono text-[9px] md:text-[10px] text-foreground/60
-          tracking-[0.2em] md:tracking-[0.3em] uppercase
-          flex items-center justify-between
-        ">
-            <span className="md:hidden">FILE {paddedIndex} · T-0 · 2025</span>
-            <span className="hidden md:block">CREATED: 2025</span>
-            <span className="hidden md:block">·</span>
-            <span className="hidden md:block">STATUS: OPEN</span>
-            <span className="hidden md:block">·</span>
-            <span className="hidden md:block">CLEARANCE: PUBLIC</span>
-            <span className="hidden md:block">·</span>
-            <span className="hidden md:block">FILE NO. {paddedIndex}</span>
-          </div>
         </div>
       </section>
   );

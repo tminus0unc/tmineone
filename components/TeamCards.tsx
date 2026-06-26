@@ -128,17 +128,22 @@ export default function TeamCards() {
       <div className="flex-1 flex flex-col overflow-hidden">
 
         {/* Header */}
-        <div className="px-6 pt-4 pb-4 md:pt-6 md:pb-6 flex-shrink-0 flex items-end justify-between border-b border-foreground/20">
-          <div>
-            <p className="font-mono text-[10px] md:text-[11px] text-foreground/50 tracking-[0.4em] uppercase mb-1">
-              FILE: PERSONNEL · {team.length} RECORDS
+        <div className="px-6 pt-4 pb-4 md:pt-5 md:pb-5 flex-shrink-0 border-b border-foreground/20">
+          <div className="flex items-end justify-between mb-2">
+            <div>
+              <p className="font-mono text-[10px] md:text-[11px] text-foreground/50 tracking-[0.4em] uppercase mb-1">
+                FILE: PERSONNEL · {team.length} RECORDS
+              </p>
+              <h2 className="font-timer font-light text-lg md:text-2xl" style={{ color: "#f0f4f8" }}>
+                Meet the team.
+              </h2>
+            </div>
+            <p className="font-mono text-[10px] md:text-[11px] text-foreground/40 tracking-[0.2em] uppercase flex-shrink-0 ml-4">
+              {activeIndex !== null ? `OPEN: ${team[activeIndex].file}` : "HOVER A FILE"}
             </p>
-            <h2 className="font-timer font-light text-lg md:text-2xl" style={{ color: "#f0f4f8" }}>
-              Meet the team.
-            </h2>
           </div>
-          <p className="font-mono text-[10px] md:text-[11px] text-foreground/40 tracking-[0.2em] uppercase">
-            {activeIndex !== null ? `OPEN: ${team[activeIndex].file}` : "HOVER A FILE"}
+          <p className="font-timer font-light text-sm md:text-base text-white/55 leading-relaxed max-w-3xl">
+            T-0 is a student-led organization dedicated to developing the next generation of entrepreneurs. By placing students in demanding, fast paced environments where outcomes matter, T-0 bridges the gap between academic learning and the realities of building, leading, and creating in the modern business world.
           </p>
         </div>
 
@@ -235,26 +240,7 @@ export default function TeamCards() {
                               <p className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.3em] uppercase">FIELD</p>
                               <p className="font-mono text-[11px] md:text-[13px] text-foreground/80 mt-0.5 leading-tight">{member.majors.join(", ")}</p>
                             </div>
-                            {member.minors.length > 0 && (
-                                <div>
-                                  <p className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.3em] uppercase">MINOR</p>
-                                  <p className="font-mono text-[11px] md:text-[13px] text-foreground/80 mt-0.5">{member.minors.join(", ")}</p>
-                                </div>
-                            )}
-                            <div>
-                              <p className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.3em] uppercase">STATEMENT</p>
-                              <p className="font-mono text-[10px] md:text-[11px] text-foreground/60 mt-0.5 leading-relaxed italic line-clamp-4">
-                                "{member.quote}"
-                              </p>
-                            </div>
                           </div>
-                        </div>
-
-                        {/* Footer */}
-                        <div className="px-3 py-1 border-t border-foreground/20 flex-shrink-0">
-                          <p className="font-mono text-[9px] md:text-[10px] text-foreground/35 tracking-[0.2em] uppercase">
-                            STATUS: ACTIVE · CLEARANCE: PUBLIC
-                          </p>
                         </div>
                       </div>
                   )}
