@@ -38,14 +38,13 @@ export default function Timer({ className }: TimerProps) {
             <Globe />
 
             {/* Countdown grid — fills the full container height */}
-            <div className="relative z-10 h-full grid grid-cols-2 md:grid-cols-4">
+            <div className="relative z-10 h-full grid grid-cols-4">
                 {units.map(({ value, label }) => (
                     <div
                         key={label}
                         className="
                             group relative flex flex-col items-center justify-center
-                            border-l border-white/10 [&:nth-child(odd)]:border-l-0
-                            md:[&:nth-child(odd)]:border-l md:[&:first-child]:border-l-0
+                            border-l border-white/10 first:border-l-0
                             transition-colors duration-500
                         "
                     >
@@ -60,7 +59,7 @@ export default function Timer({ className }: TimerProps) {
                         <span
                             className="
                                 relative font-timer font-thin tabular-nums leading-none
-                                text-[22vw] md:text-[12vw] tracking-[-0.02em]
+                                text-[12vw] tracking-[-0.02em]
                                 drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]
                             "
                             style={{ color: "#f0f4f8" }}
