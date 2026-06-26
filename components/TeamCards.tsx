@@ -130,10 +130,12 @@ export default function TeamCards() {
         {/* Header */}
         <div className="px-6 pt-4 pb-4 md:pt-6 md:pb-6 flex-shrink-0 flex items-end justify-between border-b border-foreground/20">
           <div>
-            <p className="font-mono text-[10px] md:text-[11px] text-foreground/40 tracking-[0.4em] uppercase mb-1">
+            <p className="font-mono text-[10px] md:text-[11px] text-foreground/50 tracking-[0.4em] uppercase mb-1">
               FILE: PERSONNEL · {team.length} RECORDS
             </p>
-            <h2 className="text-lg md:text-2xl font-bold text-white">Meet the team.</h2>
+            <h2 className="font-timer font-light text-lg md:text-2xl" style={{ color: "#f0f4f8" }}>
+              Meet the team.
+            </h2>
           </div>
           <p className="font-mono text-[10px] md:text-[11px] text-foreground/40 tracking-[0.2em] uppercase">
             {activeIndex !== null ? `OPEN: ${team[activeIndex].file}` : "HOVER A FILE"}
@@ -155,11 +157,13 @@ export default function TeamCards() {
                     key={member.name}
                     onMouseEnter={() => setActiveIndex(i)}
                     onMouseLeave={() => setActiveIndex(null)}
-                    className="relative flex-shrink-0 flex flex-col border-r border-foreground/20 bg-background cursor-pointer transition-all duration-300 overflow-hidden"
+                    className="relative flex-shrink-0 flex flex-col border-r border-foreground/20 bg-background cursor-pointer overflow-hidden"
                     style={{
                       width: `${w}px`,
                       borderLeft: i === 0 ? "1px solid rgba(255,255,255,0.12)" : undefined,
                       boxShadow: isActive ? "inset 0 0 0 1px rgba(255,255,255,0.1), 4px 0 20px rgba(0,0,0,0.5)" : "none",
+                      transition: "width 0.45s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s ease",
+                      willChange: "width",
                     }}
                 >
                   {/* Collapsed */}
@@ -185,10 +189,10 @@ export default function TeamCards() {
                   {/* Expanded */}
                   {isActive && (
                       <div className="flex flex-col h-full">
-                        {/* Photo */}
+                        {/* Photo — natural proportions, no zoom/crop */}
                         <div
-                            className="w-full flex-shrink-0 relative bg-foreground/5 border-b border-foreground/20"
-                            style={{ height: "40%" }}
+                            className="w-full flex-shrink-0 relative bg-black/40 border-b border-foreground/20"
+                            style={{ height: "46%" }}
                         >
                           <div className="absolute inset-0 flex items-center justify-center">
                       <span className="font-mono text-4xl font-bold text-foreground/15 tracking-widest">
@@ -199,10 +203,12 @@ export default function TeamCards() {
                               src={member.image}
                               alt={member.name}
                               draggable={false}
-                              className="absolute inset-0 w-full h-full object-cover object-top opacity-80"
+                              loading="eager"
+                              decoding="async"
+                              className="absolute inset-0 w-full h-full object-contain animate-[fadeIn_0.35s_ease]"
                               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                           />
-                          <div className="absolute top-2 left-2 font-mono text-[9px] md:text-[10px] text-foreground/60 tracking-[0.2em] bg-background/80 px-1.5 py-0.5 uppercase">
+                          <div className="absolute top-2 left-2 font-mono text-[9px] md:text-[10px] text-foreground/70 tracking-[0.2em] bg-background/80 px-1.5 py-0.5 uppercase">
                             {member.file}
                           </div>
                         </div>

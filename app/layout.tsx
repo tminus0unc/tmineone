@@ -31,8 +31,8 @@ import {
 import "./globals.css";
 import { GeistPixelCircle } from "geist/font/pixel";
 
-const timerFont = Geist({
-  weight: ["400"],
+const timerFont = Inter({
+  weight: ["100", "200", "300", "400"],
   subsets: ["latin"],
   display: "swap", // optional, helps with layout shift
   variable: "--font-timer", // Define the CSS variable name

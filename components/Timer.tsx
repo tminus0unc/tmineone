@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import GlitchText from "@/components/Glitcher";
+import Globe from "@/components/Globe";
 
 type TimerProps = {
     className?: string;
@@ -19,57 +19,66 @@ export default function Timer({ className }: TimerProps) {
         return () => clearInterval(interval);
     }, [targetDate]);
 
-    const totalSeconds = Math.floor(countdown / 1000);
+    const totalSeconds = Math.max(0, Math.floor(countdown / 1000));
     const days = Math.floor(totalSeconds / 86400);
     const hours = Math.floor((totalSeconds % 86400) / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
     const units = [
-        { value: days, label: "DAYS" },
-        { value: hours, label: "HRS" },
-        { value: minutes, label: "MIN" },
-        { value: seconds, label: "SEC" },
+        { value: days, label: "Days" },
+        { value: hours, label: "Hours" },
+        { value: minutes, label: "Minutes" },
+        { value: seconds, label: "Seconds" },
     ];
 
     return (
-        <div className="flex items-center justify-center flex-1 w-full h-full px-6">
+        <div className={`relative flex-1 w-full h-full ${className || ""}`}>
+            {/* Realistic rotating Earth, centered behind the digits */}
+            <Globe />
 
-            {/* Mobile: stacked, centered */}
-            <div className="flex md:hidden flex-col items-center gap-6 w-full">
+            {/* Countdown grid */}
+            <div className="relative z-10 h-full grid grid-cols-2 md:grid-cols-4">
                 {units.map(({ value, label }) => (
-                    <div key={label} className="flex flex-col items-center gap-1">
-                        <div className={`glitch text-[18vw] font-bold leading-none ${className || ""}`}>
-                            <GlitchText text={String(value).padStart(2, "0")} />
-                        </div>
-                        <span className="font-mono text-[10px] tracking-[0.4em] text-foreground/40 uppercase">
+                    <div
+                        key={label}
+                        className="
+                            group relative flex flex-col items-center justify-center
+                            border-l border-white/10 [&:nth-child(odd)]:border-l-0
+                            md:[&:nth-child(odd)]:border-l md:[&:first-child]:border-l-0
+                            transition-colors duration-500
+                        "
+                    >
+                        {/* Faint blue glow on hover */}
+                        <div
+                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                            style={{
+                                background:
+                                    "radial-gradient(ellipse at center, rgba(0,144,224,0.12), transparent 70%)",
+                            }}
+                        />
+                        <span
+                            className="
+                                relative font-timer font-thin tabular-nums leading-none
+                                text-[22vw] md:text-[12vw] tracking-[-0.02em]
+                                drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]
+                            "
+                            style={{ color: "#f0f4f8" }}
+                            suppressHydrationWarning
+                        >
+                            {String(value).padStart(2, "0")}
+                        </span>
+                        <span
+                            className="
+                                relative mt-4 md:mt-6 font-mono text-[10px] md:text-[13px]
+                                tracking-[0.3em] text-white/50 uppercase
+                            "
+                        >
                             {label}
                         </span>
                     </div>
                 ))}
             </div>
-
-            {/* Desktop: single row with labels below */}
-            <div className="hidden md:flex items-start justify-center gap-6 w-full">
-                {units.map(({ value, label }, i) => (
-                    <React.Fragment key={label}>
-                        <div className="flex flex-col items-center gap-2">
-                            <div className={`glitch text-[8vw] font-bold leading-none ${className || ""}`}>
-                                <GlitchText text={String(value).padStart(2, "0")} />
-                            </div>
-                            <span className="font-mono text-[11px] tracking-[0.4em] text-foreground/80 uppercase">
-                                {label}
-                            </span>
-                        </div>
-                        {i < units.length - 1 && (
-                            <span className={`glitch text-[6vw] font-bold text-white leading-none mt-[0.5vw] ${className || ""}`}>
-                                <GlitchText text=":" />
-                            </span>
-                        )}
-                    </React.Fragment>
-                ))}
-            </div>
-
         </div>
     );
 }

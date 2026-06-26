@@ -1,0 +1,88 @@
+.viewport {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* pointer-events come from the planet itself */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.planet {
+    position: relative;
+    width: clamp(400px, 68vmin, 820px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    pointer-events: auto;
+    user-select: none;
+    /* outer atmosphere glow + crisp blue rim */
+    box-shadow:
+        0 0 70px 8px rgba(0, 130, 210, 0.18),
+        0 0 140px 30px rgba(0, 120, 200, 0.10),
+        inset 0 0 1px 1px rgba(120, 200, 255, 0.25);
+}
+
+/* Rotating equirectangular texture (background-position driven by JS) */
+.map {
+    position: absolute;
+    inset: 0;
+    background-image: url("/assets/earth.jpg");
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    /* desaturate so the blue tint can take over */
+    filter: grayscale(1) brightness(0.95) contrast(1.04);
+}
+
+/* Blue colourisation of the (now grayscale) map */
+.tint {
+    position: absolute;
+    inset: 0;
+    background: #11608f;
+    mix-blend-mode: color;
+    opacity: 0.72;
+}
+
+/* Subtle additive blue lift on the lit side */
+.tintGlow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 36% 32%,
+        rgba(0, 176, 255, 0.35),
+        rgba(0, 130, 210, 0.05) 45%,
+        transparent 70%
+    );
+    mix-blend-mode: screen;
+}
+
+/* Spherical shading: light from top-left, terminator into darkness */
+.shading {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 34% 30%,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(0, 0, 0, 0) 42%,
+        rgba(0, 0, 0, 0.42) 82%,
+        rgba(0, 0, 0, 0.82) 100%
+    );
+}
+
+/* Thin bright limb to read as a horizon against the black */
+.rim {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow:
+        inset 0 0 2px 1px rgba(140, 215, 255, 0.45),
+        inset 0 0 40px 6px rgba(0, 60, 110, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .map {
+        /* JS loop is skipped; texture sits static */
+    }
+}

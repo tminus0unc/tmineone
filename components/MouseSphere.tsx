@@ -15,7 +15,7 @@ export default function MouseSphere() {
 
         const GRID = 48;
         const RADIUS = 180;
-        const COLOR = "0,176,255";
+        const COLOR = "0,144,224";
 
         const resize = () => {
             canvas.width = parent.offsetWidth;
