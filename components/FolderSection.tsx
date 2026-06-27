@@ -18,7 +18,7 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
       <section
           id={title}
           className="h-screen snap-start"
-          style={{ zIndex: index + 10, position: "sticky", top: 0 }}
+          style={{ zIndex: index + 10, position: "sticky", top: 0, willChange: "transform" }}
       >
         {/* TAB */}
         <div

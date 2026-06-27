@@ -35,13 +35,14 @@ export default function Home() {
           index={1}
           color="bg-background"
           tab={1}
+          totalTabs={9}
         >
           <MouseSphere />
           <Timer />
           <ScrollDownButton targetId={"About"} />
         </FolderSection>
 
-        <FolderSection title="About" index={2} color="bg-background" tab={2}>
+        <FolderSection title="About" index={2} color="bg-background" tab={2} totalTabs={9}>
           <MouseSphere />
           <FolderWatermark label={" Confidential"} opacity={0.02} />
 
@@ -71,7 +72,7 @@ export default function Home() {
           </div>
         </FolderSection>
 
-        <FolderSection title="Challenge" index={3} color="bg-background" tab={3}>
+        <FolderSection title="Challenge" index={3} color="bg-background" tab={3} totalTabs={9}>
           <MouseSphere />
           <div className="flex-1 flex items-center justify-center">
             <p
@@ -83,7 +84,7 @@ export default function Home() {
           </div>
         </FolderSection>
 
-        <FolderSection title="Judges" index={4} color="bg-background" tab={4}>
+        <FolderSection title="Judges" index={4} color="bg-background" tab={4} totalTabs={9}>
           <MouseSphere />
           <div className="flex-1 flex flex-row min-h-0">
 
@@ -144,6 +145,7 @@ export default function Home() {
           index={5}
           color="bg-background"
           tab={5}
+          totalTabs={9}
         >
           <MouseSphere />
           <FolderWatermark label={" Confidential"} />
@@ -151,13 +153,13 @@ export default function Home() {
           <ScrollDownButton targetId={"Team"} />
         </FolderSection>
 
-        <FolderSection title="Team" index={6} color="bg-background" tab={6}>
+        <FolderSection title="Team" index={6} color="bg-background" tab={6} totalTabs={9}>
           <MouseSphere />
           <FolderWatermark label={" Confidential"} opacity={0.025} />
           <TeamCards />
         </FolderSection>
 
-        <FolderSection title="Sponsor" index={7} color="bg-background" tab={7}>
+        <FolderSection title="Sponsor" index={7} color="bg-background" tab={7} totalTabs={9}>
           <MouseSphere />
           <FolderWatermark label="Sponsor" opacity={0.025} />
 
@@ -219,7 +221,7 @@ export default function Home() {
           </div>
         </FolderSection>
 
-        <FolderSection title="Location" index={8} color="bg-background" tab={8}>
+        <FolderSection title="Location" index={8} color="bg-background" tab={8} totalTabs={9}>
           <MouseSphere />
           <div className="flex-1 flex flex-row gap-0 min-h-0">
             {/* Left 3/4: map */}
@@ -237,7 +239,7 @@ export default function Home() {
           </div>
         </FolderSection>
 
-        <FolderSection title="Community" index={9} color="bg-background" tab={9}>
+        <FolderSection title="Community" index={9} color="bg-background" tab={9} totalTabs={9}>
           <div className="relative flex-1 -mx-4 md:-mx-10 overflow-hidden">
             {/* Team photo, full bleed, kept at natural framing */}
             <img
