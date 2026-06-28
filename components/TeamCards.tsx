@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 
 const team = [
   {
@@ -9,7 +10,8 @@ const team = [
     hometown: "Cary, NC",
     majors: ["Data Science", "Business Administration"],
     minors: ["Astronomy"],
-    quote: "I'm excited to help build a culture of creativity, problem-solving, and execution at UNC through startup-inspired challenges.",
+    quote:
+      "I'm excited to help build a culture of creativity, problem-solving, and execution at UNC through startup-inspired challenges.",
     image: "/assets/yashasree.jpg",
     file: "FILE-001",
   },
@@ -29,7 +31,8 @@ const team = [
     hometown: "Greenville, NC",
     majors: ["Business Administration", "Global Studies"],
     minors: [],
-    quote: "The combination of teamwork and competition immediately caught my attention when I discovered T-0.",
+    quote:
+      "The combination of teamwork and competition immediately caught my attention when I discovered T-0.",
     image: "/assets/bergan.jpg",
     file: "FILE-003",
   },
@@ -39,7 +42,8 @@ const team = [
     hometown: "Wilmington, NC",
     majors: ["Business Administration"],
     minors: ["Entrepreneurship"],
-    quote: "T-0 excites me because it brings together driven and spontaneous individuals who are eager to make an impact at UNC.",
+    quote:
+      "T-0 excites me because it brings together driven and spontaneous individuals who are eager to make an impact at UNC.",
     image: "/assets/pam.jpg",
     file: "FILE-004",
   },
@@ -59,7 +63,8 @@ const team = [
     hometown: "Cary, NC",
     majors: ["Data Science"],
     minors: ["Business Administration"],
-    quote: "T-0 will really help students apply and strengthen their entrepreneurial skills.",
+    quote:
+      "T-0 will really help students apply and strengthen their entrepreneurial skills.",
     image: "/assets/sara.jpg",
     file: "FILE-006",
   },
@@ -69,7 +74,8 @@ const team = [
     hometown: "Cary, NC",
     majors: ["Business Administration"],
     minors: ["PPE (Philosophy, Politics, Economics)"],
-    quote: "T-0 is a great opportunity for anyone looking to build their entrepreneurial mindset.",
+    quote:
+      "T-0 is a great opportunity for anyone looking to build their entrepreneurial mindset.",
     image: "/assets/mallory.png",
     file: "FILE-007",
   },
@@ -79,7 +85,8 @@ const team = [
     hometown: "Chapel Hill, NC",
     majors: ["Business Administration", "Spanish for Business"],
     minors: ["Data Science"],
-    quote: "I'm excited to bring a global perspective and creative ideas to T-0!",
+    quote:
+      "I'm excited to bring a global perspective and creative ideas to T-0!",
     image: "/assets/amelia.jpeg",
     file: "FILE-008",
   },
@@ -89,7 +96,8 @@ const team = [
     hometown: "Dallas, TX",
     majors: ["Health Policy and Management"],
     minors: [],
-    quote: "I'm inspired by T-0's message: that any student can build anything.",
+    quote:
+      "I'm inspired by T-0's message: that any student can build anything.",
     image: "/assets/ishani.jpg",
     file: "FILE-009",
   },
@@ -99,7 +107,8 @@ const team = [
     hometown: "Denver, CO",
     majors: ["Economics"],
     minors: ["Education"],
-    quote: "Startup founder or not, anyone could gain from building something live, real, and with peers.",
+    quote:
+      "Startup founder or not, anyone could gain from building something live, real, and with peers.",
     image: "/assets/amyy.jpg",
     file: "FILE-010",
   },
@@ -125,129 +134,160 @@ export default function TeamCards() {
   }, []);
 
   return (
-      <div className="flex-1 flex flex-col overflow-hidden">
-
-        {/* Header */}
-        <div className="px-6 pt-4 pb-4 md:pt-5 md:pb-5 flex-shrink-0 border-b border-foreground/20">
-          <div className="flex items-end justify-between mb-2">
-            <div>
-              <p className="font-mono text-[10px] md:text-[11px] text-foreground/50 tracking-[0.4em] uppercase mb-1">
-                FILE: PERSONNEL · {team.length} RECORDS
-              </p>
-              <h2 className="font-timer font-light text-lg md:text-2xl" style={{ color: "#f0f4f8" }}>
-                Meet the team.
-              </h2>
-            </div>
-            <p className="font-mono text-[10px] md:text-[11px] text-foreground/40 tracking-[0.2em] uppercase flex-shrink-0 ml-4">
-              {activeIndex !== null ? `OPEN: ${team[activeIndex].file}` : "HOVER A FILE"}
+    <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="px-6 pt-4 pb-4 md:pt-5 md:pb-5 flex-shrink-0 border-b border-foreground/20">
+        <div className="flex items-end justify-between mb-2">
+          <div>
+            <p className="font-mono text-[10px] md:text-[11px] text-foreground/50 tracking-[0.4em] uppercase mb-1">
+              FILE: PERSONNEL · {team.length} RECORDS
             </p>
+            <h2
+              className="font-timer font-light text-lg md:text-2xl"
+              style={{ color: "#f0f4f8" }}
+            >
+              Meet the team.
+            </h2>
           </div>
-          <p className="font-timer font-light text-sm md:text-base text-white/55 leading-relaxed max-w-3xl">
-            T-0 is a student-led organization dedicated to developing the next generation of entrepreneurs. By placing students in demanding, fast paced environments where outcomes matter, T-0 bridges the gap between academic learning and the realities of building, leading, and creating in the modern business world.
+          <p className="font-mono text-[10px] md:text-[11px] text-foreground/40 tracking-[0.2em] uppercase flex-shrink-0 ml-4">
+            {activeIndex !== null
+              ? `OPEN: ${team[activeIndex].file}`
+              : "HOVER A FILE"}
           </p>
         </div>
+        <p className="font-timer font-light text-sm md:text-base text-white/55 leading-relaxed max-w-3xl">
+          T-0 is a student-led organization dedicated to developing the next
+          generation of entrepreneurs. By placing students in demanding, fast
+          paced environments where outcomes matter, T-0 bridges the gap between
+          academic learning and the realities of building, leading, and creating
+          in the modern business world.
+        </p>
+      </div>
 
-        {/* Card row */}
-        <div
-            ref={containerRef}
-            className="flex-1 flex overflow-hidden mx-6 my-4 md:my-6"
-        >
-          {collapsedW > 0 && team.map((member, i) => {
+      {/* Card row */}
+      <div
+        ref={containerRef}
+        className="flex-1 flex overflow-hidden mx-6 my-4 md:my-6"
+      >
+        {collapsedW > 0 &&
+          team.map((member, i) => {
             const isActive = activeIndex === i;
-            const initials = member.name.split(" ").map(n => n[0]).join("");
+            const initials = member.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("");
             const w = isActive ? expandedW : collapsedW;
 
             return (
-                <div
-                    key={member.name}
-                    onMouseEnter={() => setActiveIndex(i)}
-                    onMouseLeave={() => setActiveIndex(null)}
-                    className="relative flex-shrink-0 flex flex-col border-r border-foreground/20 bg-background cursor-pointer overflow-hidden"
-                    style={{
-                      width: `${w}px`,
-                      borderLeft: i === 0 ? "1px solid rgba(255,255,255,0.12)" : undefined,
-                      boxShadow: isActive ? "inset 0 0 0 1px rgba(255,255,255,0.1), 4px 0 20px rgba(0,0,0,0.5)" : "none",
-                      transition: "width 0.45s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s ease",
-                      willChange: "width",
-                    }}
-                >
-                  {/* Collapsed */}
-                  {!isActive && (
-                      <div className="flex flex-col h-full items-center justify-between py-5 px-1">
-                  <span className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.15em] uppercase">
-                    {member.file.replace("FILE-", "")}
-                  </span>
-                        <div
-                            className="flex-1 flex items-center justify-center overflow-hidden"
-                            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", maxHeight: "60%" }}
-                        >
-                    <span className="font-mono text-[10px] md:text-[12px] text-white tracking-[0.15em] uppercase truncate">
-                      {member.name.split(" ")[0]}
+              <div
+                key={member.name}
+                onMouseEnter={() => setActiveIndex(i)}
+                onMouseLeave={() => setActiveIndex(null)}
+                className="relative flex-shrink-0 flex flex-col border-r border-foreground/20 bg-background cursor-pointer overflow-hidden"
+                style={{
+                  width: `${w}px`,
+                  borderLeft:
+                    i === 0 ? "1px solid rgba(255,255,255,0.12)" : undefined,
+                  boxShadow: isActive
+                    ? "inset 0 0 0 1px rgba(255,255,255,0.1), 4px 0 20px rgba(0,0,0,0.5)"
+                    : "none",
+                  transition:
+                    "width 0.45s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s ease",
+                  willChange: "width",
+                }}
+              >
+                {/* Collapsed */}
+                {!isActive && (
+                  <div className="flex flex-col h-full items-center justify-between py-5 px-1">
+                    <span className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.15em] uppercase">
+                      {member.file.replace("FILE-", "")}
                     </span>
-                        </div>
-                        <span className="font-mono text-[9px] md:text-[10px] font-bold text-foreground/35 tracking-widest">
-                    {initials}
-                  </span>
-                      </div>
-                  )}
-
-                  {/* Expanded */}
-                  {isActive && (
-                      <div className="flex flex-col h-full">
-                        {/* Photo — natural proportions, no zoom/crop */}
-                        <div
-                            className="w-full flex-shrink-0 relative bg-black/40 border-b border-foreground/20"
-                            style={{ height: "46%" }}
-                        >
-                          <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-mono text-4xl font-bold text-foreground/15 tracking-widest">
-                        {initials}
+                    <div
+                      className="flex-1 flex items-center justify-center overflow-hidden"
+                      style={{
+                        writingMode: "vertical-rl",
+                        transform: "rotate(180deg)",
+                        maxHeight: "60%",
+                      }}
+                    >
+                      <span className="font-mono text-[10px] md:text-[12px] text-white tracking-[0.15em] uppercase truncate">
+                        {member.name.split(" ")[0]}
                       </span>
-                          </div>
-                          <img
-                              src={member.image}
-                              alt={member.name}
-                              draggable={false}
-                              loading="eager"
-                              decoding="async"
-                              className="absolute inset-0 w-full h-full object-contain animate-[fadeIn_0.35s_ease]"
-                              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                          />
-                          <div className="absolute top-2 left-2 font-mono text-[9px] md:text-[10px] text-foreground/70 tracking-[0.2em] bg-background/80 px-1.5 py-0.5 uppercase">
-                            {member.file}
-                          </div>
+                    </div>
+                    <span className="font-mono text-[9px] md:text-[10px] font-bold text-foreground/35 tracking-widest">
+                      {initials}
+                    </span>
+                  </div>
+                )}
+
+                {/* Expanded */}
+                {isActive && (
+                  <div className="flex flex-col h-full">
+                    {/* Photo — natural proportions, no zoom/crop */}
+                    <div
+                      className="w-full flex-shrink-0 relative bg-black/40 border-b border-foreground/20"
+                      style={{ height: "46%" }}
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="font-mono text-4xl font-bold text-foreground/15 tracking-widest">
+                          {initials}
+                        </span>
+                      </div>
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        draggable={false}
+                        loading="eager"
+                        decoding="async"
+                        className=" object-cover inset-0 w-full h-full object-contain animate-[fadeIn_0.35s_ease]"
+                        fill
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = "none";
+                        }}
+                      />
+                      <div className="absolute top-2 left-2 font-mono text-[9px] md:text-[10px] text-foreground/70 tracking-[0.2em] bg-background/80 px-1.5 py-0.5 uppercase">
+                        {member.file}
+                      </div>
+                    </div>
+
+                    {/* Info */}
+                    <div className="flex flex-col flex-1 p-3 gap-2 overflow-hidden">
+                      <div>
+                        <p className="font-mono text-sm md:text-base font-bold text-white tracking-[0.1em] uppercase leading-tight truncate">
+                          {member.name}
+                        </p>
+                        <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.08em] uppercase mt-0.5 leading-tight">
+                          {member.role}
+                        </p>
+                      </div>
+
+                      <div className="w-full h-px bg-foreground/20 flex-shrink-0" />
+
+                      <div className="space-y-2 overflow-hidden flex-1">
+                        <div>
+                          <p className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.3em] uppercase">
+                            ORIGIN
+                          </p>
+                          <p className="font-mono text-[11px] md:text-[13px] text-foreground/80 mt-0.5">
+                            {member.hometown}
+                          </p>
                         </div>
-
-                        {/* Info */}
-                        <div className="flex flex-col flex-1 p-3 gap-2 overflow-hidden">
-                          <div>
-                            <p className="font-mono text-sm md:text-base font-bold text-white tracking-[0.1em] uppercase leading-tight truncate">
-                              {member.name}
-                            </p>
-                            <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.08em] uppercase mt-0.5 leading-tight">
-                              {member.role}
-                            </p>
-                          </div>
-
-                          <div className="w-full h-px bg-foreground/20 flex-shrink-0" />
-
-                          <div className="space-y-2 overflow-hidden flex-1">
-                            <div>
-                              <p className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.3em] uppercase">ORIGIN</p>
-                              <p className="font-mono text-[11px] md:text-[13px] text-foreground/80 mt-0.5">{member.hometown}</p>
-                            </div>
-                            <div>
-                              <p className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.3em] uppercase">FIELD</p>
-                              <p className="font-mono text-[11px] md:text-[13px] text-foreground/80 mt-0.5 leading-tight">{member.majors.join(", ")}</p>
-                            </div>
-                          </div>
+                        <div>
+                          <p className="font-mono text-[9px] md:text-[10px] text-foreground/40 tracking-[0.3em] uppercase">
+                            FIELD
+                          </p>
+                          <p className="font-mono text-[11px] md:text-[13px] text-foreground/80 mt-0.5 leading-tight">
+                            {member.majors.join(", ")}
+                          </p>
                         </div>
                       </div>
-                  )}
-                </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             );
           })}
-        </div>
       </div>
+    </div>
   );
 }
