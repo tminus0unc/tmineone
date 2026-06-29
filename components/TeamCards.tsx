@@ -98,7 +98,7 @@ const team = [
     minors: [],
     quote:
       "I'm inspired by T-0's message: that any student can build anything.",
-    image: "/assets/iishani.jpg",
+    image: "/assets/ishani.jpg",
     file: "FILE-009",
   },
   {
