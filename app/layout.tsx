@@ -63,6 +63,17 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://tiles.stadiamaps.com" />
         <link rel="preconnect" href="https://unpkg.com" />
+        <link rel="preload" as="image" href="/assets/yashasree.jpg" />
+        <link rel="preload" as="image" href="/assets/julian.jpg" />
+        <link rel="preload" as="image" href="/assets/bergan.jpg" />
+        <link rel="preload" as="image" href="/assets/pam.jpg" />
+        <link rel="preload" as="image" href="/assets/shom.jpg" />
+        <link rel="preload" as="image" href="/assets/sara.jpg" />
+        <link rel="preload" as="image" href="/assets/mallory.png" />
+        <link rel="preload" as="image" href="/assets/amelia.jpeg" />
+        <link rel="preload" as="image" href="/assets/iishani.jpg" />
+        <link rel="preload" as="image" href="/assets/amyy.jpg" />
+
       </head>
       <body
         className={`${timerFont.variable} ${infoFont.variable} antialiased scroll-smooth`}
