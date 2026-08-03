@@ -6,18 +6,36 @@ export async function submitForm(formData: FormData) {
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
-
-    console.log("Form data:", { firstName, lastName, email });
+    const linkedinField = formData.get("linkedin");
+    const linkedin = typeof linkedinField === "string" ? linkedinField.trim() : null;
+    const isUncStudent = formData.get("isUncStudent") === "on";
 
     if (!firstName || !lastName || !email) {
+        return { error: "All fields are required." };
+    }
+    if (linkedinField !== null && !linkedin) {
         return { error: "All fields are required." };
     }
 
     const supabase = await createSupabaseClient();
 
-    const { error, data } = await supabase
+    const record: {
+        first_name: string;
+        last_name: string;
+        email: string;
+        linkedin?: string;
+        is_unc_student?: boolean;
+    } = {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+    };
+    if (linkedin) record.linkedin = linkedin;
+    if (linkedinField !== null) record.is_unc_student = isUncStudent;
+
+    const { error } = await supabase
         .from("contact_submissions")
-        .insert({ first_name: firstName, last_name: lastName, email })
+        .insert(record)
         .select();
 
     if (error) return { error: "Failed to save. Please try again." };

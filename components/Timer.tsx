@@ -8,7 +8,8 @@ type TimerProps = {
 };
 
 export default function Timer({ className }: TimerProps) {
-    const targetDate = new Date("Sept 19, 2026 04:00:00").getTime();
+    // Sept 13, 2026, 12:00 AM Eastern (EDT, UTC-4 — DST is active in September)
+    const targetDate = new Date("2026-09-13T04:00:00Z").getTime();
 
     const [countdown, setCountdown] = useState(targetDate - Date.now());
 
@@ -82,7 +83,7 @@ export default function Timer({ className }: TimerProps) {
             {/* Subtitle — absolute so it never overlaps the earth or the scroll arrow */}
             <div className="absolute bottom-[8%] left-0 right-0 text-center z-10 pointer-events-none">
                 <span className="font-mono text-[11px] md:text-[13px] text-white/45 tracking-[0.3em] uppercase">
-                    North Carolina&apos;s biggest startup challenge
+                    UNC&apos;s biggest startup challenge
                 </span>
             </div>
         </div>

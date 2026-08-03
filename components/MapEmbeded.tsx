@@ -4,8 +4,8 @@ import { useEffect, useRef, useCallback } from "react";
 
 let leafletCSSLoaded = false;
 
-const INNOVATE: [number, number] = [35.9135, -79.0549];
-const GOOGLE_MAPS_URL = `https://www.google.com/maps/dir/?api=1&destination=136+E+Rosemary+St+Chapel+Hill+NC+27514`;
+const VENUE: [number, number] = [35.9105855, -79.0628675];
+const GOOGLE_MAPS_URL = `https://www.google.com/maps/dir/?api=1&destination=462+W+Franklin+St+Chapel+Hill+NC+27516`;
 
 export default function MapEmbed() {
   const mapRef = useRef<HTMLDivElement>(null);
@@ -33,7 +33,7 @@ export default function MapEmbed() {
       if (!mapRef.current) return;
 
       const map = L.map(mapRef.current, {
-        center: INNOVATE,
+        center: VENUE,
         zoom: 18,
         scrollWheelZoom: false,
         zoomControl: false,
@@ -89,7 +89,7 @@ export default function MapEmbed() {
               border: 1px solid rgba(34,211,238,0.3);
               padding: 3px 8px;
               white-space: nowrap;
-            ">Innovate Carolina</div>
+            ">The PITCH</div>
           </div>
 
           <style>
@@ -103,7 +103,7 @@ export default function MapEmbed() {
         iconAnchor: [0, 0],
       });
 
-      L.marker(INNOVATE, { icon }).addTo(map);
+      L.marker(VENUE, { icon }).addTo(map);
 
       // Open Google Maps on any map click
       map.on("click", () => {
@@ -175,15 +175,15 @@ export default function MapEmbed() {
         onClick={() => window.open(GOOGLE_MAPS_URL, "_blank")}
       >
         <span>
-          <span className="font-bold text-foreground/80">VENUE:</span> 136 E
-          ROSEMARY ST, CHAPEL HILL
+          <span className="font-bold text-foreground/80">VENUE:</span> 462 W
+          FRANKLIN ST, CHAPEL HILL
         </span>
         <span>
-          <span className="font-bold text-foreground/80">DATE:</span> FALL 2026
+          <span className="font-bold text-foreground/80">DATE:</span> SEPT 13, 2026
         </span>
         <span>
           <span className="font-bold text-foreground/80">COORDS:</span>
-          35.9135° N, 79.0549° W
+          35.9106° N, 79.0629° W
         </span>
         <span className="text-foreground/30">↗ GET DIRECTIONS</span>
       </div>

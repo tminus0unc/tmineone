@@ -3,11 +3,10 @@
 import FolderSection from "@/components/FolderSection";
 import MouseSphere from "@/components/MouseSphere";
 import FolderWatermark from "@/components/FolderWatermark";
-import FlipBook from "@/components/Flipbook";
 
 export default function SponsorTab({ totalTabs }: { totalTabs: number }) {
   return (
-    <FolderSection title="Sponsor" index={7} color="bg-background" tab={7} totalTabs={totalTabs}>
+    <FolderSection title="Sponsor" index={6} color="bg-background" tab={6} totalTabs={totalTabs}>
       <MouseSphere />
       <FolderWatermark label="Sponsor" opacity={0.025} />
 
@@ -22,14 +21,24 @@ export default function SponsorTab({ totalTabs }: { totalTabs: number }) {
         </div>
 
         <div className="flex flex-col md:flex-row gap-3 md:gap-8 flex-1 min-h-0">
-          <div
-            className="border border-foreground/20 overflow-hidden relative flex items-center justify-center min-h-[200px] md:w-[42%] md:min-h-0 flex-shrink-0"
-            style={{ paddingBottom: "20px" }}
-          >
-            <p className="font-mono text-[8px] md:text-[10px] text-foreground/30 tracking-[0.35em] uppercase absolute top-2 left-3 z-10">
-              SPONSORSHIP PACKAGE
-            </p>
-            <FlipBook />
+          <div className="border border-foreground/20 overflow-hidden flex flex-col min-h-[300px] md:w-[42%] md:min-h-0 flex-shrink-0">
+            <div className="flex items-center justify-between px-3 py-2 border-b border-foreground/20 flex-shrink-0">
+              <p className="font-mono text-[8px] md:text-[10px] text-foreground/40 tracking-[0.35em] uppercase">
+                SPONSORSHIP PACKAGE
+              </p>
+              <a
+                href="/assets/sponsorship-guide.pdf"
+                download
+                className="font-mono text-[8px] md:text-[10px] text-foreground/70 hover:text-foreground tracking-[0.3em] uppercase transition-colors duration-200"
+              >
+                Download ↓
+              </a>
+            </div>
+            <iframe
+              src="/assets/sponsorship-guide.pdf#view=FitH"
+              title="Sponsorship Package"
+              className="w-full flex-1 min-h-0 bg-white"
+            />
           </div>
 
           <div className="md:w-1/2 flex flex-col justify-center gap-6">
@@ -52,8 +61,8 @@ export default function SponsorTab({ totalTabs }: { totalTabs: number }) {
                 tminus0.unc@gmail.com
               </a>{" "}
               or{" "}
-              <a href="mailto:amelish@unc.edu" className="text-foreground hover:text-foreground/80 transition-colors duration-200 underline underline-offset-2">
-                amelish@unc.edu
+              <a href="mailto:ygadi@unc.edu" className="text-foreground hover:text-foreground/80 transition-colors duration-200 underline underline-offset-2">
+                ygadi@unc.edu
               </a>{" "}
               if interested.
             </p>

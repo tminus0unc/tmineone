@@ -47,15 +47,19 @@ export default function JudgesTab({ totalTabs }: { totalTabs: number }) {
 
         {/* Right half — Sponsors */}
         <div className="flex-1 flex flex-col justify-center px-8 md:px-14 py-8">
-          <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase mb-5">
+          <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase mb-6">
             SPONSORS
           </p>
-          <p
-            className="font-timer font-light text-4xl md:text-5xl tracking-[0.06em]"
-            style={{ color: "rgba(240,244,248,0.55)" }}
-          >
-            Coming soon.
-          </p>
+          <div className="flex flex-col gap-2">
+            <img
+              src="/assets/buildhouse-logo.png"
+              alt="BuildHouse"
+              className="h-24 md:h-32 w-auto object-contain object-left"
+            />
+            <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.3em] uppercase">
+              BuildHouse
+            </p>
+          </div>
         </div>
 
       </div>

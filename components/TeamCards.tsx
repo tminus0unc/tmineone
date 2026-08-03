@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 
 const team = [
   {
@@ -10,18 +11,28 @@ const team = [
     majors: ["Data Science", "Business Administration"],
     minors: ["Astronomy"],
     quote: "I'm excited to help build a culture of creativity, problem-solving, and execution at UNC through startup-inspired challenges.",
-    image: "/assets/yashasree.jpg",
+    image: "/assets/yashasree.webp",
     file: "FILE-001",
   },
   {
     name: "Julian Fernandez",
-    role: "Director of Marketing",
+    role: "Co-Director of Marketing",
     hometown: "Wake Forest, NC",
     majors: ["Advertising/Public Relations", "Business Administration"],
     minors: ["PPE (Philosophy, Politics, Economics)"],
     quote: "The T-0 concept drew me in immediately for its need at UNC.",
-    image: "/assets/julian.jpg",
+    image: "/assets/julian.webp",
     file: "FILE-002",
+  },
+  {
+    name: "Ryan",
+    role: "Co-Director of Marketing",
+    hometown: "Kennesaw, GA",
+    majors: ["Global Studies"],
+    minors: [],
+    quote: "",
+    image: "/assets/ryan.webp",
+    file: "FILE-003",
   },
   {
     name: "Bergan Osborne",
@@ -30,8 +41,8 @@ const team = [
     majors: ["Business Administration", "Global Studies"],
     minors: [],
     quote: "The combination of teamwork and competition immediately caught my attention when I discovered T-0.",
-    image: "/assets/bergan.jpg",
-    file: "FILE-003",
+    image: "/assets/bergan.webp",
+    file: "FILE-004",
   },
   {
     name: "Pam Morales",
@@ -40,8 +51,8 @@ const team = [
     majors: ["Business Administration"],
     minors: ["Entrepreneurship"],
     quote: "T-0 excites me because it brings together driven and spontaneous individuals who are eager to make an impact at UNC.",
-    image: "/assets/pam.jpg",
-    file: "FILE-004",
+    image: "/assets/pam.webp",
+    file: "FILE-005",
   },
   {
     name: "Shom Tailor",
@@ -50,8 +61,8 @@ const team = [
     majors: ["Computer Science", "Linguistics"],
     minors: [],
     quote: "T-0 drew me in cause of how interesting the events sounded.",
-    image: "/assets/shom.jpg",
-    file: "FILE-005",
+    image: "/assets/shom.webp",
+    file: "FILE-006",
   },
   {
     name: "Sara Gulabani",
@@ -60,8 +71,8 @@ const team = [
     majors: ["Data Science"],
     minors: ["Business Administration"],
     quote: "T-0 will really help students apply and strengthen their entrepreneurial skills.",
-    image: "/assets/sara.jpg",
-    file: "FILE-006",
+    image: "/assets/sara.webp",
+    file: "FILE-007",
   },
   {
     name: "Mallory Lawson",
@@ -70,8 +81,8 @@ const team = [
     majors: ["Business Administration"],
     minors: ["PPE (Philosophy, Politics, Economics)"],
     quote: "T-0 is a great opportunity for anyone looking to build their entrepreneurial mindset.",
-    image: "/assets/mallory.png",
-    file: "FILE-007",
+    image: "/assets/mallory.webp",
+    file: "FILE-008",
   },
   {
     name: "Amelia Hill",
@@ -80,8 +91,8 @@ const team = [
     majors: ["Business Administration", "Spanish for Business"],
     minors: ["Data Science"],
     quote: "I'm excited to bring a global perspective and creative ideas to T-0!",
-    image: "/assets/amelia.jpeg",
-    file: "FILE-008",
+    image: "/assets/amelia.webp",
+    file: "FILE-009",
   },
   {
     name: "Ishani Gandi",
@@ -90,8 +101,8 @@ const team = [
     majors: ["Health Policy and Management"],
     minors: [],
     quote: "I'm inspired by T-0's message: that any student can build anything.",
-    image: "/assets/ishani.jpg",
-    file: "FILE-009",
+    image: "/assets/ishani.webp",
+    file: "FILE-010",
   },
   {
     name: "Amy Gao",
@@ -100,8 +111,8 @@ const team = [
     majors: ["Economics"],
     minors: ["Education"],
     quote: "Startup founder or not, anyone could gain from building something live, real, and with peers.",
-    image: "/assets/amyy.jpg",
-    file: "FILE-010",
+    image: "/assets/amyy.webp",
+    file: "FILE-011",
   },
 ];
 
@@ -204,14 +215,13 @@ export default function TeamCards() {
                         {initials}
                       </span>
                           </div>
-                          <img
+                          <Image
                               src={member.image}
                               alt={member.name}
+                              fill
                               draggable={false}
-                              loading="eager"
-                              decoding="async"
-                              className="absolute inset-0 w-full h-full object-contain animate-[fadeIn_0.35s_ease]"
-                              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                              sizes="280px"
+                              className="object-contain animate-[fadeIn_0.35s_ease]"
                           />
                           <div className="absolute top-2 left-2 font-mono text-[9px] md:text-[10px] text-foreground/70 tracking-[0.2em] bg-background/80 px-1.5 py-0.5 uppercase">
                             {member.file}
