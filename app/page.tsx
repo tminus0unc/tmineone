@@ -18,7 +18,6 @@ const TOTAL_TABS = 10;
 
 export default function Home() {
   useEffect(() => {
-    document.title = "Tminus0";
     const hash = window.location.hash.slice(1);
     if (hash) {
       document.getElementById(hash)?.scrollIntoView({ behavior: "auto" });

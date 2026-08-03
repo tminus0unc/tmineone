@@ -46,8 +46,9 @@ const infoFont = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "T-Minus Zero",
-  description: "UNC's most ambitious startup challenge.",
+  title: "Tminus0",
+  description:
+    "UNC's biggest startup challenge where participants are dropped into an unexpected challenge and given limited time to respond, adapt, and execute.",
 };
 
 export default function RootLayout({
