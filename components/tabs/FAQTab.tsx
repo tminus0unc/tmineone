@@ -146,7 +146,7 @@ function FAQGroup({ category }: { category: FAQCategory }) {
 
 export default function FAQTab({ totalTabs }: { totalTabs: number }) {
   return (
-    <FolderSection title="FAQ" index={5} color="bg-background" tab={5} totalTabs={totalTabs}>
+    <FolderSection title="FAQ" index={6} color="bg-background" tab={6} totalTabs={totalTabs}>
       <MouseSphere />
       <div className="flex-1 flex flex-col min-h-0 px-4 md:px-10 py-6 md:py-8">
         <div className="flex-shrink-0 mb-5 md:mb-6">

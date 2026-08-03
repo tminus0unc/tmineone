@@ -9,7 +9,7 @@ const MapEmbed = dynamic(() => import("@/components/MapEmbeded"), { ssr: false }
 
 export default function LocationTab({ totalTabs }: { totalTabs: number }) {
   return (
-    <FolderSection title="Location" index={7} color="bg-background" tab={7} totalTabs={totalTabs}>
+    <FolderSection title="Location" index={8} color="bg-background" tab={8} totalTabs={totalTabs}>
       <MouseSphere />
       <div className="flex-1 flex flex-row gap-0 min-h-0">
         <div className="w-3/4 overflow-hidden min-h-0">

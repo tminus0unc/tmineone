@@ -5,7 +5,7 @@ import MouseSphere from "@/components/MouseSphere";
 
 export default function JudgesTab({ totalTabs }: { totalTabs: number }) {
   return (
-    <FolderSection title="Judges" index={4} color="bg-background" tab={4} totalTabs={totalTabs}>
+    <FolderSection title="Judges" index={5} color="bg-background" tab={5} totalTabs={totalTabs}>
       <MouseSphere />
       <div className="flex-1 flex flex-row min-h-0">
 
@@ -60,6 +60,10 @@ export default function JudgesTab({ totalTabs }: { totalTabs: number }) {
               BuildHouse
             </p>
           </div>
+
+          <p className="font-timer font-light text-sm md:text-base text-white/40 mt-6">
+            More coming soon.
+          </p>
         </div>
 
       </div>
