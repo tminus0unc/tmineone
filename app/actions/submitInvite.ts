@@ -10,7 +10,7 @@ export async function submitInvite(formData: FormData) {
     return { error: "Please accept or decline the invite." };
   }
 
-  const referrals = [1, 2, 3]
+  const referredFriends = [1, 2, 3]
     .map((n) => ({
       first_name: (formData.get(`referral${n}First`) as string)?.trim(),
       last_name: (formData.get(`referral${n}Last`) as string)?.trim(),
@@ -19,14 +19,25 @@ export async function submitInvite(formData: FormData) {
 
   const supabase = await createSupabaseClient();
 
-  const { error: waitlistError } = await supabase
-    .from("waitlist")
-    .insert({ source: "invite", response, referral_id: referralId });
+  if (referralId) {
+    const { error: statusError } = await supabase
+      .from("referrals")
+      .update({ status: response === "accept" ? "accepted" : "declined" })
+      .eq("id", referralId);
 
-  if (waitlistError) return { error: "Failed to save. Please try again." };
+    if (statusError) return { error: "Failed to save. Please try again." };
+  }
 
-  if (referrals.length > 0) {
-    const { error: referralsError } = await supabase.from("referrals").insert(referrals);
+  if (response === "accept") {
+    const { error: participantsError } = await supabase
+      .from("participants")
+      .insert({ source: "invite", referral_id: referralId });
+
+    if (participantsError) return { error: "Failed to save. Please try again." };
+  }
+
+  if (referredFriends.length > 0) {
+    const { error: referralsError } = await supabase.from("referrals").insert(referredFriends);
     if (referralsError) return { error: "Failed to save your recommendations. Please try again." };
   }
 
