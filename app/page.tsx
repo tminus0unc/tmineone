@@ -1,27 +1,31 @@
 "use client";
 
+import Timer from "@/components/Timer";
 import "./globals.css";
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
+import FolderSection from "@/components/FolderSection";
+import ScrollDownButton from "@/components/Scroller";
+import FolderWatermark from "@/components/FolderWatermark";
+import AppForm from "@/components/AppForm";
+import dynamic from "next/dynamic";
 import { Analytics } from "@vercel/analytics/next";
-import CountdownTab from "@/components/tabs/CountdownTab";
-import AboutTab from "@/components/tabs/AboutTab";
-import LaunchTab from "@/components/tabs/LaunchTab";
-import ChallengeTab from "@/components/tabs/ChallengeTab";
-import JudgesTab from "@/components/tabs/JudgesTab";
-import FAQTab from "@/components/tabs/FAQTab";
-import SponsorTab from "@/components/tabs/SponsorTab";
-import LocationTab from "@/components/tabs/LocationTab";
-import TeamTab from "@/components/tabs/TeamTab";
-import CommunityTab from "@/components/tabs/CommunityTab";
+import Image from "next/image";
+import MouseSphere from "@/components/MouseSphere";
+import TeamCards from "@/components/TeamCards";
+import FlipBook from "@/components/Flipbook";
+import ScrollReveal from "@/components/ScrollReveal";
 
-const TOTAL_TABS = 10;
+
+const MapEmbed = dynamic(() => import("@/components/MapEmbeded"), {
+  ssr: false,
+});
+
+const scrollTo = (id: string) => () =>
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
 export default function Home() {
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (hash) {
-      document.getElementById(hash)?.scrollIntoView({ behavior: "auto" });
-    }
+    document.title = "Tminus0";
   }, []);
   return (
     <>

@@ -1,6 +1,6 @@
 "use server";
 
-import { createSupabaseClient } from "@/lib/supabase";
+import { createSupabaseAdminClient } from "@/lib/supabase";
 
 export async function submitForm(formData: FormData) {
     const firstName = formData.get("firstName") as string;
@@ -18,7 +18,7 @@ export async function submitForm(formData: FormData) {
         return { error: "All fields are required." };
     }
 
-    const supabase = await createSupabaseClient();
+    const supabase = createSupabaseAdminClient();
 
     const record: {
         first_name: string;

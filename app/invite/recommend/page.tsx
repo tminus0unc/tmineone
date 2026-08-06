@@ -42,6 +42,23 @@ export default function RecommendPage() {
     if (!invite) return;
 
     const formData = new FormData(e.currentTarget);
+
+    const filledCount = [1, 2, 3].filter((n) => {
+      const first = (formData.get(`referral${n}First`) as string)?.trim();
+      const last = (formData.get(`referral${n}Last`) as string)?.trim();
+      return first && last;
+    }).length;
+
+    if (filledCount === 3) {
+      if (!window.confirm("Double-check the spelling of your friends' names before submitting.")) {
+        return;
+      }
+    } else if (filledCount < 3) {
+      if (!window.confirm("You're leaving one or more friends blank. Continue?")) {
+        return;
+      }
+    }
+
     formData.set("response", invite);
     formData.set("referralId", sessionStorage.getItem("t0_referral_id") || "");
 

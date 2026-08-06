@@ -183,7 +183,7 @@ export default function MapEmbed() {
         </span>
         <span>
           <span className="font-bold text-foreground/80">COORDS:</span>
-          35.9106° N, 79.0629° W
+          35.9135° N, 79.0549° W
         </span>
         <span className="text-foreground/30">↗ GET DIRECTIONS</span>
       </div>
