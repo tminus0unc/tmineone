@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/shomtailor/WebstormProjects/tmineone add app/actions/submit.ts app/actions/submitInvite.ts app/invite/ components/Envelope.tsx components/AppForm.tsx app/globals.css)",
+      "Bash(git -C /Users/shomtailor/WebstormProjects/tmineone status --short)"
+    ]
+  }
+}
