@@ -12,7 +12,7 @@ const team = [
     minors: ["Astronomy"],
     quote:
       "I'm excited to help build a culture of creativity, problem-solving, and execution at UNC through startup-inspired challenges.",
-    image: "/assets/yashasree.jpg",
+    image: "/assets/yashasree.webp",
     file: "FILE-001",
   },
   {
@@ -22,7 +22,7 @@ const team = [
     majors: ["Advertising/Public Relations", "Business Administration"],
     minors: ["PPE (Philosophy, Politics, Economics)"],
     quote: "The T-0 concept drew me in immediately for its need at UNC.",
-    image: "/assets/julian.jpg",
+    image: "/assets/julian.webp",
     file: "FILE-002",
   },
   {
@@ -33,7 +33,7 @@ const team = [
     minors: [],
     quote:
       "The combination of teamwork and competition immediately caught my attention when I discovered T-0.",
-    image: "/assets/bergan.jpg",
+    image: "/assets/bergan.webp",
     file: "FILE-003",
   },
   {
@@ -44,7 +44,7 @@ const team = [
     minors: ["Entrepreneurship"],
     quote:
       "T-0 excites me because it brings together driven and spontaneous individuals who are eager to make an impact at UNC.",
-    image: "/assets/pam.jpg",
+    image: "/assets/pam.webp",
     file: "FILE-004",
   },
   {
@@ -54,7 +54,7 @@ const team = [
     majors: ["Computer Science", "Linguistics"],
     minors: [],
     quote: "T-0 drew me in cause of how interesting the events sounded.",
-    image: "/assets/shom.jpg",
+    image: "/assets/shom.webp",
     file: "FILE-005",
   },
   {
@@ -65,7 +65,7 @@ const team = [
     minors: ["Business Administration"],
     quote:
       "T-0 will really help students apply and strengthen their entrepreneurial skills.",
-    image: "/assets/sara.jpg",
+    image: "/assets/sara.webp",
     file: "FILE-006",
   },
   {
@@ -76,7 +76,7 @@ const team = [
     minors: ["PPE (Philosophy, Politics, Economics)"],
     quote:
       "T-0 is a great opportunity for anyone looking to build their entrepreneurial mindset.",
-    image: "/assets/mallory.png",
+    image: "/assets/mallory.jpg",
     file: "FILE-007",
   },
   {
@@ -87,7 +87,7 @@ const team = [
     minors: ["Data Science"],
     quote:
       "I'm excited to bring a global perspective and creative ideas to T-0!",
-    image: "/assets/amelia.jpeg",
+    image: "/assets/amelia.webp",
     file: "FILE-008",
   },
   {
@@ -109,7 +109,7 @@ const team = [
     minors: ["Education"],
     quote:
       "Startup founder or not, anyone could gain from building something live, real, and with peers.",
-    image: "/assets/amyy.jpg",
+    image: "/assets/amyy.webp",
     file: "FILE-010",
   },
 ];

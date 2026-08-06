@@ -63,16 +63,16 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://tiles.stadiamaps.com" />
         <link rel="preconnect" href="https://unpkg.com" />
-        <link rel="preload" as="image" href="/assets/yashasree.jpg" />
-        <link rel="preload" as="image" href="/assets/julian.jpg" />
-        <link rel="preload" as="image" href="/assets/bergan.jpg" />
-        <link rel="preload" as="image" href="/assets/pam.jpg" />
-        <link rel="preload" as="image" href="/assets/shom.jpg" />
-        <link rel="preload" as="image" href="/assets/sara.jpg" />
+        <link rel="preload" as="image" href="/assets/yashasree.webp" />
+        <link rel="preload" as="image" href="/assets/julian.webp" />
+        <link rel="preload" as="image" href="/assets/bergan.webp" />
+        <link rel="preload" as="image" href="/assets/pam.webp" />
+        <link rel="preload" as="image" href="/assets/shom.webp" />
+        <link rel="preload" as="image" href="/assets/sara.webp" />
         <link rel="preload" as="image" href="/assets/mallory.jpg" />
-        <link rel="preload" as="image" href="/assets/amelia.jpeg" />
+        <link rel="preload" as="image" href="/assets/amelia.webp" />
         <link rel="preload" as="image" href="/assets/ishani.jpg" />
-        <link rel="preload" as="image" href="/assets/amyy.jpg" />
+        <link rel="preload" as="image" href="/assets/amyy.webp" />
 
       </head>
       <body
