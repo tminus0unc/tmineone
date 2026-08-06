@@ -17,7 +17,7 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
   return (
       <section
           id={title}
-          className="h-screen snap-start"
+          className="h-screen snap-start flex flex-col"
           style={{ zIndex: index + 10, position: "sticky", top: 0, willChange: "transform" }}
       >
         {/* TAB */}
@@ -27,7 +27,7 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
               if (scrollEl) scrollEl.scrollTo({ top: (index - 1) * scrollEl.clientHeight, behavior: "smooth" });
             }}
             className="
-          h-[5vh] rounded-t-[12px]
+          h-[5vh] rounded-t-[12px] flex-shrink-0
           flex items-center justify-between px-2 md:px-4
           border-2 border-foreground border-b-0
           relative z-10 bg-background
@@ -58,7 +58,7 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
         </div>
 
         {/* BODY */}
-        <div className="relative h-screen overflow-hidden flex flex-col bg-background border-t border-foreground/20">
+        <div className="relative flex-1 min-h-0 overflow-hidden flex flex-col bg-background border-t border-foreground/20">
           {/* Subtle depth vignette */}
           <div
             className="absolute inset-0 z-0 pointer-events-none"
