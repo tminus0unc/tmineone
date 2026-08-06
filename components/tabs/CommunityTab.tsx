@@ -7,7 +7,7 @@ export default function CommunityTab({ totalTabs }: { totalTabs: number }) {
     <FolderSection title="Community" index={10} color="bg-background" tab={10} totalTabs={totalTabs}>
       <div className="relative flex-1 -mx-4 md:-mx-10 overflow-hidden">
         <img
-          src="/assets/t-0%20team%20photo.JPG"
+          src="/assets/t-0-team-photo.jpg"
           alt="The T-0 team"
           className="absolute inset-0 w-full h-full object-cover object-center"
           style={{ filter: "brightness(0.7) contrast(1.05) saturate(0.82)" }}

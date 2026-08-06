@@ -21,12 +21,14 @@ export async function submitForm(formData: FormData) {
     const supabase = createSupabaseAdminClient();
 
     const record: {
+        source: string;
         first_name: string;
         last_name: string;
         email: string;
         linkedin?: string;
         is_unc_student?: boolean;
     } = {
+        source: "introduce",
         first_name: firstName,
         last_name: lastName,
         email,
@@ -35,7 +37,7 @@ export async function submitForm(formData: FormData) {
     if (linkedinField !== null) record.is_unc_student = isUncStudent;
 
     const { error } = await supabase
-        .from("contact_submissions")
+        .from("participants")
         .insert(record)
         .select();
 

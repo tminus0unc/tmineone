@@ -1,12 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import MouseSphere from "@/components/MouseSphere";
 import FolderWatermark from "@/components/FolderWatermark";
 import IntroForm from "@/components/IntroForm";
 
-export default function IntroducePage() {
+function IntroducePageInner() {
+  const searchParams = useSearchParams();
+  const from = searchParams.get("from") || "Challenge";
+
   useEffect(() => {
     document.title = "Introduce Yourself · T-0";
   }, []);
@@ -19,7 +23,7 @@ export default function IntroducePage() {
       <div className="relative z-[1] px-4 md:px-10 flex-1 flex flex-col min-h-0">
         <div className="pt-8 md:pt-10">
           <Link
-            href="/#Challenge"
+            href={`/#${from}`}
             className="font-mono text-[11px] uppercase tracking-[0.35em] text-white/40 hover:text-white/75 transition-colors duration-300"
           >
             ← Back
@@ -48,5 +52,13 @@ export default function IntroducePage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function IntroducePage() {
+  return (
+    <Suspense fallback={null}>
+      <IntroducePageInner />
+    </Suspense>
   );
 }

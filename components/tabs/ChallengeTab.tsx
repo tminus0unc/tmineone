@@ -30,7 +30,7 @@ export default function ChallengeTab({ totalTabs }: { totalTabs: number }) {
 
           <div className="pt-1">
             <Link
-              href="/introduce"
+              href="/introduce?from=Challenge"
               className="
                 group relative inline-flex items-center gap-2.5
                 border border-foreground text-foreground

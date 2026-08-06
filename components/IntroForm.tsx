@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { submitForm } from "@/app/actions/submit";
 
+const GROUPME_INVITE_URL = process.env.NEXT_PUBLIC_GROUPME_URL;
+
 const ALLOWED_EMAIL = [
   /@gmail\.com$/i,
   /\.edu$/i,
@@ -51,6 +53,9 @@ export default function IntroForm() {
     } else {
       setStatus("success");
       (e.target as HTMLFormElement).reset();
+      if (GROUPME_INVITE_URL) {
+        window.open(GROUPME_INVITE_URL, "_blank", "noopener,noreferrer");
+      }
     }
   }
 
@@ -69,6 +74,22 @@ export default function IntroForm() {
         <p className="font-mono text-[11px] tracking-[0.35em] uppercase text-foreground/70">
           ✓ Thanks for introducing yourself.
         </p>
+        {GROUPME_INVITE_URL && (
+          <a
+            href={GROUPME_INVITE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              group relative inline-flex items-center gap-2 w-fit
+              font-mono text-[12px] uppercase tracking-[0.45em] text-foreground
+              pb-1 transition-colors duration-300 hover:text-white
+            "
+          >
+            <span>Join GroupMe</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            <span className="absolute left-0 -bottom-0 h-px w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
+          </a>
+        )}
         <Link
           href="/#Challenge"
           className="
@@ -189,7 +210,13 @@ export default function IntroForm() {
             disabled:opacity-30 disabled:cursor-not-allowed
           "
         >
-          <span>{status === "loading" ? "Sending" : "Submit"}</span>
+          <span>
+            {status === "loading"
+              ? "Sending"
+              : GROUPME_INVITE_URL
+                ? "Submit and join GroupMe"
+                : "Submit"}
+          </span>
           <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           <span className="absolute left-0 -bottom-0 h-px w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
         </button>

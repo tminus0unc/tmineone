@@ -57,6 +57,7 @@ export async function submitInvite(formData: FormData) {
       referral_id: referralId,
       first_name: referredBy?.first_name ?? null,
       last_name: referredBy?.last_name ?? null,
+      is_unc_student: true,
     });
 
     if (participantsError) return { error: "Failed to save. Please try again." };
