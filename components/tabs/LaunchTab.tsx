@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import FolderSection from "@/components/FolderSection";
 import MouseSphere from "@/components/MouseSphere";
 
@@ -10,9 +11,11 @@ export default function LaunchTab({ totalTabs }: { totalTabs: number }) {
       <div className="flex-1 flex flex-col items-center justify-center gap-10 px-8 text-center">
         <div className="flex flex-col items-center gap-5">
           <div className="flex items-center justify-center gap-4 md:gap-8">
-            <img
+            <Image
               src="/assets/logo.png"
               alt="T-0"
+              width={256}
+              height={256}
               className="h-40 md:h-64 w-auto select-none"
               style={{ mixBlendMode: "screen", opacity: 0.9 }}
             />
@@ -28,9 +31,11 @@ export default function LaunchTab({ totalTabs }: { totalTabs: number }) {
           </p>
         </div>
 
-        <img
+        <Image
           src="/assets/buildhouse-logo-transparent.png"
           alt="BuildHouse"
+          width={195}
+          height={140}
           className="h-20 md:h-28 w-auto object-contain"
         />
       </div>

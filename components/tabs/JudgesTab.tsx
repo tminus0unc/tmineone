@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import FolderSection from "@/components/FolderSection";
 import MouseSphere from "@/components/MouseSphere";
 
@@ -22,9 +23,11 @@ export default function JudgesTab({ totalTabs }: { totalTabs: number }) {
 
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2">
-              <img
+              <Image
                 src="/assets/forbes.png"
                 alt="Forbes 30 Under 30"
+                width={98}
+                height={98}
                 className="h-14 md:h-16 w-auto object-contain object-left"
               />
               <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.3em] uppercase">
@@ -33,9 +36,11 @@ export default function JudgesTab({ totalTabs }: { totalTabs: number }) {
             </div>
 
             <div className="flex flex-col gap-2">
-              <img
+              <Image
                 src="/assets/residency.png"
                 alt="The Residency — San Francisco"
+                width={220}
+                height={69}
                 className="h-12 md:h-14 w-auto object-contain object-left"
               />
               <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.3em] uppercase">
@@ -51,9 +56,11 @@ export default function JudgesTab({ totalTabs }: { totalTabs: number }) {
             SPONSORS
           </p>
           <div className="flex flex-col gap-2">
-            <img
+            <Image
               src="/assets/buildhouse-logo.png"
               alt="BuildHouse"
+              width={220}
+              height={158}
               className="h-24 md:h-32 w-auto object-contain object-left"
             />
             <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.3em] uppercase">

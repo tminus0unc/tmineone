@@ -1,15 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import FolderSection from "@/components/FolderSection";
 
 export default function CommunityTab({ totalTabs }: { totalTabs: number }) {
   return (
     <FolderSection title="Community" index={10} color="bg-background" tab={10} totalTabs={totalTabs}>
       <div className="relative flex-1 -mx-4 md:-mx-10 overflow-hidden">
-        <img
+        <Image
           src="/assets/t-0-team-photo.jpg"
           alt="The T-0 team"
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          fill
+          className="object-cover object-center"
           style={{ filter: "brightness(0.7) contrast(1.05) saturate(0.82)" }}
         />
 
@@ -87,9 +89,11 @@ export default function CommunityTab({ totalTabs }: { totalTabs: number }) {
             </p>
           </div>
 
-          <img
+          <Image
             src="/assets/logo.png"
             alt="Tminus0"
+            width={160}
+            height={160}
             className="w-32 h-32 md:w-40 md:h-40 select-none flex-shrink-0"
             style={{ mixBlendMode: "screen", opacity: 0.9 }}
           />
