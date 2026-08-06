@@ -11,7 +11,7 @@ export default function LaunchTab({ totalTabs }: { totalTabs: number }) {
         <div className="flex flex-col items-center gap-5">
           <div className="flex items-center justify-center gap-4 md:gap-8">
             <img
-              src="/icon.svg"
+              src="/assets/logo.png"
               alt="T-0"
               className="h-40 md:h-64 w-auto select-none"
               style={{ mixBlendMode: "screen", opacity: 0.9 }}

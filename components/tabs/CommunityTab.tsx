@@ -88,7 +88,7 @@ export default function CommunityTab({ totalTabs }: { totalTabs: number }) {
           </div>
 
           <img
-            src="/icon.svg"
+            src="/assets/logo.png"
             alt="Tminus0"
             className="w-32 h-32 md:w-40 md:h-40 select-none flex-shrink-0"
             style={{ mixBlendMode: "screen", opacity: 0.9 }}
