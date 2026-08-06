@@ -6,6 +6,7 @@ export async function submitForm(formData: FormData) {
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
+
     const linkedinField = formData.get("linkedin");
     const linkedin = typeof linkedinField === "string" ? linkedinField.trim() : null;
     const isUncStudent = formData.get("isUncStudent") === "on";
