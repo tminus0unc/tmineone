@@ -63,6 +63,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://tiles.stadiamaps.com" />
         <link rel="preconnect" href="https://unpkg.com" />
+        <link rel="preload" as="image" href="/assets/earth.webp" fetchPriority="high" />
         <link rel="preload" as="image" href="/assets/yashasree.webp" />
         <link rel="preload" as="image" href="/assets/julian.webp" />
         <link rel="preload" as="image" href="/assets/bergan.webp" />
