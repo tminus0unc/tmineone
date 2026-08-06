@@ -8,10 +8,10 @@ export default function JudgesTab({ totalTabs }: { totalTabs: number }) {
   return (
     <FolderSection title="Judges" index={5} color="bg-background" tab={5} totalTabs={totalTabs}>
       <MouseSphere />
-      <div className="flex-1 flex flex-row min-h-0">
+      <div className="flex-1 flex flex-col md:flex-row min-h-0 overflow-y-auto md:overflow-visible">
 
         {/* Left half — Judges */}
-        <div className="flex-1 flex flex-col justify-center gap-8 px-8 md:px-14 py-8 border-r border-foreground/15">
+        <div className="flex-1 flex flex-col justify-center gap-8 px-8 md:px-14 py-8 border-b md:border-b-0 md:border-r border-foreground/15">
           <div>
             <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase mb-4">
               JUDGES

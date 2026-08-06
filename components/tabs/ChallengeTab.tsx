@@ -8,10 +8,10 @@ export default function ChallengeTab({ totalTabs }: { totalTabs: number }) {
   return (
     <FolderSection title="Challenge" index={4} color="bg-background" tab={4} totalTabs={totalTabs}>
       <MouseSphere />
-      <div className="flex-1 flex flex-row min-h-0">
+      <div className="flex-1 flex flex-col md:flex-row min-h-0 overflow-y-auto md:overflow-visible">
 
         {/* Left — Invitation (larger) */}
-        <div className="flex-[1.6] flex flex-col justify-start gap-6 px-8 md:px-14 pt-14 md:pt-16 pb-8 border-r border-foreground/15">
+        <div className="flex-[1.6] flex flex-col justify-start gap-6 px-8 md:px-14 pt-8 md:pt-16 pb-8 border-b md:border-b-0 md:border-r border-foreground/15">
           <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase">
             INVITATION
           </p>
