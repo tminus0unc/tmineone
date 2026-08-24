@@ -8,8 +8,8 @@ type TimerProps = {
 };
 
 export default function Timer({ className }: TimerProps) {
-    // Sept 13, 2026, 4:00 PM Eastern (EDT, UTC-4 — DST is active in September)
-    const targetDate = new Date("2026-09-13T20:00:00Z").getTime();
+    // Sept 13, 2026, 10:00 AM Eastern (EDT, UTC-4 — DST is active in September)
+    const targetDate = new Date("2026-09-13T14:00:00Z").getTime();
 
     const [countdown, setCountdown] = useState(targetDate - Date.now());
 
