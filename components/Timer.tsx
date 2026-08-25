@@ -11,16 +11,17 @@ export default function Timer({ className }: TimerProps) {
     // Sept 13, 2026, 10:00 AM Eastern (EDT, UTC-4 — DST is active in September)
     const targetDate = new Date("2026-09-13T14:00:00Z").getTime();
 
-    const [countdown, setCountdown] = useState(targetDate - Date.now());
+    const [countdown, setCountdown] = useState<number | null>(null);
 
     useEffect(() => {
+        setCountdown(targetDate - Date.now());
         const interval = setInterval(() => {
             setCountdown(targetDate - Date.now());
         }, 1000);
         return () => clearInterval(interval);
     }, [targetDate]);
 
-    const totalSeconds = Math.max(0, Math.floor(countdown / 1000));
+    const totalSeconds = countdown === null ? 0 : Math.max(0, Math.floor(countdown / 1000));
     const days = Math.floor(totalSeconds / 86400);
     const hours = Math.floor((totalSeconds % 86400) / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
