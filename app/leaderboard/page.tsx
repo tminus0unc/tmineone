@@ -1,0 +1,89 @@
+"use client";
+
+import { useEffect } from "react";
+import { useMoneyTrackerData } from "@/lib/useMoneyTrackerData";
+import { useTeams } from "@/lib/useTeams";
+import { computeTotals } from "@/lib/moneyTrackerMath";
+import { buildTeamColorMap } from "@/lib/teamColors";
+import { formatCurrency } from "@/lib/format";
+import { useNow } from "@/lib/useNow";
+
+export default function LeaderboardPage() {
+  const { entries, loading, error, lastUpdated } = useMoneyTrackerData();
+  const { teams, loading: teamsLoading, error: teamsError } = useTeams();
+  const now = useNow();
+
+  useEffect(() => {
+    document.title = "Leaderboard — T-0";
+  }, []);
+
+  const colorMap = buildTeamColorMap(teams.map((t) => t.name));
+  const activeTeamNames = teams.filter((t) => t.active).map((t) => t.name);
+  const totals = computeTotals(entries, activeTeamNames, colorMap);
+  const isLoading = loading || teamsLoading;
+  const combinedError = error || teamsError;
+  const grandTotal = totals.reduce((sum, t) => sum + t.total, 0);
+  const leader = totals[0]?.total ?? 0;
+
+  return (
+    <main className="min-h-screen bg-background text-foreground px-6 py-10 md:px-12 md:py-14">
+      <div className="max-w-3xl mx-auto">
+        <div className="flex items-end justify-between gap-4 mb-2">
+          <div>
+            <p className="font-mono text-[10px] md:text-[11px] text-white/50 tracking-[0.4em] uppercase mb-1">
+              FILE: LEADERBOARD{!isLoading && ` · ${totals.length} TEAMS`}
+            </p>
+            <h1 className="font-timer font-light text-2xl md:text-3xl" style={{ color: "#f0f4f8" }}>
+              Who&apos;s raising the most.
+            </h1>
+          </div>
+          <div className="text-right flex-shrink-0">
+            <p className="font-mono text-[9px] md:text-[10px] text-white/40 tracking-[0.25em] uppercase">Total raised</p>
+            <p className="font-timer font-light text-xl md:text-2xl tabular-nums" style={{ color: "#f0f4f8" }}>
+              {formatCurrency(grandTotal)}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 mb-8">
+          <span className={`inline-block w-1.5 h-1.5 rounded-full ${combinedError ? "bg-red-400" : "bg-emerald-400 animate-pulse"}`} />
+          <span className="font-mono text-[10px] text-white/40 tracking-[0.2em] uppercase">
+            {combinedError
+              ? combinedError
+              : lastUpdated
+                ? `Live · updated ${Math.max(0, Math.round((now - lastUpdated) / 1000))}s ago`
+                : "Connecting…"}
+          </span>
+        </div>
+
+        <div className="border-t border-white/10">
+          {totals.map((t, i) => (
+            <div key={t.team} className="flex items-center gap-3 md:gap-4 py-4 border-b border-white/10">
+              <span className="font-timer font-light text-lg md:text-xl text-white/30 w-7 md:w-8 flex-shrink-0 tabular-nums">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="inline-block w-2.5 h-2.5 flex-shrink-0" style={{ backgroundColor: t.color }} />
+              <span className="flex-1 min-w-0 font-mono text-xs md:text-base tracking-[0.05em] uppercase text-white/80 truncate">
+                {t.team}
+              </span>
+              <div className="hidden md:block flex-1 max-w-[200px] h-1 bg-white/10 relative overflow-hidden">
+                <div
+                  className="absolute inset-y-0 left-0 transition-[width] duration-700"
+                  style={{ width: `${leader > 0 ? (t.total / leader) * 100 : 0}%`, backgroundColor: t.color }}
+                />
+              </div>
+              <span className="font-timer font-light text-lg md:text-2xl tabular-nums flex-shrink-0" style={{ color: "#f0f4f8" }}>
+                {formatCurrency(t.total)}
+              </span>
+            </div>
+          ))}
+          {!isLoading && totals.length === 0 && (
+            <p className="font-timer font-light text-sm text-white/40 py-8 text-center">
+              {teams.length === 0 ? "No teams registered yet." : "No raises logged yet."}
+            </p>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
