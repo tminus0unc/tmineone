@@ -8,7 +8,15 @@ export default function LaunchTab({ totalTabs }: { totalTabs: number }) {
   return (
     <FolderSection title="Launch" index={3} color="bg-background" tab={3} totalTabs={totalTabs}>
       <MouseSphere />
-      <div className="flex-1 flex flex-col items-center justify-center gap-10 px-8 text-center">
+      <Image
+        src="/assets/thepitch.webp"
+        alt=""
+        fill
+        priority={false}
+        className="object-cover pointer-events-none select-none"
+        style={{ opacity: 0.09 }}
+      />
+      <div className="flex-1 flex flex-col items-center justify-center gap-10 px-8 text-center relative z-10">
         <div className="flex flex-col items-center gap-5">
           <div className="flex items-center justify-center gap-4 md:gap-8">
             <Image
