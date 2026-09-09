@@ -3,6 +3,10 @@
 import Image from "next/image";
 import FolderSection from "@/components/FolderSection";
 import MouseSphere from "@/components/MouseSphere";
+import GlitchReveal from "@/components/GlitchReveal";
+
+/** ms after the slide arrives that the date glitches in, behind the title. */
+const DATE_DELAY = 1000;
 
 export default function LaunchTab({ totalTabs }: { totalTabs: number }) {
   return (
@@ -27,13 +31,24 @@ export default function LaunchTab({ totalTabs }: { totalTabs: number }) {
               className="h-40 md:h-64 w-auto select-none"
               style={{ mixBlendMode: "screen", opacity: 0.9 }}
             />
-            <span
+            <GlitchReveal
+              text="LAUNCH"
+              sectionIndex={3}
+              duration={900}
               className="font-timer font-light text-6xl md:text-9xl tracking-[0.04em] leading-none"
               style={{ color: "#f0f4f8" }}
-            >
-              LAUNCH
-            </span>
+            />
           </div>
+
+          <GlitchReveal
+            text="September 13th, 2026"
+            sectionIndex={3}
+            delay={DATE_DELAY}
+            duration={800}
+            className="font-timer font-light text-2xl md:text-4xl tracking-[0.14em] leading-none"
+            style={{ color: "#f0f4f8" }}
+          />
+
           <p className="font-timer font-light text-xl md:text-3xl text-white/55 tracking-[0.04em]">
             Presented by BuildHouse
           </p>
