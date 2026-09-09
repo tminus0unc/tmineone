@@ -5,15 +5,16 @@ import { Analytics } from "@vercel/analytics/next";
 import CountdownTab from "@/components/tabs/CountdownTab";
 import AboutTab from "@/components/tabs/AboutTab";
 import LaunchTab from "@/components/tabs/LaunchTab";
+import OurNetworkTab from "@/components/tabs/OurNetworkTab";
+import SponsorLogosTab from "@/components/tabs/SponsorLogosTab";
 import ChallengeTab from "@/components/tabs/ChallengeTab";
-import JudgesTab from "@/components/tabs/JudgesTab";
 import FAQTab from "@/components/tabs/FAQTab";
 import SponsorTab from "@/components/tabs/SponsorTab";
 import LocationTab from "@/components/tabs/LocationTab";
 import TeamTab from "@/components/tabs/TeamTab";
 import CommunityTab from "@/components/tabs/CommunityTab";
 
-const TOTAL_TABS = 10;
+const TOTAL_TABS = 11;
 
 export default function Home() {
   useEffect(() => {
@@ -25,8 +26,9 @@ export default function Home() {
         <CountdownTab totalTabs={TOTAL_TABS} />
         <AboutTab totalTabs={TOTAL_TABS} />
         <LaunchTab totalTabs={TOTAL_TABS} />
+        <OurNetworkTab totalTabs={TOTAL_TABS} />
+        <SponsorLogosTab totalTabs={TOTAL_TABS} />
         <ChallengeTab totalTabs={TOTAL_TABS} />
-        <JudgesTab totalTabs={TOTAL_TABS} />
         <FAQTab totalTabs={TOTAL_TABS} />
         <SponsorTab totalTabs={TOTAL_TABS} />
         <LocationTab totalTabs={TOTAL_TABS} />

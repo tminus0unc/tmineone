@@ -6,7 +6,7 @@ import MouseSphere from "@/components/MouseSphere";
 
 export default function ChallengeTab({ totalTabs }: { totalTabs: number }) {
   return (
-    <FolderSection title="Challenge" index={4} color="bg-background" tab={4} totalTabs={totalTabs}>
+    <FolderSection title="Challenge" index={6} color="bg-background" tab={6} totalTabs={totalTabs}>
       <MouseSphere />
       <div className="flex-1 flex flex-col md:flex-row min-h-0 overflow-y-auto md:overflow-visible">
 

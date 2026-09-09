@@ -6,7 +6,7 @@ import FolderWatermark from "@/components/FolderWatermark";
 
 export default function SponsorTab({ totalTabs }: { totalTabs: number }) {
   return (
-    <FolderSection title="Sponsor" index={7} color="bg-background" tab={7} totalTabs={totalTabs}>
+    <FolderSection title="Sponsor" index={8} color="bg-background" tab={8} totalTabs={totalTabs}>
       <MouseSphere />
       <FolderWatermark label="Sponsor" opacity={0.025} />
 

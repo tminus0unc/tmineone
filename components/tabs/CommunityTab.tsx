@@ -5,7 +5,7 @@ import FolderSection from "@/components/FolderSection";
 
 export default function CommunityTab({ totalTabs }: { totalTabs: number }) {
   return (
-    <FolderSection title="Community" index={10} color="bg-background" tab={10} totalTabs={totalTabs}>
+    <FolderSection title="Community" index={11} color="bg-background" tab={11} totalTabs={totalTabs}>
       <div className="relative flex-1 -mx-4 md:-mx-10 overflow-hidden">
         <Image
           src="/assets/t-0-team-photo.jpg"
