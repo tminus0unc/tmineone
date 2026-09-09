@@ -40,7 +40,7 @@ export default function Timer({ className }: TimerProps) {
             <Globe />
 
             {/* Countdown grid — fills the full container height */}
-            <div className="relative z-10 h-full grid grid-cols-4">
+            <div className="intro-fade relative z-10 h-full grid grid-cols-4">
                 {units.map(({ value, label }) => (
                     <div
                         key={label}
@@ -82,7 +82,7 @@ export default function Timer({ className }: TimerProps) {
             </div>
 
             {/* Subtitle — absolute so it never overlaps the earth or the scroll arrow */}
-            <div className="absolute bottom-[8%] left-0 right-0 text-center z-10 pointer-events-none">
+            <div className="intro-fade absolute bottom-[8%] left-0 right-0 text-center z-10 pointer-events-none">
                 <span className="font-mono text-[11px] md:text-[13px] text-white/45 tracking-[0.3em] uppercase">
                     UNC&apos;s biggest startup challenge
                 </span>

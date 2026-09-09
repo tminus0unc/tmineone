@@ -2,15 +2,21 @@
 
 type Props = {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   index: number;
   tab: number;
   color: string;
   /** Total number of tabs, used to size each tab evenly across the top. */
   totalTabs?: number;
+  /**
+   * Render the body see-through, so the section beneath stays visible instead of
+   * being covered as this one slides up. Keeps the tab, the scroll length and the
+   * tab-click math intact — About uses this so the countdown globe shows through.
+   */
+  transparent?: boolean;
 };
 
-export default function FolderSection({ title, children, index, tab, totalTabs = 7 }: Props) {
+export default function FolderSection({ title, children, index, tab, totalTabs = 7, transparent = false }: Props) {
   const paddedIndex = String(index).padStart(2, "0");
   const colW = 100 / totalTabs; // vw per tab
 
@@ -58,17 +64,31 @@ export default function FolderSection({ title, children, index, tab, totalTabs =
         </div>
 
         {/* BODY */}
-        <div className="relative flex-1 min-h-0 overflow-hidden flex flex-col bg-background border-t border-foreground/20">
+        <div
+          // A transparent section keeps no border: it would otherwise sweep a
+          // full-width rule up across whatever it is revealing.
+          className={`relative flex-1 min-h-0 overflow-hidden flex flex-col ${
+            transparent ? "" : "bg-background border-t border-foreground/20"
+          }`}
+        >
           {/* Subtle depth vignette */}
-          <div
-            className="absolute inset-0 z-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.28) 80%, rgba(0,0,0,0.45) 100%)",
-            }}
-          />
+          {!transparent && (
+            <div
+              className="absolute inset-0 z-0 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.28) 80%, rgba(0,0,0,0.45) 100%)",
+              }}
+            />
+          )}
 
-          <div className="relative z-[1] px-4 md:px-10 flex-1 flex flex-col min-h-0">{children}</div>
+          <div
+            className={`relative z-[1] px-4 md:px-10 flex-1 flex flex-col min-h-0 ${
+              transparent ? "pointer-events-none" : ""
+            }`}
+          >
+            {children}
+          </div>
         </div>
       </section>
   );

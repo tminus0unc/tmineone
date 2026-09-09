@@ -3,6 +3,9 @@
 :root {
   --background: #1e1f25;
   --foreground: #171717;
+  /* Diameter of the countdown globe. Shared so the intro copy can be anchored
+     to the top of its curve without duplicating the sizing rule. */
+  --globe-size: clamp(400px, 68vmin, 820px);
 }
 
 @theme inline {
@@ -44,6 +47,13 @@ body {
   button, a, [role="button"] { cursor: pointer; }
   input, textarea { cursor: text; }
 }
+
+/* ── Countdown → intro dissolve ──────────────────────────────────────────────
+   .intro-fade (countdown chrome that blurs away) and .intro-scrim (the dimmer
+   over the globe) are markers only — IntroReveal writes their filter/opacity
+   straight onto the elements each frame. Don't move that into a stylesheet:
+   the obvious `calc(var(--intro-t) * 22px)` form gets dropped by Lightning CSS
+   at build time, silently, leaving the scrim opaque over the globe. */
 
 @keyframes fadeIn {
   from { opacity: 0; }
