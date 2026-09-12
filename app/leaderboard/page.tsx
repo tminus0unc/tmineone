@@ -3,10 +3,11 @@
 import { useEffect } from "react";
 import { useMoneyTrackerData } from "@/lib/useMoneyTrackerData";
 import { useTeams } from "@/lib/useTeams";
-import { computeTotals } from "@/lib/moneyTrackerMath";
+import { computeTotals, computeSeries } from "@/lib/moneyTrackerMath";
 import { buildTeamColorMap } from "@/lib/teamColors";
 import { formatCurrency } from "@/lib/format";
 import { useNow } from "@/lib/useNow";
+import RaisedOverTimeChart from "@/components/moneytracker/RaisedOverTimeChart";
 
 export default function LeaderboardPage() {
   const { entries, loading, error, lastUpdated } = useMoneyTrackerData();
@@ -20,6 +21,7 @@ export default function LeaderboardPage() {
   const colorMap = buildTeamColorMap(teams.map((t) => t.name));
   const activeTeamNames = teams.filter((t) => t.active).map((t) => t.name);
   const totals = computeTotals(entries, activeTeamNames, colorMap);
+  const series = computeSeries(entries, activeTeamNames, colorMap);
   const isLoading = loading || teamsLoading;
   const combinedError = error || teamsError;
   const grandTotal = totals.reduce((sum, t) => sum + t.total, 0);
@@ -27,7 +29,7 @@ export default function LeaderboardPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground px-6 py-10 md:px-12 md:py-14">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="flex items-end justify-between gap-4 mb-2">
           <div>
             <p className="font-mono text-[10px] md:text-[11px] text-white/50 tracking-[0.4em] uppercase mb-1">
@@ -56,7 +58,7 @@ export default function LeaderboardPage() {
           </span>
         </div>
 
-        <div className="border-t border-white/10">
+        <div className="border-t border-white/10 mb-12">
           {totals.map((t, i) => (
             <div key={t.team} className="flex items-center gap-3 md:gap-4 py-4 border-b border-white/10">
               <span className="font-timer font-light text-lg md:text-xl text-white/30 w-7 md:w-8 flex-shrink-0 tabular-nums">
@@ -81,6 +83,27 @@ export default function LeaderboardPage() {
             <p className="font-timer font-light text-sm text-white/40 py-8 text-center">
               {teams.length === 0 ? "No teams registered yet." : "No raises logged yet."}
             </p>
+          )}
+        </div>
+
+        <div>
+          <p className="font-mono text-[10px] md:text-[11px] text-white/50 tracking-[0.4em] uppercase mb-1">
+            FILE: RAISED OVER TIME
+          </p>
+          <h2 className="font-timer font-light text-xl md:text-2xl mb-6" style={{ color: "#f0f4f8" }}>
+            Money raised, live.
+          </h2>
+
+          {isLoading ? (
+            <p className="font-timer font-light text-sm text-white/40 py-16 text-center">Loading…</p>
+          ) : activeTeamNames.length === 0 ? (
+            <p className="font-timer font-light text-sm text-white/40 py-16 text-center">No teams registered yet.</p>
+          ) : entries.length === 0 ? (
+            <p className="font-timer font-light text-sm text-white/40 py-16 text-center">
+              No raises logged yet — the chart fills in as teams submit.
+            </p>
+          ) : (
+            <RaisedOverTimeChart series={series} />
           )}
         </div>
       </div>
