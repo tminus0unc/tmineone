@@ -1,6 +1,17 @@
 import type { MoneyEntry } from "@/app/actions/moneyTracker";
 import { colorForTeam } from "@/lib/teamColors";
 
+function normalizeTeamName(name: string): string {
+  return name.trim().toLowerCase();
+}
+
+// Maps a raw entry's team string (as typed into a form title) to the
+// portal's canonical spelling, so a stray space or casing difference across
+// 19+ hand-duplicated forms can't silently drop a team's raises.
+function canonicalNameLookup(displayTeamNames: string[]): Map<string, string> {
+  return new Map(displayTeamNames.map((t) => [normalizeTeamName(t), t]));
+}
+
 export type TeamTotal = { team: string; total: number; color: string };
 
 export function computeTotals(
@@ -8,10 +19,13 @@ export function computeTotals(
   displayTeamNames: string[],
   colorMap: Map<string, string>
 ): TeamTotal[] {
+  const canonicalByNormalized = canonicalNameLookup(displayTeamNames);
   const totals = new Map<string, number>(displayTeamNames.map((t) => [t, 0]));
+
   entries.forEach((e) => {
-    if (!totals.has(e.team)) return; // not on the active roster — excluded from display
-    totals.set(e.team, (totals.get(e.team) ?? 0) + e.amount);
+    const canonical = canonicalByNormalized.get(normalizeTeamName(e.team));
+    if (!canonical) return; // not on the active roster — excluded from display
+    totals.set(canonical, (totals.get(canonical) ?? 0) + e.amount);
   });
 
   return Array.from(totals.entries())
@@ -30,8 +44,10 @@ export function computeSeries(
   colorMap: Map<string, string>,
   now: number = Date.now()
 ): TeamSeries[] {
-  const displaySet = new Set(displayTeamNames);
-  const relevantEntries = entries.filter((e) => displaySet.has(e.team));
+  const canonicalByNormalized = canonicalNameLookup(displayTeamNames);
+  const relevantEntries = entries
+    .map((e) => ({ ...e, team: canonicalByNormalized.get(normalizeTeamName(e.team)) }))
+    .filter((e): e is MoneyEntry => Boolean(e.team));
   const startTime = relevantEntries.length ? new Date(relevantEntries[0].created_at).getTime() : now;
 
   const byTeam = new Map<string, SeriesPoint[]>();

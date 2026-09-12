@@ -1,30 +1,32 @@
 /**
  * T-0 Money Tracker — form submit webhook.
  *
- * Paste this into Extensions > Apps Script on EACH team's duplicated
- * "Money Tracker" form, then wire it up:
+ * Set this up ONCE on the master form before duplicating it for every team:
  *
- * 1. Rename the form to "<Team Name> Money Tracker" (the team name is
- *    read from the form title, so the whole form must literally be titled
- *    after the team, e.g. "Team Alpha Money Tracker").
- * 2. In the Apps Script editor: Project Settings (gear icon) > Script
- *    Properties > Add script property:
- *      WEBHOOK_URL    = https://<your-deployed-domain>/api/money-tracker
- *      WEBHOOK_SECRET = <same value as MONEY_TRACKER_WEBHOOK_SECRET>
- * 3. Triggers (clock icon) > Add Trigger > choose function "onFormSubmit",
- *    event source "From form", event type "On form submit" > Save, and
- *    grant the requested permissions.
- * 4. Submit a test response and confirm it shows up on /transactions.
+ * 1. Paste this whole file into Extensions > Apps Script on the master form,
+ *    replacing anything already there. Fill in WEBHOOK_SECRET below with the
+ *    real value (same as MONEY_TRACKER_WEBHOOK_SECRET in Vercel/.env.local)
+ *    — do NOT commit the real secret back into this repo file. Save (Cmd+S).
+ * 2. Triggers (clock icon, left sidebar) > Add Trigger > function
+ *    "onFormSubmit" > event source "From form" > event type "On form
+ *    submit" > Save, and grant the requested permissions.
+ * 3. Submit a test response and confirm it shows up on /transactions.
+ *
+ * Then, for each team:
+ * 1. Duplicate the master form (File > Make a copy). The copy keeps this
+ *    script's code automatically.
+ * 2. Rename the copy to "<Team Name> Money Tracker" — the team name is read
+ *    from the form title, and must match the name in the team portal
+ *    (matching is trim + case-insensitive, but keep it exact for clarity).
+ * 3. Open the copy's Apps Script editor > Triggers > Add Trigger the same
+ *    way as step 2 above. This is the one step that does NOT carry over
+ *    when a form is duplicated — Google doesn't copy triggers, only code.
  */
 
-function onFormSubmit(e) {
-  const props = PropertiesService.getScriptProperties();
-  const webhookUrl = props.getProperty('WEBHOOK_URL');
-  const webhookSecret = props.getProperty('WEBHOOK_SECRET');
-  if (!webhookUrl || !webhookSecret) {
-    throw new Error('Set WEBHOOK_URL and WEBHOOK_SECRET in Script Properties first.');
-  }
+var WEBHOOK_URL = 'https://www.tminus0.net/api/money-tracker';
+var WEBHOOK_SECRET = 'REPLACE_WITH_MONEY_TRACKER_WEBHOOK_SECRET'; // fill in locally, never commit the real value
 
+function onFormSubmit(e) {
   const form = FormApp.getActiveForm();
   const team = form.getTitle().replace(/\s*money tracker\s*$/i, '').trim() || form.getTitle();
 
@@ -59,11 +61,11 @@ function onFormSubmit(e) {
     responseId: e.response.getId(),
   };
 
-  UrlFetchApp.fetch(webhookUrl, {
+  UrlFetchApp.fetch(WEBHOOK_URL, {
     method: 'post',
     contentType: 'application/json',
     payload: JSON.stringify(payload),
-    headers: { 'x-webhook-secret': webhookSecret },
+    headers: { 'x-webhook-secret': WEBHOOK_SECRET },
     muteHttpExceptions: true,
   });
 }
