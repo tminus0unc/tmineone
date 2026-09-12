@@ -53,7 +53,9 @@ export default function SponsorLogosTab({ totalTabs }: { totalTabs: number }) {
                   label: "DoorDash",
                   width: 3840,
                   height: 742,
-                  heightClass: "h-8 sm:h-9 md:h-12",
+                  // DoorDash's crop is ~8:1 (Google's is ~3:1) — matching by height alone
+                  // still renders it more than 2x as wide, so its box has to be shorter.
+                  heightClass: "h-6 sm:h-7 md:h-8",
                 },
               ],
             ],
