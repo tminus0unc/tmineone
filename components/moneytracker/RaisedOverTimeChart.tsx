@@ -4,9 +4,9 @@ import { useMemo, useRef, useState } from "react";
 import type { TeamSeries } from "@/lib/moneyTrackerMath";
 import { formatCurrency } from "@/lib/format";
 
-const VB_W = 800;
-const VB_H = 780;
-const PAD = { left: 70, right: 120, top: 16, bottom: 40 };
+const VB_W = 1000;
+const VB_H = 720;
+const PAD = { left: 74, right: 130, top: 16, bottom: 42 };
 const PLOT_W = VB_W - PAD.left - PAD.right;
 const PLOT_H = VB_H - PAD.top - PAD.bottom;
 const LABEL_MIN_GAP = 20;
