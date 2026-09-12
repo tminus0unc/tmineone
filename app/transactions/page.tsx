@@ -13,7 +13,7 @@ import RaiseSpotlight from "@/components/moneytracker/RaiseSpotlight";
 import type { MoneyEntry } from "@/app/actions/moneyTracker";
 
 const FLASH_DURATION_MS = 2000;
-const MAX_VISIBLE_CARDS = 3; // 1 col x 3 rows — full-width cards, more room given to the graph
+const MAX_VISIBLE_CARDS = 5; // 1 col x 5 rows — shorter cards, less empty space per card
 
 function timeAgo(iso: string, now: number): string {
   const diff = Math.max(0, Math.round((now - new Date(iso).getTime()) / 1000));
@@ -121,11 +121,11 @@ export default function TransactionsPage() {
             </div>
           </div>
 
-          <div className="flex-1 min-w-0 grid grid-cols-1 grid-rows-3 gap-4 md:gap-5">
+          <div className="flex-1 min-w-0 grid grid-cols-1 grid-rows-5 gap-3 md:gap-4">
             {visibleCards.map((entry) => (
               <div
                 key={entry.id}
-                className={`min-h-0 flex flex-col border p-4 md:p-5 transition-colors duration-500 overflow-hidden ${
+                className={`min-h-0 flex flex-col border p-3 md:p-4 transition-colors duration-500 overflow-hidden ${
                   flashIds.has(entry.id) ? "border-emerald-400/50 animate-[liveFlash_2s_ease-out]" : "border-white/10"
                 }`}
               >
@@ -138,11 +138,11 @@ export default function TransactionsPage() {
                     {timeAgo(entry.created_at, now)}
                   </span>
                 </div>
-                <p className="flex-shrink-0 font-timer font-light text-xl md:text-2xl 2xl:text-3xl tabular-nums mb-1.5" style={{ color: "#f0f4f8" }}>
+                <p className="flex-shrink-0 font-timer font-light text-lg md:text-xl 2xl:text-2xl tabular-nums mb-1" style={{ color: "#f0f4f8" }}>
                   {formatCurrency(entry.amount)}
                 </p>
                 {entry.method && (
-                  <p className="flex-1 min-h-0 font-timer font-light text-sm md:text-base 2xl:text-lg text-white/50 leading-snug overflow-hidden line-clamp-4">
+                  <p className="flex-1 min-h-0 font-timer font-light text-xs md:text-sm 2xl:text-base text-white/50 leading-snug overflow-hidden line-clamp-2">
                     {entry.method}
                   </p>
                 )}
