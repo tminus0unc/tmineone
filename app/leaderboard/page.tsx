@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useMoneyTrackerData } from "@/lib/useMoneyTrackerData";
 import { useTeams } from "@/lib/useTeams";
 import { useNewEntries } from "@/lib/useNewEntries";
+import { useAutoScroll } from "@/lib/useAutoScroll";
 import { computeTotals, computeSeries } from "@/lib/moneyTrackerMath";
 import { buildTeamColorMap } from "@/lib/teamColors";
 import { formatCurrency } from "@/lib/format";
@@ -55,6 +56,8 @@ export default function LeaderboardPage() {
   const combinedError = error || teamsError;
   const grandTotal = totals.reduce((sum, t) => sum + t.total, 0);
 
+  useAutoScroll(!isLoading);
+
   const top3 = totals.slice(0, 3);
   const rest = totals.slice(3);
   const leader = totals[0]?.total ?? 0;
@@ -62,21 +65,21 @@ export default function LeaderboardPage() {
   const podiumOrder = [1, 0, 2].filter((i) => i < top3.length);
 
   return (
-    <main className="min-h-screen bg-background text-foreground px-6 py-10 md:px-16 md:py-14">
+    <main className="min-h-screen bg-background text-foreground px-8 py-10 md:px-[4vw] md:py-14">
       <RaiseSpotlight newEntries={newEntries} />
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1800px] mx-auto">
         <div className="flex items-end justify-between gap-4 mb-3">
           <div>
             <p className="font-mono text-[11px] md:text-[13px] text-white/50 tracking-[0.4em] uppercase mb-2">
               FILE: LEADERBOARD{!isLoading && ` · ${totals.length} TEAMS`}
             </p>
-            <h1 className="font-timer font-light text-3xl md:text-5xl" style={{ color: "#f0f4f8" }}>
+            <h1 className="font-timer font-light text-3xl md:text-5xl 2xl:text-6xl" style={{ color: "#f0f4f8" }}>
               Who&apos;s raising the most.
             </h1>
           </div>
           <div className="text-right flex-shrink-0">
             <p className="font-mono text-[10px] md:text-xs text-white/40 tracking-[0.25em] uppercase">Total raised</p>
-            <p className="font-timer font-light text-3xl md:text-5xl tabular-nums" style={{ color: "#f0f4f8" }}>
+            <p className="font-timer font-light text-3xl md:text-5xl 2xl:text-6xl tabular-nums" style={{ color: "#f0f4f8" }}>
               {formatCurrency(grandTotal)}
             </p>
           </div>
@@ -84,7 +87,7 @@ export default function LeaderboardPage() {
 
         <div className="flex items-center gap-2 mb-10">
           <span className={`inline-block w-2 h-2 rounded-full ${combinedError ? "bg-red-400" : "bg-emerald-400 animate-pulse"}`} />
-          <span className="font-mono text-xs md:text-sm text-white/40 tracking-[0.2em] uppercase">
+          <span className="font-mono text-xs md:text-sm 2xl:text-base text-white/40 tracking-[0.2em] uppercase">
             {combinedError
               ? combinedError
               : lastUpdated
@@ -116,16 +119,16 @@ export default function LeaderboardPage() {
                   }}
                 >
                   <div className="flex items-center justify-between mb-8">
-                    <span className="font-timer font-light text-4xl md:text-5xl tabular-nums" style={{ color: MEDAL[i] }}>
+                    <span className="font-timer font-light text-4xl md:text-5xl 2xl:text-6xl tabular-nums" style={{ color: MEDAL[i] }}>
                       {i + 1}
                     </span>
-                    <span className="inline-block w-3 h-3 flex-shrink-0" style={{ backgroundColor: t.color }} />
+                    <span className="inline-block w-3 h-3 2xl:w-4 2xl:h-4 flex-shrink-0" style={{ backgroundColor: t.color }} />
                   </div>
-                  <p className="font-mono text-sm md:text-lg uppercase tracking-[0.08em] text-white/80 mb-4 truncate">
+                  <p className="font-mono text-sm md:text-lg 2xl:text-xl uppercase tracking-[0.08em] text-white/80 mb-4 truncate">
                     {t.team}
                   </p>
                   <p
-                    className={`font-timer font-light tabular-nums ${isFirst ? "text-5xl md:text-7xl" : "text-4xl md:text-6xl"}`}
+                    className={`font-timer font-light tabular-nums ${isFirst ? "text-5xl md:text-7xl 2xl:text-8xl" : "text-4xl md:text-6xl 2xl:text-7xl"}`}
                     style={{ color: "#f0f4f8" }}
                   >
                     {formatCurrency(t.total)}
@@ -145,20 +148,20 @@ export default function LeaderboardPage() {
                   flashTeams.has(t.team) ? "animate-[liveFlash_2s_ease-out]" : ""
                 }`}
               >
-                <span className="font-timer font-light text-xl md:text-2xl text-white/30 w-9 md:w-10 flex-shrink-0 tabular-nums">
+                <span className="font-timer font-light text-xl md:text-2xl 2xl:text-3xl text-white/30 w-9 md:w-10 2xl:w-12 flex-shrink-0 tabular-nums">
                   {String(i + 4).padStart(2, "0")}
                 </span>
-                <span className="inline-block w-3 h-3 flex-shrink-0" style={{ backgroundColor: t.color }} />
-                <span className="flex-1 min-w-0 font-mono text-sm md:text-lg tracking-[0.05em] uppercase text-white/80 truncate">
+                <span className="inline-block w-3 h-3 2xl:w-4 2xl:h-4 flex-shrink-0" style={{ backgroundColor: t.color }} />
+                <span className="flex-1 min-w-0 font-mono text-sm md:text-lg 2xl:text-xl tracking-[0.05em] uppercase text-white/80 truncate">
                   {t.team}
                 </span>
-                <div className="hidden md:block flex-1 max-w-[260px] h-1.5 bg-white/10 relative overflow-hidden">
+                <div className="hidden md:block flex-1 max-w-[260px] 2xl:max-w-[360px] h-1.5 2xl:h-2 bg-white/10 relative overflow-hidden">
                   <div
                     className="absolute inset-y-0 left-0 transition-[width] duration-700"
                     style={{ width: `${leader > 0 ? (t.total / leader) * 100 : 0}%`, backgroundColor: t.color }}
                   />
                 </div>
-                <span className="font-timer font-light text-2xl md:text-3xl tabular-nums flex-shrink-0" style={{ color: "#f0f4f8" }}>
+                <span className="font-timer font-light text-2xl md:text-3xl 2xl:text-4xl tabular-nums flex-shrink-0" style={{ color: "#f0f4f8" }}>
                   {formatCurrency(t.total)}
                 </span>
               </div>

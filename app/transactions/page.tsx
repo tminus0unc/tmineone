@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useMoneyTrackerData } from "@/lib/useMoneyTrackerData";
 import { useTeams } from "@/lib/useTeams";
 import { useNewEntries } from "@/lib/useNewEntries";
+import { useAutoScroll } from "@/lib/useAutoScroll";
 import { buildTeamColorMap, colorForTeam } from "@/lib/teamColors";
 import { formatCurrency } from "@/lib/format";
 import { useNow } from "@/lib/useNow";
@@ -30,7 +31,7 @@ function Ticker({ feed, colorMap }: { feed: MoneyEntry[]; colorMap: Map<string, 
         style={{ animation: `tickerScroll ${durationS}s linear infinite` }}
       >
         {[...feed, ...feed].map((entry, i) => (
-          <span key={i} className="flex items-center gap-3 font-mono text-lg md:text-2xl uppercase tracking-[0.08em] flex-shrink-0">
+          <span key={i} className="flex items-center gap-3 font-mono text-lg md:text-2xl 2xl:text-3xl uppercase tracking-[0.08em] flex-shrink-0">
             <span className="inline-block w-3 h-3 flex-shrink-0" style={{ backgroundColor: colorForTeam(colorMap, entry.team) }} />
             <span className="text-white/70">{entry.team}</span>
             <span className="text-emerald-400 font-semibold tabular-nums">+{formatCurrency(entry.amount)}</span>
@@ -75,20 +76,22 @@ export default function TransactionsPage() {
   const colorMap = buildTeamColorMap(teams.map((t) => t.name));
   const feed = [...entries].reverse();
 
+  useAutoScroll(!loading);
+
   return (
-    <main className="min-h-screen bg-background text-foreground px-6 py-10 md:px-16 md:py-14">
+    <main className="min-h-screen bg-background text-foreground px-8 py-10 md:px-[4vw] md:py-14">
       <RaiseSpotlight newEntries={newEntries} />
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-[1800px] mx-auto">
         <p className="font-mono text-[11px] md:text-[13px] text-white/50 tracking-[0.4em] uppercase mb-2">
           FILE: TRANSACTIONS
         </p>
-        <h1 className="font-timer font-light text-3xl md:text-5xl mb-3" style={{ color: "#f0f4f8" }}>
+        <h1 className="font-timer font-light text-3xl md:text-5xl 2xl:text-6xl mb-3" style={{ color: "#f0f4f8" }}>
           Live raises.
         </h1>
 
         <div className="flex items-center gap-2 mb-10">
           <span className={`inline-block w-2 h-2 rounded-full ${error ? "bg-red-400" : "bg-emerald-400 animate-pulse"}`} />
-          <span className="font-mono text-xs md:text-sm text-white/40 tracking-[0.2em] uppercase">
+          <span className="font-mono text-xs md:text-sm 2xl:text-base text-white/40 tracking-[0.2em] uppercase">
             {error
               ? error
               : lastUpdated
@@ -99,7 +102,7 @@ export default function TransactionsPage() {
 
         <Ticker feed={feed} colorMap={colorMap} />
 
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-5">
           {feed.map((entry) => (
             <div
               key={entry.id}
@@ -121,10 +124,10 @@ export default function TransactionsPage() {
                     {timeAgo(entry.created_at, now)}
                   </span>
                 </div>
-                <p className="font-timer font-light text-2xl md:text-4xl tabular-nums" style={{ color: "#f0f4f8" }}>
+                <p className="font-timer font-light text-2xl md:text-4xl 2xl:text-5xl tabular-nums" style={{ color: "#f0f4f8" }}>
                   {formatCurrency(entry.amount)}
                 </p>
-                {entry.method && <p className="font-timer font-light text-base md:text-lg text-white/50 mt-1">{entry.method}</p>}
+                {entry.method && <p className="font-timer font-light text-base md:text-lg 2xl:text-xl text-white/50 mt-1">{entry.method}</p>}
               </div>
             </div>
           ))}
