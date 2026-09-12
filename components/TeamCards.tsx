@@ -155,13 +155,6 @@ export default function TeamCards() {
               : "HOVER A FILE"}
           </p>
         </div>
-        <p className="font-timer font-light text-sm md:text-base text-white/55 leading-relaxed max-w-3xl">
-          T-0 is a student-led organization dedicated to developing the next
-          generation of entrepreneurs. By placing students in demanding, fast
-          paced environments where outcomes matter, T-0 bridges the gap between
-          academic learning and the realities of building, leading, and creating
-          in the modern business world.
-        </p>
       </div>
 
       {/* Card row */}
