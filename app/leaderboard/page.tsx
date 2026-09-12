@@ -75,7 +75,7 @@ export default function LeaderboardPage() {
               FILE: LEADERBOARD{!isLoading && ` · ${totals.length} TEAMS`}
             </p>
             <h1 className="font-timer font-light text-3xl md:text-5xl 2xl:text-6xl" style={{ color: "#f0f4f8" }}>
-              Who&apos;s raising the most.
+              Leaderboard.
             </h1>
           </div>
           <div className="text-right flex-shrink-0">
