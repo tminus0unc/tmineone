@@ -6,17 +6,15 @@ import MouseSphere from "@/components/MouseSphere";
 
 export default function ChallengeTab({ totalTabs }: { totalTabs: number }) {
   return (
-    <FolderSection title="Challenge" index={6} color="bg-background" tab={6} totalTabs={totalTabs}>
+    <FolderSection title="Challenge" index={7} color="bg-background" tab={7} totalTabs={totalTabs}>
       <MouseSphere />
-      <div className="flex-1 flex flex-col md:flex-row min-h-0 overflow-y-auto md:overflow-visible">
-
-        {/* Left — Invitation (larger) */}
-        <div className="flex-[1.6] flex flex-col justify-start gap-6 px-8 md:px-14 pt-8 md:pt-16 pb-8 border-b md:border-b-0 md:border-r border-foreground/15">
+      <div className="flex-1 flex flex-col items-center justify-center min-h-0 overflow-y-auto px-8 py-8">
+        <div className="flex flex-col gap-6 max-w-xl w-full">
           <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase">
             INVITATION
           </p>
 
-          <div className="flex flex-col gap-3 max-w-xl pt-1">
+          <div className="flex flex-col gap-3 pt-1">
             <p className="font-timer font-light text-sm md:text-base text-white/70 leading-relaxed">
               Our first invitations are being sent to students whose work caught our attention or have been recommended by others in the community.
             </p>
@@ -45,20 +43,6 @@ export default function ChallengeTab({ totalTabs }: { totalTabs: number }) {
             </Link>
           </div>
         </div>
-
-        {/* Right — Schedule (smaller) */}
-        <div className="flex-[1] flex flex-col justify-center px-6 md:px-10 py-8">
-          <p className="font-mono text-[10px] md:text-[12px] text-foreground/60 tracking-[0.45em] uppercase mb-4">
-            SCHEDULE
-          </p>
-          <p
-            className="font-timer font-light text-2xl md:text-3xl tracking-[0.06em]"
-            style={{ color: "rgba(240,244,248,0.55)" }}
-          >
-            Coming soon.
-          </p>
-        </div>
-
       </div>
     </FolderSection>
   );

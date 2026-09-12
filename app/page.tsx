@@ -7,6 +7,7 @@ import AboutTab from "@/components/tabs/AboutTab";
 import LaunchTab from "@/components/tabs/LaunchTab";
 import OurNetworkTab from "@/components/tabs/OurNetworkTab";
 import SponsorLogosTab from "@/components/tabs/SponsorLogosTab";
+import ScheduleTab from "@/components/tabs/ScheduleTab";
 import ChallengeTab from "@/components/tabs/ChallengeTab";
 import FAQTab from "@/components/tabs/FAQTab";
 import SponsorTab from "@/components/tabs/SponsorTab";
@@ -14,7 +15,7 @@ import LocationTab from "@/components/tabs/LocationTab";
 import TeamTab from "@/components/tabs/TeamTab";
 import CommunityTab from "@/components/tabs/CommunityTab";
 
-const TOTAL_TABS = 11;
+const TOTAL_TABS = 12;
 
 export default function Home() {
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function Home() {
         <LaunchTab totalTabs={TOTAL_TABS} />
         <OurNetworkTab totalTabs={TOTAL_TABS} />
         <SponsorLogosTab totalTabs={TOTAL_TABS} />
+        <ScheduleTab totalTabs={TOTAL_TABS} />
         <ChallengeTab totalTabs={TOTAL_TABS} />
         <FAQTab totalTabs={TOTAL_TABS} />
         <SponsorTab totalTabs={TOTAL_TABS} />
