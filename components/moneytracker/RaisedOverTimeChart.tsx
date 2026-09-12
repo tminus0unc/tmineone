@@ -109,9 +109,15 @@ export default function RaisedOverTimeChart({ series }: { series: TeamSeries[] }
   const tooltipOnRight = hoverXPct < 62;
 
   return (
-    <div className="w-full">
-      <div className="relative w-full">
-        <svg ref={svgRef} viewBox={`0 0 ${VB_W} ${VB_H}`} className="w-full h-auto block" onMouseLeave={() => setHoverTime(null)}>
+    <div className="h-full flex flex-col">
+      <div className="relative flex-1 min-h-0">
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          preserveAspectRatio="xMidYMid meet"
+          className="w-full h-full block"
+          onMouseLeave={() => setHoverTime(null)}
+        >
           {/* gridlines */}
           {yTicks.map((t) => (
             <line key={t} x1={PAD.left} x2={VB_W - PAD.right} y1={y(t)} y2={y(t)} stroke="rgba(255,255,255,0.08)" strokeWidth={1} />
@@ -195,11 +201,11 @@ export default function RaisedOverTimeChart({ series }: { series: TeamSeries[] }
       </div>
 
       {/* legend */}
-      <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 pt-4 border-t border-white/10">
+      <div className="flex-shrink-0 flex flex-wrap gap-x-5 gap-y-1.5 mt-3 pt-3 border-t border-white/10 max-h-[6.5em] overflow-hidden">
         {[...series]
           .sort((a, b) => b.total - a.total)
           .map((s) => (
-            <div key={s.team} className="flex items-center gap-2 font-mono text-[11px] tracking-[0.1em] uppercase">
+            <div key={s.team} className="flex items-center gap-2 font-mono text-[11px] 2xl:text-sm tracking-[0.1em] uppercase">
               <span className="inline-block w-3 h-0.5" style={{ backgroundColor: s.color }} />
               <span className="text-white/60">{s.team}</span>
               <span className="text-white/90 tabular-nums">{formatCurrency(s.total)}</span>
