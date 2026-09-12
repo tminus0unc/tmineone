@@ -13,7 +13,7 @@ const fieldClass = `
   focus:border-foreground transition-colors duration-300
 `;
 
-type Edit = { name: string; spreadsheet_url: string };
+type Edit = { name: string; form_url: string };
 
 export default function TeamPortalPage() {
   const { teams, error: loadError, loading, refresh } = useTeams();
@@ -29,7 +29,7 @@ export default function TeamPortalPage() {
   }, []);
 
   function valueFor(team: Team): Edit {
-    return edits[team.id] ?? { name: team.name, spreadsheet_url: team.spreadsheet_url ?? "" };
+    return edits[team.id] ?? { name: team.name, form_url: team.form_url ?? "" };
   }
 
   function setField(team: Team, patch: Partial<Edit>) {
@@ -64,7 +64,7 @@ export default function TeamPortalPage() {
 
     const result = await updateTeam(team.id, {
       name: value.name.trim(),
-      spreadsheet_url: value.spreadsheet_url.trim() || null,
+      form_url: value.form_url.trim() || null,
     });
 
     setSavingIds((prev) => {
@@ -117,7 +117,7 @@ export default function TeamPortalPage() {
           <form onSubmit={handleAdd} className="space-y-6 mb-12 pb-8 border-b border-white/10">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <input name="name" type="text" placeholder="Team name" required className={fieldClass} />
-              <input name="spreadsheetUrl" type="url" placeholder="Spreadsheet URL (optional)" className={fieldClass} />
+              <input name="formUrl" type="url" placeholder="Form link, just for your reference (optional)" className={fieldClass} />
             </div>
             <div className="flex items-center gap-6">
               <button
@@ -149,12 +149,17 @@ export default function TeamPortalPage() {
                       onChange={(e) => setField(team, { name: e.target.value })}
                       className={fieldClass}
                     />
-                    <input
-                      value={value.spreadsheet_url}
-                      onChange={(e) => setField(team, { spreadsheet_url: e.target.value })}
-                      placeholder="Spreadsheet URL"
-                      className={fieldClass}
-                    />
+                    <div>
+                      <input
+                        value={value.form_url}
+                        onChange={(e) => setField(team, { form_url: e.target.value })}
+                        placeholder="Form link, just for your reference"
+                        className={fieldClass}
+                      />
+                      <p className="font-mono text-[9px] text-white/30 tracking-[0.15em] uppercase mt-1.5">
+                        {team.form_id ? "Linked to a submitted form ✓" : "Not linked yet — links automatically on first submission"}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-center gap-5 flex-wrap">
                     <button
@@ -174,9 +179,9 @@ export default function TeamPortalPage() {
                       />
                       Active
                     </label>
-                    {team.spreadsheet_url && (
+                    {team.form_url && (
                       <a
-                        href={team.spreadsheet_url}
+                        href={team.form_url}
                         target="_blank"
                         rel="noreferrer"
                         className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/70 hover:text-white transition-colors duration-300"

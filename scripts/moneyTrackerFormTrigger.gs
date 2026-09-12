@@ -15,12 +15,16 @@
  * Then, for each team:
  * 1. Duplicate the master form (File > Make a copy). The copy keeps this
  *    script's code automatically.
- * 2. Rename the copy to "<Team Name> Money Tracker" — the team name is read
- *    from the form title, and must match the name in the team portal
- *    (matching is trim + case-insensitive, but keep it exact for clarity).
+ * 2. Rename the copy to "<Team Name> Money Tracker".
  * 3. Open the copy's Apps Script editor > Triggers > Add Trigger the same
  *    way as step 2 above. This is the one step that does NOT carry over
  *    when a form is duplicated — Google doesn't copy triggers, only code.
+ * 4. That's it — no portal setup needed. The team registers itself
+ *    automatically using the form's own ID (not the title text) the first
+ *    time it submits. To confirm the wiring works without waiting for a
+ *    real donation, select "testConnection" in the function dropdown at
+ *    the top of the editor and click Run, then check /transactions and
+ *    the team portal.
  */
 
 var WEBHOOK_URL = 'https://www.tminus0.net/api/money-tracker';
@@ -29,6 +33,7 @@ var WEBHOOK_SECRET = 'REPLACE_WITH_MONEY_TRACKER_WEBHOOK_SECRET'; // fill in loc
 function onFormSubmit(e) {
   const form = FormApp.getActiveForm();
   const team = form.getTitle().replace(/\s*money tracker\s*$/i, '').trim() || form.getTitle();
+  const formId = form.getId();
 
   let amount = null;
   let method = null;
@@ -53,14 +58,34 @@ function onFormSubmit(e) {
     imageUrl = 'https://drive.google.com/uc?export=view&id=' + fileId;
   }
 
-  const payload = {
+  sendToWebhook({
     team: team,
+    formId: formId,
     amount: amount,
     method: method,
     imageUrl: imageUrl,
     responseId: e.response.getId(),
-  };
+  });
+}
 
+// Run manually (function dropdown at the top of the editor > testConnection
+// > Run) to verify the webhook + register this team immediately, without
+// waiting for a real form submission.
+function testConnection() {
+  const form = FormApp.getActiveForm();
+  const team = form.getTitle().replace(/\s*money tracker\s*$/i, '').trim() || form.getTitle();
+
+  sendToWebhook({
+    team: team,
+    formId: form.getId(),
+    amount: 0,
+    method: 'Connection test',
+    imageUrl: null,
+    responseId: 'test-' + new Date().getTime(),
+  });
+}
+
+function sendToWebhook(payload) {
   UrlFetchApp.fetch(WEBHOOK_URL, {
     method: 'post',
     contentType: 'application/json',

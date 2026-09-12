@@ -5,7 +5,8 @@ import { createSupabaseAdminClient } from "@/lib/supabase";
 export type Team = {
   id: string;
   name: string;
-  spreadsheet_url: string | null;
+  form_url: string | null;
+  form_id: string | null;
   active: boolean;
   created_at: string;
 };
@@ -15,7 +16,7 @@ export async function getTeams(): Promise<{ teams?: Team[]; error?: string }> {
 
   const { data, error } = await supabase
     .from("teams")
-    .select("id, name, spreadsheet_url, active, created_at")
+    .select("id, name, form_url, form_id, active, created_at")
     .order("created_at", { ascending: true });
 
   if (error) return { error: "Failed to load teams." };
@@ -25,14 +26,14 @@ export async function getTeams(): Promise<{ teams?: Team[]; error?: string }> {
 
 export async function addTeam(formData: FormData) {
   const name = (formData.get("name") as string)?.trim();
-  const spreadsheetUrl = (formData.get("spreadsheetUrl") as string)?.trim();
+  const formUrl = (formData.get("formUrl") as string)?.trim();
 
   if (!name) return { error: "Team name is required." };
 
   const supabase = createSupabaseAdminClient();
   const { error } = await supabase.from("teams").insert({
     name,
-    spreadsheet_url: spreadsheetUrl || null,
+    form_url: formUrl || null,
   });
 
   if (error) {
@@ -42,10 +43,10 @@ export async function addTeam(formData: FormData) {
   return { success: true };
 }
 
-export async function updateTeam(
-  id: string,
-  updates: Partial<Pick<Team, "name" | "spreadsheet_url" | "active">>
-) {
+// form_id is intentionally not editable here — it's only ever set by the
+// webhook the first time a team's form actually submits (see
+// app/api/money-tracker/route.ts), so it can never be hand-typed wrong.
+export async function updateTeam(id: string, updates: Partial<Pick<Team, "name" | "form_url" | "active">>) {
   const supabase = createSupabaseAdminClient();
   const { error } = await supabase.from("teams").update(updates).eq("id", id);
 
