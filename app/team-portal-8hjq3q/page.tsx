@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { deleteTeam, updateTeam, type Team } from "@/app/actions/teams";
+import { resetMoneyTrackerFeed } from "@/app/actions/moneyTracker";
 import { useTeams } from "@/lib/useTeams";
 
 const fieldClass = `
@@ -19,6 +20,8 @@ export default function TeamPortalPage() {
   const [savingIds, setSavingIds] = useState<Set<string>>(new Set());
   const [savedIds, setSavedIds] = useState<Set<string>>(new Set());
   const [rowErrors, setRowErrors] = useState<Record<string, string>>({});
+  const [resetStatus, setResetStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [resetError, setResetError] = useState("");
 
   useEffect(() => {
     document.title = "Team Portal — T-0";
@@ -75,6 +78,25 @@ export default function TeamPortalPage() {
     if (!window.confirm(`Delete "${team.name}"? This cannot be undone.`)) return;
     await deleteTeam(team.id);
     refresh();
+  }
+
+  async function handleResetFeed() {
+    if (
+      !window.confirm(
+        "Reset the feed? This permanently deletes every raise on /transactions and /leaderboard for every team. Teams themselves stay registered. This cannot be undone."
+      )
+    ) {
+      return;
+    }
+    setResetStatus("loading");
+    const result = await resetMoneyTrackerFeed();
+    if (result?.error) {
+      setResetError(result.error);
+      setResetStatus("error");
+      return;
+    }
+    setResetStatus("done");
+    setTimeout(() => setResetStatus("idle"), 2000);
   }
 
   return (
@@ -138,6 +160,26 @@ export default function TeamPortalPage() {
                 No teams yet — they&apos;ll appear here automatically once a form submits.
               </p>
             )}
+          </div>
+
+          <div className="mt-14 pt-6 border-t border-red-400/20">
+            <p className="font-mono text-[10px] text-red-400/60 tracking-[0.4em] uppercase mb-3">Danger zone</p>
+            <div className="flex items-center gap-5 flex-wrap">
+              <button
+                type="button"
+                onClick={handleResetFeed}
+                disabled={resetStatus === "loading"}
+                className="font-mono text-[10px] uppercase tracking-[0.3em] text-red-400/80 hover:text-red-400 transition-colors duration-300 disabled:opacity-30"
+              >
+                {resetStatus === "loading" ? "Resetting" : resetStatus === "done" ? "Reset ✓" : "Reset feed"}
+              </button>
+              <span className="font-mono text-[9px] text-white/30 tracking-[0.15em] uppercase">
+                Deletes every raise for every team. Teams stay registered.
+              </span>
+              {resetStatus === "error" && (
+                <span className="font-mono text-[10px] text-red-400/80 uppercase tracking-[0.2em]">✗ {resetError}</span>
+              )}
+            </div>
           </div>
         </div>
       </div>

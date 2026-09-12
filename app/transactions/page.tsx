@@ -13,7 +13,7 @@ import RaiseSpotlight from "@/components/moneytracker/RaiseSpotlight";
 import type { MoneyEntry } from "@/app/actions/moneyTracker";
 
 const FLASH_DURATION_MS = 2000;
-const MAX_VISIBLE_CARDS = 6; // 2 cols x 3 rows — sized for a ~25-word method description to wrap
+const MAX_VISIBLE_CARDS = 3; // 1 col x 3 rows — full-width cards, more room given to the graph
 
 function timeAgo(iso: string, now: number): string {
   const diff = Math.max(0, Math.round((now - new Date(iso).getTime()) / 1000));
@@ -103,7 +103,7 @@ export default function TransactionsPage() {
         <Ticker feed={feed} colorMap={colorMap} />
 
         <div className="flex-1 min-h-0 flex gap-8">
-          <div className="w-[48%] flex-shrink-0 flex flex-col min-h-0">
+          <div className="w-[60%] flex-shrink-0 flex flex-col min-h-0">
             <p className="flex-shrink-0 font-mono text-[11px] md:text-[13px] text-white/50 tracking-[0.4em] uppercase mb-1">
               FILE: RAISED OVER TIME
             </p>
@@ -121,7 +121,7 @@ export default function TransactionsPage() {
             </div>
           </div>
 
-          <div className="flex-1 min-w-0 grid grid-cols-1 xl:grid-cols-2 grid-rows-3 gap-4 md:gap-5">
+          <div className="flex-1 min-w-0 grid grid-cols-1 grid-rows-3 gap-4 md:gap-5">
             {visibleCards.map((entry) => (
               <div
                 key={entry.id}
