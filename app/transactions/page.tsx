@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMoneyTrackerData } from "@/lib/useMoneyTrackerData";
 import { useTeams } from "@/lib/useTeams";
 import { buildTeamColorMap, colorForTeam } from "@/lib/teamColors";
 import { formatCurrency } from "@/lib/format";
 import { useNow } from "@/lib/useNow";
+
+const FLASH_DURATION_MS = 2000;
 
 function timeAgo(iso: string, now: number): string {
   const diff = Math.max(0, Math.round((now - new Date(iso).getTime()) / 1000));
@@ -18,10 +20,36 @@ export default function TransactionsPage() {
   const { entries, loading, error, lastUpdated } = useMoneyTrackerData();
   const { teams } = useTeams();
   const now = useNow();
+  const seenIds = useRef<Set<string> | null>(null);
+  const [flashIds, setFlashIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     document.title = "Live Transactions — T-0";
   }, []);
+
+  // Flash newly-arrived entries so the feed visibly announces new raises
+  // instead of silently changing — but not on the very first load.
+  useEffect(() => {
+    if (loading) return;
+    const currentIds = new Set(entries.map((e) => e.id));
+    if (seenIds.current === null) {
+      seenIds.current = currentIds;
+      return;
+    }
+    const arrived = entries.filter((e) => !seenIds.current!.has(e.id)).map((e) => e.id);
+    seenIds.current = currentIds;
+    if (arrived.length === 0) return;
+
+    setFlashIds((prev) => new Set([...prev, ...arrived]));
+    const timeout = setTimeout(() => {
+      setFlashIds((prev) => {
+        const next = new Set(prev);
+        arrived.forEach((id) => next.delete(id));
+        return next;
+      });
+    }, FLASH_DURATION_MS);
+    return () => clearTimeout(timeout);
+  }, [entries, loading]);
 
   const colorMap = buildTeamColorMap(teams.map((t) => t.name));
   const feed = [...entries].reverse();
@@ -49,7 +77,12 @@ export default function TransactionsPage() {
 
         <div className="space-y-3">
           {feed.map((entry) => (
-            <div key={entry.id} className="flex gap-4 border border-white/10 p-4">
+            <div
+              key={entry.id}
+              className={`flex gap-4 border p-4 transition-colors duration-500 ${
+                flashIds.has(entry.id) ? "border-emerald-400/50 animate-[liveFlash_2s_ease-out]" : "border-white/10"
+              }`}
+            >
               {entry.image_url && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={entry.image_url} alt="" className="w-16 h-16 object-cover flex-shrink-0 border border-white/10" />

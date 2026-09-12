@@ -69,3 +69,10 @@ body {
   from { opacity: 0; transform: translateY(8px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* Money-tracker live-update cue — briefly washes an element on arrival of
+   fresh data, then settles back to transparent. */
+@keyframes liveFlash {
+  0%   { background-color: rgba(16, 185, 129, 0.16); }
+  100% { background-color: transparent; }
+}

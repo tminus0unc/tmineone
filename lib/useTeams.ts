@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getTeams, type Team } from "@/app/actions/teams";
 
-const POLL_INTERVAL_MS = 5000;
+const POLL_INTERVAL_MS = 2000;
 
 export function useTeams() {
   const [teams, setTeams] = useState<Team[]>([]);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMoneyTrackerData } from "@/lib/useMoneyTrackerData";
 import { useTeams } from "@/lib/useTeams";
 import { computeTotals, computeSeries } from "@/lib/moneyTrackerMath";
@@ -9,10 +9,14 @@ import { formatCurrency } from "@/lib/format";
 import { useNow } from "@/lib/useNow";
 import RaisedOverTimeChart from "@/components/moneytracker/RaisedOverTimeChart";
 
+const FLASH_DURATION_MS = 2000;
+
 export default function LeaderboardPage() {
   const { entries, loading, error, lastUpdated } = useMoneyTrackerData();
   const { teams, loading: teamsLoading, error: teamsError } = useTeams();
   const now = useNow();
+  const prevTotals = useRef<Map<string, number> | null>(null);
+  const [flashTeams, setFlashTeams] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     document.title = "Leaderboard — T-0";
@@ -26,6 +30,39 @@ export default function LeaderboardPage() {
   const combinedError = error || teamsError;
   const grandTotal = totals.reduce((sum, t) => sum + t.total, 0);
   const leader = totals[0]?.total ?? 0;
+
+  // Flash a row when its total actually changes so a new raise visibly
+  // announces itself instead of the number silently updating — but not on
+  // the very first load.
+  useEffect(() => {
+    if (isLoading) return;
+    const current = new Map(totals.map((t) => [t.team, t.total]));
+    if (prevTotals.current === null) {
+      prevTotals.current = current;
+      return;
+    }
+    const changed: string[] = [];
+    current.forEach((total, team) => {
+      if (prevTotals.current!.get(team) !== total) changed.push(team);
+    });
+    prevTotals.current = current;
+    if (changed.length === 0) return;
+
+    const showTimeout = setTimeout(() => {
+      setFlashTeams((prev) => new Set([...prev, ...changed]));
+    }, 0);
+    const hideTimeout = setTimeout(() => {
+      setFlashTeams((prev) => {
+        const next = new Set(prev);
+        changed.forEach((team) => next.delete(team));
+        return next;
+      });
+    }, FLASH_DURATION_MS);
+    return () => {
+      clearTimeout(showTimeout);
+      clearTimeout(hideTimeout);
+    };
+  }, [totals, isLoading]);
 
   return (
     <main className="min-h-screen bg-background text-foreground px-6 py-10 md:px-12 md:py-14">
@@ -60,7 +97,12 @@ export default function LeaderboardPage() {
 
         <div className="border-t border-white/10 mb-12">
           {totals.map((t, i) => (
-            <div key={t.team} className="flex items-center gap-3 md:gap-4 py-4 border-b border-white/10">
+            <div
+              key={t.team}
+              className={`flex items-center gap-3 md:gap-4 py-4 border-b border-white/10 ${
+                flashTeams.has(t.team) ? "animate-[liveFlash_2s_ease-out]" : ""
+              }`}
+            >
               <span className="font-timer font-light text-lg md:text-xl text-white/30 w-7 md:w-8 flex-shrink-0 tabular-nums">
                 {String(i + 1).padStart(2, "0")}
               </span>

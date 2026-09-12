@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getMoneyEntries, type MoneyEntry } from "@/app/actions/moneyTracker";
 
-const POLL_INTERVAL_MS = 4000;
+const POLL_INTERVAL_MS = 2000;
 
 export function useMoneyTrackerData() {
   const [entries, setEntries] = useState<MoneyEntry[]>([]);
