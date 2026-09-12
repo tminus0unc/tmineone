@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useMoneyTrackerData } from "@/lib/useMoneyTrackerData";
 import { useTeams } from "@/lib/useTeams";
 import { useNewEntries } from "@/lib/useNewEntries";
-import { useCyclingIndex } from "@/lib/useCyclingIndex";
 import { computeSeries } from "@/lib/moneyTrackerMath";
 import { buildTeamColorMap, colorForTeam } from "@/lib/teamColors";
 import { formatCurrency } from "@/lib/format";
@@ -14,14 +13,7 @@ import RaiseSpotlight from "@/components/moneytracker/RaiseSpotlight";
 import type { MoneyEntry } from "@/app/actions/moneyTracker";
 
 const FLASH_DURATION_MS = 2000;
-const CARDS_PER_PAGE = 6; // 2 cols x 3 rows — tuned to fit one screen alongside the chart
-const CYCLE_INTERVAL_MS = 8000;
-
-function chunk<T>(arr: T[], size: number): T[][] {
-  const out: T[][] = [];
-  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
-  return out;
-}
+const MAX_VISIBLE_CARDS = 6; // 2 cols x 3 rows — a static "most recent" snapshot, no cycling
 
 function timeAgo(iso: string, now: number): string {
   const diff = Math.max(0, Math.round((now - new Date(iso).getTime()) / 1000));
@@ -84,12 +76,7 @@ export default function TransactionsPage() {
   const activeTeamNames = teams.filter((t) => t.active).map((t) => t.name);
   const series = computeSeries(entries, activeTeamNames, colorMap);
   const feed = [...entries].reverse();
-
-  // No scrolling on an unattended venue TV — once there are more raises
-  // than fit on screen, the feed cycles through pages instead.
-  const pages = chunk(feed, CARDS_PER_PAGE);
-  const pageIndex = useCyclingIndex(pages.length, CYCLE_INTERVAL_MS);
-  const activePage = pages[pageIndex] ?? [];
+  const visibleCards = feed.slice(0, MAX_VISIBLE_CARDS);
 
   return (
     <main className="h-screen w-screen overflow-hidden bg-background text-foreground px-8 py-6 md:px-[3vw] md:py-7 flex flex-col">
@@ -135,7 +122,7 @@ export default function TransactionsPage() {
           </div>
 
           <div className="flex-1 min-w-0 grid grid-cols-1 xl:grid-cols-2 grid-rows-3 gap-4 md:gap-5">
-            {activePage.map((entry) => (
+            {visibleCards.map((entry) => (
               <div
                 key={entry.id}
                 className={`min-h-0 flex gap-5 border p-4 md:p-5 transition-colors duration-500 overflow-hidden ${
