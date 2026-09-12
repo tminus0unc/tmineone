@@ -4,9 +4,9 @@ import { useMemo, useRef, useState } from "react";
 import type { TeamSeries } from "@/lib/moneyTrackerMath";
 import { formatCurrency } from "@/lib/format";
 
-const VB_W = 1000;
-const VB_H = 420;
-const PAD = { left: 64, right: 132, top: 16, bottom: 36 };
+const VB_W = 800;
+const VB_H = 780;
+const PAD = { left: 70, right: 120, top: 16, bottom: 40 };
 const PLOT_W = VB_W - PAD.left - PAD.right;
 const PLOT_H = VB_H - PAD.top - PAD.bottom;
 const LABEL_MIN_GAP = 20;
@@ -32,7 +32,13 @@ function valueAtTime(series: TeamSeries, time: number): number {
   return value;
 }
 
-export default function RaisedOverTimeChart({ series }: { series: TeamSeries[] }) {
+export default function RaisedOverTimeChart({
+  series,
+  showLegend = true,
+}: {
+  series: TeamSeries[];
+  showLegend?: boolean;
+}) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [hoverTime, setHoverTime] = useState<number | null>(null);
 
@@ -201,17 +207,19 @@ export default function RaisedOverTimeChart({ series }: { series: TeamSeries[] }
       </div>
 
       {/* legend */}
-      <div className="flex-shrink-0 flex flex-wrap gap-x-5 gap-y-1.5 mt-3 pt-3 border-t border-white/10 max-h-[6.5em] overflow-hidden">
-        {[...series]
-          .sort((a, b) => b.total - a.total)
-          .map((s) => (
-            <div key={s.team} className="flex items-center gap-2 font-mono text-[11px] 2xl:text-sm tracking-[0.1em] uppercase">
-              <span className="inline-block w-3 h-0.5" style={{ backgroundColor: s.color }} />
-              <span className="text-white/60">{s.team}</span>
-              <span className="text-white/90 tabular-nums">{formatCurrency(s.total)}</span>
-            </div>
-          ))}
-      </div>
+      {showLegend && (
+        <div className="flex-shrink-0 flex flex-wrap gap-x-5 gap-y-1.5 mt-3 pt-3 border-t border-white/10 max-h-[6.5em] overflow-hidden">
+          {[...series]
+            .sort((a, b) => b.total - a.total)
+            .map((s) => (
+              <div key={s.team} className="flex items-center gap-2 font-mono text-[11px] 2xl:text-sm tracking-[0.1em] uppercase">
+                <span className="inline-block w-3 h-0.5" style={{ backgroundColor: s.color }} />
+                <span className="text-white/60">{s.team}</span>
+                <span className="text-white/90 tabular-nums">{formatCurrency(s.total)}</span>
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 }
