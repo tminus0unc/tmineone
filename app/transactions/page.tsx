@@ -13,7 +13,7 @@ import RaiseSpotlight from "@/components/moneytracker/RaiseSpotlight";
 import type { MoneyEntry } from "@/app/actions/moneyTracker";
 
 const FLASH_DURATION_MS = 2000;
-const MAX_VISIBLE_CARDS = 6; // 2 cols x 3 rows — a static "most recent" snapshot, no cycling
+const MAX_VISIBLE_CARDS = 6; // 2 cols x 3 rows — sized for a ~25-word method description to wrap
 
 function timeAgo(iso: string, now: number): string {
   const diff = Math.max(0, Math.round((now - new Date(iso).getTime()) / 1000));
@@ -103,7 +103,7 @@ export default function TransactionsPage() {
         <Ticker feed={feed} colorMap={colorMap} />
 
         <div className="flex-1 min-h-0 flex gap-8">
-          <div className="w-[42%] flex-shrink-0 flex flex-col min-h-0">
+          <div className="w-[48%] flex-shrink-0 flex flex-col min-h-0">
             <p className="flex-shrink-0 font-mono text-[11px] md:text-[13px] text-white/50 tracking-[0.4em] uppercase mb-1">
               FILE: RAISED OVER TIME
             </p>
@@ -125,29 +125,27 @@ export default function TransactionsPage() {
             {visibleCards.map((entry) => (
               <div
                 key={entry.id}
-                className={`min-h-0 flex gap-5 border p-4 md:p-5 transition-colors duration-500 overflow-hidden ${
+                className={`min-h-0 flex flex-col border p-4 md:p-5 transition-colors duration-500 overflow-hidden ${
                   flashIds.has(entry.id) ? "border-emerald-400/50 animate-[liveFlash_2s_ease-out]" : "border-white/10"
                 }`}
               >
-                {entry.image_url && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={entry.image_url} alt="" className="w-16 h-16 md:w-20 md:h-20 object-cover flex-shrink-0 border border-white/10" />
-                )}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-3 mb-1">
-                    <span className="flex items-center gap-2 font-mono text-sm md:text-base tracking-[0.1em] uppercase text-white/70 truncate">
-                      <span className="inline-block w-2.5 h-2.5 flex-shrink-0" style={{ backgroundColor: colorForTeam(colorMap, entry.team) }} />
-                      {entry.team}
-                    </span>
-                    <span className="font-mono text-[10px] md:text-xs text-white/30 tracking-[0.15em] uppercase flex-shrink-0">
-                      {timeAgo(entry.created_at, now)}
-                    </span>
-                  </div>
-                  <p className="font-timer font-light text-xl md:text-3xl 2xl:text-4xl tabular-nums" style={{ color: "#f0f4f8" }}>
-                    {formatCurrency(entry.amount)}
-                  </p>
-                  {entry.method && <p className="font-timer font-light text-sm md:text-base 2xl:text-lg text-white/50 mt-0.5 truncate">{entry.method}</p>}
+                <div className="flex items-center justify-between gap-3 mb-1 flex-shrink-0">
+                  <span className="flex items-center gap-2 font-mono text-sm md:text-base tracking-[0.1em] uppercase text-white/70 truncate">
+                    <span className="inline-block w-2.5 h-2.5 flex-shrink-0" style={{ backgroundColor: colorForTeam(colorMap, entry.team) }} />
+                    {entry.team}
+                  </span>
+                  <span className="font-mono text-[10px] md:text-xs text-white/30 tracking-[0.15em] uppercase flex-shrink-0">
+                    {timeAgo(entry.created_at, now)}
+                  </span>
                 </div>
+                <p className="flex-shrink-0 font-timer font-light text-xl md:text-2xl 2xl:text-3xl tabular-nums mb-1.5" style={{ color: "#f0f4f8" }}>
+                  {formatCurrency(entry.amount)}
+                </p>
+                {entry.method && (
+                  <p className="flex-1 min-h-0 font-timer font-light text-sm md:text-base 2xl:text-lg text-white/50 leading-snug overflow-hidden line-clamp-4">
+                    {entry.method}
+                  </p>
+                )}
               </div>
             ))}
             {!loading && feed.length === 0 && (
