@@ -5,14 +5,16 @@ import { useMoneyTrackerData } from "@/lib/useMoneyTrackerData";
 import { useTeams } from "@/lib/useTeams";
 import { useNewEntries } from "@/lib/useNewEntries";
 import { useCyclingIndex } from "@/lib/useCyclingIndex";
+import { computeSeries } from "@/lib/moneyTrackerMath";
 import { buildTeamColorMap, colorForTeam } from "@/lib/teamColors";
 import { formatCurrency } from "@/lib/format";
 import { useNow } from "@/lib/useNow";
+import RaisedOverTimeChart from "@/components/moneytracker/RaisedOverTimeChart";
 import RaiseSpotlight from "@/components/moneytracker/RaiseSpotlight";
 import type { MoneyEntry } from "@/app/actions/moneyTracker";
 
 const FLASH_DURATION_MS = 2000;
-const CARDS_PER_PAGE = 6; // 2 cols x 3 rows — tuned to fit one screen alongside the ticker
+const CARDS_PER_PAGE = 6; // 2 cols x 3 rows — tuned to fit one screen alongside the chart
 const CYCLE_INTERVAL_MS = 8000;
 
 function chunk<T>(arr: T[], size: number): T[][] {
@@ -79,6 +81,8 @@ export default function TransactionsPage() {
   }, [newEntries]);
 
   const colorMap = buildTeamColorMap(teams.map((t) => t.name));
+  const activeTeamNames = teams.filter((t) => t.active).map((t) => t.name);
+  const series = computeSeries(entries, activeTeamNames, colorMap);
   const feed = [...entries].reverse();
 
   // No scrolling on an unattended venue TV — once there are more raises
@@ -111,38 +115,58 @@ export default function TransactionsPage() {
 
         <Ticker feed={feed} colorMap={colorMap} />
 
-        <div className="flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-2 grid-rows-3 gap-4 md:gap-5">
-          {activePage.map((entry) => (
-            <div
-              key={entry.id}
-              className={`min-h-0 flex gap-5 border p-4 md:p-5 transition-colors duration-500 overflow-hidden ${
-                flashIds.has(entry.id) ? "border-emerald-400/50 animate-[liveFlash_2s_ease-out]" : "border-white/10"
-              }`}
-            >
-              {entry.image_url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={entry.image_url} alt="" className="w-16 h-16 md:w-20 md:h-20 object-cover flex-shrink-0 border border-white/10" />
-              )}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between gap-3 mb-1">
-                  <span className="flex items-center gap-2 font-mono text-sm md:text-base tracking-[0.1em] uppercase text-white/70 truncate">
-                    <span className="inline-block w-2.5 h-2.5 flex-shrink-0" style={{ backgroundColor: colorForTeam(colorMap, entry.team) }} />
-                    {entry.team}
-                  </span>
-                  <span className="font-mono text-[10px] md:text-xs text-white/30 tracking-[0.15em] uppercase flex-shrink-0">
-                    {timeAgo(entry.created_at, now)}
-                  </span>
-                </div>
-                <p className="font-timer font-light text-xl md:text-3xl 2xl:text-4xl tabular-nums" style={{ color: "#f0f4f8" }}>
-                  {formatCurrency(entry.amount)}
+        <div className="flex-1 min-h-0 flex gap-8">
+          <div className="w-[42%] flex-shrink-0 flex flex-col min-h-0">
+            <p className="flex-shrink-0 font-mono text-[11px] md:text-[13px] text-white/50 tracking-[0.4em] uppercase mb-1">
+              FILE: RAISED OVER TIME
+            </p>
+            <h2 className="flex-shrink-0 font-timer font-light text-xl md:text-2xl 2xl:text-3xl mb-3" style={{ color: "#f0f4f8" }}>
+              Money raised, live.
+            </h2>
+            <div className="flex-1 min-h-0">
+              {entries.length === 0 ? (
+                <p className="font-timer font-light text-lg text-white/40 py-16 text-center">
+                  No raises logged yet — the chart fills in as teams submit.
                 </p>
-                {entry.method && <p className="font-timer font-light text-sm md:text-base 2xl:text-lg text-white/50 mt-0.5 truncate">{entry.method}</p>}
-              </div>
+              ) : (
+                <RaisedOverTimeChart series={series} showLegend={false} />
+              )}
             </div>
-          ))}
-          {!loading && feed.length === 0 && (
-            <p className="font-timer font-light text-lg text-white/40 py-10 text-center col-span-full">No raises logged yet.</p>
-          )}
+          </div>
+
+          <div className="flex-1 min-w-0 grid grid-cols-1 xl:grid-cols-2 grid-rows-3 gap-4 md:gap-5">
+            {activePage.map((entry) => (
+              <div
+                key={entry.id}
+                className={`min-h-0 flex gap-5 border p-4 md:p-5 transition-colors duration-500 overflow-hidden ${
+                  flashIds.has(entry.id) ? "border-emerald-400/50 animate-[liveFlash_2s_ease-out]" : "border-white/10"
+                }`}
+              >
+                {entry.image_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={entry.image_url} alt="" className="w-16 h-16 md:w-20 md:h-20 object-cover flex-shrink-0 border border-white/10" />
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-3 mb-1">
+                    <span className="flex items-center gap-2 font-mono text-sm md:text-base tracking-[0.1em] uppercase text-white/70 truncate">
+                      <span className="inline-block w-2.5 h-2.5 flex-shrink-0" style={{ backgroundColor: colorForTeam(colorMap, entry.team) }} />
+                      {entry.team}
+                    </span>
+                    <span className="font-mono text-[10px] md:text-xs text-white/30 tracking-[0.15em] uppercase flex-shrink-0">
+                      {timeAgo(entry.created_at, now)}
+                    </span>
+                  </div>
+                  <p className="font-timer font-light text-xl md:text-3xl 2xl:text-4xl tabular-nums" style={{ color: "#f0f4f8" }}>
+                    {formatCurrency(entry.amount)}
+                  </p>
+                  {entry.method && <p className="font-timer font-light text-sm md:text-base 2xl:text-lg text-white/50 mt-0.5 truncate">{entry.method}</p>}
+                </div>
+              </div>
+            ))}
+            {!loading && feed.length === 0 && (
+              <p className="font-timer font-light text-lg text-white/40 py-10 text-center col-span-full">No raises logged yet.</p>
+            )}
+          </div>
         </div>
       </div>
     </main>
