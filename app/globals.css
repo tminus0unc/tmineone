@@ -76,3 +76,10 @@ body {
   0%   { background-color: rgba(16, 185, 129, 0.16); }
   100% { background-color: transparent; }
 }
+
+/* Ticker content is duplicated back-to-back, so translating exactly -50%
+   loops seamlessly regardless of how many items are in the list. */
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
