@@ -2,34 +2,24 @@
 
 import { useEffect, useState } from 'react';
 import Globe from "@/components/Globe";
+import { useCountdownState } from "@/lib/useCountdownState";
 
 const DURATION_MS = 4 * 60 * 60 * 1000; // 4 hours
-const STORAGE_KEY = "t0-countdown-from-start";
 
 type CountdownFromStartProps = {
     className?: string;
 };
 
 export default function CountdownFromStart({ className }: CountdownFromStartProps) {
-    const [startTime, setStartTime] = useState<number | null>(null);
+    const { startTime, loading } = useCountdownState();
     const [remaining, setRemaining] = useState<number | null>(null);
 
-    // Resume a countdown already in progress (e.g. the page got reloaded
-    // mid-event) instead of losing it back to the Start screen.
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            const stored = window.localStorage.getItem(STORAGE_KEY);
-            setStartTime(stored ? Number(stored) : null);
-        }, 0);
-        return () => clearTimeout(timeout);
-    }, []);
-
-    useEffect(() => {
-        if (startTime === null) {
+        if (!startTime) {
             const timeout = setTimeout(() => setRemaining(null), 0);
             return () => clearTimeout(timeout);
         }
-        const target = startTime + DURATION_MS;
+        const target = new Date(startTime).getTime() + DURATION_MS;
         function tick() {
             setRemaining(Math.max(0, target - Date.now()));
         }
@@ -41,18 +31,7 @@ export default function CountdownFromStart({ className }: CountdownFromStartProp
         };
     }, [startTime]);
 
-    function handleStart() {
-        const t = Date.now();
-        window.localStorage.setItem(STORAGE_KEY, String(t));
-        setStartTime(t);
-    }
-
-    function handleReset() {
-        window.localStorage.removeItem(STORAGE_KEY);
-        setStartTime(null);
-    }
-
-    const isRunning = startTime !== null;
+    const isRunning = Boolean(startTime);
     const isDone = isRunning && remaining !== null && remaining <= 0;
     const totalSeconds = Math.floor((remaining ?? DURATION_MS) / 1000);
     const hours = Math.floor(totalSeconds / 3600);
@@ -109,36 +88,26 @@ export default function CountdownFromStart({ className }: CountdownFromStartProp
                 ))}
             </div>
 
-            {!isRunning && (
+            {!loading && !isRunning && (
                 <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/70">
-                    <button
-                        onClick={handleStart}
-                        className="
-                            font-mono text-sm md:text-base tracking-[0.4em] uppercase
-                            text-foreground border border-foreground/40 px-10 py-5
-                            hover:bg-foreground/10 transition-colors duration-300
-                        "
-                    >
-                        Start →
-                    </button>
+                    <span className="font-mono text-sm md:text-base tracking-[0.4em] uppercase text-white/50">
+                        Waiting to start…
+                    </span>
                 </div>
             )}
 
-            {isRunning && (
-                <div className="absolute bottom-[8%] left-0 right-0 z-10 flex flex-col items-center gap-2">
-                    <span
-                        className={`font-mono text-[11px] md:text-[13px] tracking-[0.3em] uppercase ${
-                            isDone ? "text-red-400/80" : "text-white/45"
-                        }`}
-                    >
-                        {isDone ? "Time's up" : "4-hour challenge countdown"}
+            {isRunning && isDone && (
+                <div className="absolute bottom-[8%] left-0 right-0 z-10 text-center">
+                    <span className="font-mono text-[11px] md:text-[13px] text-red-400/80 tracking-[0.3em] uppercase">
+                        Time&apos;s up
                     </span>
-                    <button
-                        onClick={handleReset}
-                        className="font-mono text-[9px] text-white/25 hover:text-white/50 tracking-[0.2em] uppercase transition-colors duration-300"
-                    >
-                        Reset
-                    </button>
+                </div>
+            )}
+            {isRunning && !isDone && (
+                <div className="absolute bottom-[8%] left-0 right-0 z-10 text-center">
+                    <span className="font-mono text-[11px] md:text-[13px] text-white/45 tracking-[0.3em] uppercase">
+                        4-hour challenge countdown
+                    </span>
                 </div>
             )}
         </div>

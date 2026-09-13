@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { deleteTeam, updateTeam, type Team } from "@/app/actions/teams";
 import { resetMoneyTrackerFeed } from "@/app/actions/moneyTracker";
+import { startCountdown, resetCountdown } from "@/app/actions/countdown";
 import { useTeams } from "@/lib/useTeams";
+import { useCountdownState } from "@/lib/useCountdownState";
 
 const fieldClass = `
   w-full bg-transparent border-0 border-b border-white/20
@@ -22,6 +24,9 @@ export default function TeamPortalPage() {
   const [rowErrors, setRowErrors] = useState<Record<string, string>>({});
   const [resetStatus, setResetStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [resetError, setResetError] = useState("");
+  const { startTime, refresh: refreshCountdown } = useCountdownState();
+  const [countdownStatus, setCountdownStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [countdownError, setCountdownError] = useState("");
 
   useEffect(() => {
     document.title = "Team Portal — T-0";
@@ -99,6 +104,31 @@ export default function TeamPortalPage() {
     setTimeout(() => setResetStatus("idle"), 2000);
   }
 
+  async function handleStartCountdown() {
+    setCountdownStatus("loading");
+    const result = await startCountdown();
+    if (result?.error) {
+      setCountdownError(result.error);
+      setCountdownStatus("error");
+      return;
+    }
+    setCountdownStatus("idle");
+    refreshCountdown();
+  }
+
+  async function handleResetCountdown() {
+    if (!window.confirm("Reset the countdown? Anyone viewing /countdown will go back to the Start screen.")) return;
+    setCountdownStatus("loading");
+    const result = await resetCountdown();
+    if (result?.error) {
+      setCountdownError(result.error);
+      setCountdownStatus("error");
+      return;
+    }
+    setCountdownStatus("idle");
+    refreshCountdown();
+  }
+
   return (
     <main className="relative min-h-screen bg-background overflow-y-auto">
       <div className="relative min-h-screen px-5 sm:px-6 md:px-10 py-16">
@@ -162,7 +192,46 @@ export default function TeamPortalPage() {
             )}
           </div>
 
-          <div className="mt-14 pt-6 border-t border-red-400/20">
+          <div className="mt-14 pt-6 border-t border-white/10">
+            <p className="font-mono text-[10px] text-foreground/60 tracking-[0.4em] uppercase mb-3">Countdown</p>
+            <div className="flex items-center gap-5 flex-wrap">
+              {startTime ? (
+                <>
+                  <span className="font-mono text-[10px] text-emerald-400/80 uppercase tracking-[0.2em]">
+                    Running · started {new Date(startTime).toLocaleTimeString()}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleResetCountdown}
+                    disabled={countdownStatus === "loading"}
+                    className="font-mono text-[10px] uppercase tracking-[0.3em] text-red-400/70 hover:text-red-400 transition-colors duration-300 disabled:opacity-30"
+                  >
+                    Reset countdown
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className="font-mono text-[10px] text-white/30 uppercase tracking-[0.2em]">Not started</span>
+                  <button
+                    type="button"
+                    onClick={handleStartCountdown}
+                    disabled={countdownStatus === "loading"}
+                    className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground hover:text-white transition-colors duration-300 disabled:opacity-30"
+                  >
+                    {countdownStatus === "loading" ? "Starting" : "Start 4-hour countdown"}
+                  </button>
+                </>
+              )}
+              {countdownStatus === "error" && (
+                <span className="font-mono text-[10px] text-red-400/80 uppercase tracking-[0.2em]">✗ {countdownError}</span>
+              )}
+            </div>
+            <p className="font-mono text-[9px] text-white/30 tracking-[0.15em] uppercase mt-2">
+              Controls what everyone sees on /countdown, synced for all viewers.
+            </p>
+          </div>
+
+          <div className="mt-10 pt-6 border-t border-red-400/20">
             <p className="font-mono text-[10px] text-red-400/60 tracking-[0.4em] uppercase mb-3">Danger zone</p>
             <div className="flex items-center gap-5 flex-wrap">
               <button
